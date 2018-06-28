@@ -2,14 +2,16 @@ import React from 'react';
 import { Button, Icon} from 'antd';
 import moment from 'moment';
 import ExportFile from '../../utils/exportFile';
-import dateFormat from '../../utils/dateFormat'
+import {getFun} from "../../utils/api";
+import {objectToArr} from "../../utils/dataHandle";
 
 class ExportFileCom extends React.Component{
     constructor(props){
         super(props);
         this.state={
             exporting: false,
-            params: {}
+            params: {},
+            tableData: []
         }
     }
     componentWillReceiveProps(){
@@ -17,30 +19,55 @@ class ExportFileCom extends React.Component{
              params: this.props.params
          })
     }
-     exportData() {
-         const {params } = this.state
-         this.exportAsync().then((exportData) => {
+     exportClick() {
 
-             // let _exportData = this.filterData(exportData);
-             let _exportData = [];
-
-             let start = params.start.format(dateFormat);
-             let end = params.end.format(dateFormat);
-             let now = moment().format(dateFormat);
-             let title = "运营日报_" + params.title + '_' + start + '_' + end + '_' + now;
-             let headerName = this.getCombineHeader(params.tableHeader);
-             ExportFile.exportJson2CSV(_exportData, title, headerName);
-         })
-     }
-     exportAsync() {
-         return new Promise((resolve, reject) => {
+         let exportParams = {
+             start_at: this.state.params.start_at,
+             end_at: this.state.params.end_at,
+             city: this.state.params.city,
+             car_type_id: this.state.params.car_type_id
+         }
+         let result =getFun('/web_api/operation/income',  exportParams);
+         result.then(res => {
+             console.log(res.data)
              this.setState({
-                 exporting: true
-             }, () => {
-                 // this.getApiData('export', resolve);
-             });
+                 exporting: true,
+                 tableData: objectToArr(res.data)
+             },() => {
+                 this.exportData(this.state.tableData)
+             })
+
+
+         }).catch(err => {
+             console.log(err)
          })
+
      }
+     exportData(exportData){
+         const {params } = this.state;
+         let _exportData = exportData;
+         _exportData.map(function(item){
+             delete item.key;
+             item.a = item.date;
+             delete item.date;
+         })
+         console.log(_exportData)
+         let start = params.start_at;
+         let end = params.end_at;
+         let now = this.formatDate(new Date());
+         let title = "运营日报_" + params.title + '_' + start + '_' + end + '_' + now;
+         let headerName = this.getCombineHeader(params.tableHeader);
+         ExportFile.exportJson2CSV(exportData, title, headerName);
+     }
+    // 时间格式转化
+    formatDate (date) {
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? '0' + m : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        return y + '-' + m + '-' + d;
+    };
     //拼接表头字段
     getCombineHeader(arr) {
         let _tableHeader = arr;
@@ -65,7 +92,7 @@ class ExportFileCom extends React.Component{
         const {exporting} = this.state;
         return(
             <div className="export-wrapper">
-                <Button type="primary"  size='small'  onClick={() => this.exportData()}>
+                <Button type="primary"  size='small'  onClick={() => this.exportClick()}>
                     <Icon type={exporting ? 'loading': 'export'} />导出
                 </Button>
             </div>

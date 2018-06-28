@@ -6,19 +6,18 @@ class ExportFile {
         var arrData = typeof jsonData !== 'object' ? JSON.parse(jsonData) : jsonData;
         var csvString = '';
         var row = "";
-
         for (var index in _headerName) {
             row += _headerName[index] + ',';
         }
         row = row.slice(0, -1);
         csvString += row + '\r\n';
 
-        for (var i = 0; i < arrData.length; i++) {
+        for (var i = 0; i < 1; i++) {
             let row = "";
             for (let index in arrData[i]) {
+                console.log(index,arrData[i][index] )
                 row += '"' + arrData[i][index] + '",';
             }
-
             row.slice(0, row.length - 1);
             csvString += row + '\r\n';
         }

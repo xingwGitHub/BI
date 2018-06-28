@@ -1,12 +1,12 @@
 
 import React from 'react';
-import {Card, Table, Radio, Row, Col, Button} from 'antd';
+import {Card, Table, Radio, Row, Col, Button, Pagination} from 'antd';
 import moment from 'moment';
 import SearchBox from '../../components/searchBox/searchBox'
-import PaginationCom from '../../components/pagaination/pagination'
 import ExportFileCom from '../../components/exportFile/exportFile'
 
 import {getFun} from '../../utils/api'
+import {objectToArr, dateDiff} from '../../utils/dataHandle'
 import './operating.less'
 
 const RadioButton = Radio.Button;
@@ -17,12 +17,21 @@ class IncomeAndCost extends React.Component{
     super(props);
     this.state={
         title: '订单收入及成本',
-        total: 50,
+        total: 10,
+        pageSize: 10,
         current: 1,
         load: true,
         dayNum: 10,
         tableData: [],
         selectValue: '',
+        carCombine: { //其他车型 当前展示车型取非
+            0: [],
+            1: [37, 78],
+            2: [2,3],
+            3: [5],
+            4: [78],
+            5: [37, 78, 2, 3, 5]
+        },
         carTypes: { //车型
             0: '全部',
             1: '易达+',
@@ -40,41 +49,41 @@ class IncomeAndCost extends React.Component{
         city: '',
         start_at: '',
         end_at: '',
-        car_type_id: '0',
+        car_type_id: '',
         searchParams: {},
         tableHeader: [
             {
-                title: '统计日期', dataIndex: '统计日期', key: '统计日期'
+                title: '统计日期', dataIndex: 'date', key: 'date'
             },
             {
                 title: '收入',
                 children: [
-                    {title: '完成订单数', dataIndex: '完成订单数', key: '完成订单数'},
-                    {title: '订单金额', dataIndex: '订单金额', key: '订单金额'}
+                    {title: '完成订单数', dataIndex: 'total_of_finished_orders', key: 'total_of_finished_orders'},
+                    {title: '订单金额', dataIndex: 'order_origin_amount', key: 'order_origin_amount'}
                 ]
             },
             {
                 title: '成本',
                 children: [
-                    {title: '服务成本', dataIndex: '服务成本', key: '服务成本'},
-                    {title: '数单奖', dataIndex: '数单奖', key: '数单奖'},
-                    {title: '动态加价成本', dataIndex: '动态加价成本', key: '动态加价成本'},
-                    {title: '保险成本', dataIndex: '保险成本', key: '保险成本'}
+                    {title: '服务成本', dataIndex: 'service_cost', key: 'service_cost'},
+                    {title: '数单奖', dataIndex: 'driver_charge_record', key: 'driver_charge_record'},
+                    {title: '动态加价成本', dataIndex: 'dynamic_price_increase_cost', key: 'dynamic_price_increase_cost'},
+                    {title: '保险成本', dataIndex: 'cost_of_insurance', key: 'cost_of_insurance'}
                 ]
             },
           {
               title: '费用',
               children: [
-                  {title: '用户优惠', dataIndex: '用户优惠', key: '用户优惠'},
-                  {title: '充返优惠', dataIndex: '充返优惠', key: '充返优惠'},
-                  {title: 'YOP分佣', dataIndex: 'YOP分佣', key: 'YOP分佣'}
+                  {title: '用户优惠', dataIndex: 'user_preferential', key: 'user_preferential'},
+                  {title: '充返优惠', dataIndex: 'chongfan_preferential', key: 'chongfan_preferential'},
+                  {title: 'YOP分佣', dataIndex: 'yop_commission', key: 'yop_commission'}
               ]
           },
           {
-              title: '单均金额', dataIndex: '单均金额', key: '单均金额'
+              title: '单均金额', dataIndex: 'order_average_amount', key: 'order_average_amount'
           },
           {
-              title: '计费差额', dataIndex: '计费差额', key: '计费差额'
+              title: '计费差额', dataIndex: 'billing_difference', key: 'billing_difference'
           }
         ],
         exportParams: {}
@@ -82,8 +91,19 @@ class IncomeAndCost extends React.Component{
   }
     componentWillMount() {
         this.initDateRange(this.state.dayNum);//初始化查询日期
-
-
+    }
+    componentDidMount(){
+        const params = {
+            city: '',
+            start_at: this.state.start_at,
+            end_at: this.state.end_at, //当前时间减n天
+            car_type_id: ''
+        }
+        this.setState({
+            load:true
+        },() => {
+            this.getTableData(params);
+        })
     }
     //初始化查询起止日期
     initDateRange(rangeDays) {
@@ -92,26 +112,21 @@ class IncomeAndCost extends React.Component{
         const startTime = moment().subtract(rangeDays, 'days');//当前时间
         const start = new Date((moment(startTime).subtract())._d);
         const end = new Date((moment(endTime).subtract())._d);
-        const params = {
-            city: '',
-            start_at: this.formatDate(start),
-            end_at: this.formatDate(end), //当前时间减n天
-            car_type_id: '0'
-        }
-        this.getTableData(params);
         this.setState({
             city: '',
             start_at: this.formatDate(start),
             end_at: this.formatDate(end), //当前时间减n天
-            car_type_id: '0'
+            car_type_id: ''
         }, () => {this.initExportData()});
     }
     // 初始化导出所需数据
     initExportData() {
         const exportParams = {
-            start: this.state.start_at,
-            end: this.state.end_at,
+            start_at: this.state.start_at,
+            end_at: this.state.end_at,
             title: this.state.title,
+            city: this.state.city,
+            car_type_id: this.state.car_type_id,
             tableHeader: this.state.tableHeader,
             exportData: this.state.tableData
         }
@@ -130,6 +145,7 @@ class IncomeAndCost extends React.Component{
     };
     // 获取下拉框和日期参数
   searchParams(params){
+
       this.setState({
           city: params.city,
           start_at: params.selectedStartDate,
@@ -138,51 +154,93 @@ class IncomeAndCost extends React.Component{
   }
     // 获取车型参数
   carTypeChange(e) {
+      let index = e.target.value;
       this.setState({
-          car_type_id: e.target.value
+          car_type_id: this.state.carCombine[index].join(',')
+      },() => {
+          this.searchBtn()
       })
   }
     // 点击查询
   searchBtn() {
-      const searchParams = {
-          city: this.state.city,
-          start_at: this.state.start_at,
-          end_at: this.state.end_at,
-          car_type_id: this.state.car_type_id
-      }
       this.setState({
-          searchParams: searchParams
+          load: true,
+          total: this.getTotalPage()
+      },() => {
+          this.getTableData()
       })
-      this.getTableData(searchParams)
   }
     // 获取当前页数
-    pageChange(current) {
+    pageChange(page, pageSize) {
         this.setState({
-            current: current
+            current: page,
+            pageSize: pageSize,
+            load: true
+        },() => {
+            this.getTableData()
         })
-        const searchParam = this.state.searchParams;
-        searchParam.currnet = current;
-        this.getTableData(searchParam)
+    }
+    onShowSizeChange(current, size) {
+        this.setState({
+            pageSize: size,
+            current: current,
+            load: true
+        }, () => {
+            this.getTableData();
+        });
     }
     // 获取表格数据
-  getTableData(searchParams) {
-      console.log("查询参数：",searchParams)
-      this.setState({
-          load: false
-      })
-      // let result =getFun('/web_api/operation/income',  searchParams);
-      // result.then(res => {
-      //     console.log(res)
-      //     this.setState({
-      //         tableData: res.data
-      //     })
-      // }).catch(err => {
-      //     console.log(err)
-      // })
-  }
+    getTableData() {
+      let searchParams = this.getParams();
+      let result =getFun('/web_api/operation/income',  searchParams);
+      result.then(res => {
+          this.setState({
+              load: false,
+              tableData: objectToArr(res.data)
 
+          })
+      }).catch(err => {
+          console.log(err)
+      })
+    }
+    // 获取接口参数
+    getParams() {
+        let start, end;
+        start = this.pageStartDate().format("YYYY-MM-DD");
+        end = this.pageEndDate().format("YYYY-MM-DD");
+        const params = {
+            start_at: start,
+            end_at: end,
+            city: this.state.city,
+            car_type_id: this.state.car_type_id
+        }
+        return params;
+    }
+    //分页查询的结束时间
+    pageEndDate() {
+        let days = (this.state.current - 1) * this.state.pageSize;
+        let copy = moment(this.state.end_at).add(0, 'days'); //复制结束日期的副本
+        return  copy.subtract(days, 'days');
+    }
+
+    //分页查询的开始时间
+    pageStartDate() {
+        let days = this.state.current * this.state.pageSize;
+        let copy, dt;
+        copy = moment(this.state.end_at); //复制结束日期的副本
+        copy = copy.add(1, 'days'); //查日期为当前结束日期+1天
+        dt = copy.subtract(days, 'days');
+        if(this.state.start_at && dt< this.state.start_at) {
+            return this.state.start_at;
+        }
+        return dt;
+    }
+    getTotalPage() {
+        let day = dateDiff(this.state.start_at, this.state.end_at);
+        return day;
+    }
   render() {
-      const {title, carTypes, selectValue, tableData, load, tableHeader} = this.state;
+      let {title, carTypes, tableData, load, tableHeader, total, pageSize} = this.state;
       const radioChildren = Object.keys(carTypes).map((key, index) => {
           return <RadioButton key={key} value={key}>{carTypes[key]}</RadioButton>
       });
@@ -190,13 +248,14 @@ class IncomeAndCost extends React.Component{
       <div>
         <div className="operating-wrapper">
           <Card title={title}  bordered={false}>
+
             <Row gutter={16}>
                 <Col span={14}>
                     <div>
                         <SearchBox searchParams={params => this.searchParams(params)}></SearchBox>
                     </div>
                     <div className="cartype-wrapper">
-                        <RadioGroup onChange={this.carTypeChange.bind(this)} value={selectValue}>
+                        <RadioGroup onChange={this.carTypeChange.bind(this)} defaultValue='0' >
                             {radioChildren}
                         </RadioGroup>
                     </div>
@@ -206,7 +265,7 @@ class IncomeAndCost extends React.Component{
                 </Col>
             </Row>
             <div>
-                <Table dataSource={tableData} bordered loading={load} columns={tableHeader}>
+                <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
 
                 </Table>
             </div>
@@ -216,7 +275,7 @@ class IncomeAndCost extends React.Component{
                        <ExportFileCom params={this.state.exportParams}></ExportFileCom>
                     </Col>
                     <Col span={14} style={{textAlign: 'right'}}>
-                        <PaginationCom total={this.state.total} pageChange={current => this.pageChange(current)}></PaginationCom>
+                        <Pagination size="small" total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize} showSizeChanger={true} onShowSizeChange={this.onShowSizeChange.bind(this)} showQuickJumper></Pagination>
                     </Col>
                 </Row>
             </div>
