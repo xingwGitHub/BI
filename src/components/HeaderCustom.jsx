@@ -104,7 +104,7 @@ class HeaderCustom extends Component {
                             {/*<Icon type="notification" />*/}
                         {/*</Badge>*/}
                     {/*</Menu.Item>*/}
-                    <SubMenu title={<span><Avatar icon="user" /></span>}>
+                    <SubMenu title={<Avatar icon="user" />}>
                         <MenuItemGroup title="">
                             {/*<Menu.Item key="setting:1">你好 - {this.props.user.userName}</Menu.Item>*/}
                             <Menu.Item key="user"><Icon type="user" />个人中心</Menu.Item>
@@ -133,7 +133,9 @@ class HeaderCustom extends Component {
                     .ant-menu-item-group {
                         border-bottom: 1px solid #ccc;
                     }
-
+                    .ant-avatar {
+                        top: 17px;
+                    }
                 `}</style>
             </Header>
         )

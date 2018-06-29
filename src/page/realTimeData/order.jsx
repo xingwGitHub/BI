@@ -173,11 +173,11 @@ export default class RealTimeOrder extends Component {
 
     handleServerChange(value, type) {
         const that = this;
-        if (type == 0) { //服务类型
+        if (type === 0) { //服务类型
             that.setState({
                 order_type: value
             }, () => that.getOrderData())
-        } else if (type == 1) { //车型
+        } else if (type === 1) { //车型
             that.setState({
                 car_type: value
             }, () => that.getOrderData())

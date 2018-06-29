@@ -53,7 +53,7 @@ class IncomeAndCost extends React.Component{
         searchParams: {},
         tableHeader: [
             {
-                title: '统计日期', dataIndex: 'date', key: 'date'
+                title: '统计日期', dataIndex: 'start_time', key: 'start_time'
             },
             {
                 title: '收入',

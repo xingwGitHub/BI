@@ -1,7 +1,7 @@
 
 
 import React, {Component} from 'react';
-import {Row, Col, Card, Tabs, DatePicker, Spin} from 'antd';
+import {Row, Col, Card, Tabs, DatePicker} from 'antd';
 import moment from 'moment';
 import dateFormat from '../../utils/dateFormat';
 import RealSummaryChart from '../../components/chart/realTime';
@@ -11,14 +11,7 @@ import './realtime.less';
 
 
 const TabPane = Tabs.TabPane;
-const topColResponsiveProps = {
-    xs: 24,
-    sm: 12,
-    md: 6,
-    lg: 6,
-    xl: 6,
-    style: {marginBottom: 24},
-};
+
 const today = dateFormat(new Date(), 'yyyy-MM-dd');
 const CustomTab = ({data, currentTabKey: currentKey}) => (
 

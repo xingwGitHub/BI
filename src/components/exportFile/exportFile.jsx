@@ -29,7 +29,6 @@ class ExportFileCom extends React.Component{
          }
          let result =getFun('/web_api/operation/income',  exportParams);
          result.then(res => {
-             console.log(res.data)
              this.setState({
                  exporting: true,
                  tableData: objectToArr(res.data)
@@ -48,10 +47,7 @@ class ExportFileCom extends React.Component{
          let _exportData = exportData;
          _exportData.map(function(item){
              delete item.key;
-             item.a = item.date;
-             delete item.date;
          })
-         console.log(_exportData)
          let start = params.start_at;
          let end = params.end_at;
          let now = this.formatDate(new Date());

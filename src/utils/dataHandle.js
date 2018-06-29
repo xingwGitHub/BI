@@ -5,12 +5,11 @@
 * */
 export function objectToArr (obj) {
     let arr = [];
-    Object.keys(obj).map(function(item){
-        obj[item].date = item;
-        obj[item].key = item;
-        arr.push(obj[item]);
-    })
-    return arr.sort(by('date'));
+    let keyArr = Object.keys(obj);
+    for(let k in keyArr) {
+        arr.push(Object.assign({},{start_time: keyArr[k], key: k}, obj[keyArr[k]]));
+    }
+    return arr.reverse();
 }
 //按时间倒序排列数组
 const by = function(name){
