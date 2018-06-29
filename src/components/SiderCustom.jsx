@@ -20,6 +20,7 @@ class SiderCustom extends Component {
         this.setMenuOpen(this.props);
     }
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         this.onCollapse(nextProps.collapsed);
         this.setMenuOpen(nextProps)
     }
@@ -64,10 +65,19 @@ class SiderCustom extends Component {
                         <span className="logo-title">商业智能系统</span>
                     </Link>
                 </div>
+                {/*<SiderMenu*/}
+                    {/*menus={menus}*/}
+                    {/*onClick={this.menuClick}*/}
+                    {/*theme="dark"*/}
+                    {/*mode="inline"*/}
+                    {/*selectedKeys={[this.state.selectedKey]}*/}
+                    {/*openKeys={this.state.firstHide ? null : [this.state.openKey]}*/}
+                    {/*onOpenChange={this.openMenu}*/}
+                {/*/>*/}
                 <Menu theme="dark"
                       mode="inline"
                       selectedKeys={[this.state.selectedKey]}
-                      // openKeys={this.state.firstHide ? null : [this.state.openKey]}
+                      openKeys={this.state.firstHide ? null : [this.state.openKey]}
                       onClick={this.menuClick}
                       onOpenChange={this.openMenu}
                       inlineCollapsed={this.state.collapsed}

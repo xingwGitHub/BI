@@ -1,8 +1,9 @@
 import axios from 'axios'
 import qs from 'qs'
+import {message} from 'antd';
 import 'promise'
 
-// axios.defaults.baseURL = 'https://bi_api.yongche.com/';
+axios.defaults.baseURL = 'https://bi_api.yongche.com/';
 
 export function get(url, params) {
     return new Promise((resolve, reject) => {
@@ -11,7 +12,7 @@ export function get(url, params) {
         }).then(res => {
             resolve(res.data)
         }).catch(err => {
-            reject(err)
+            message.error(err);
         })
     })
 }
@@ -26,7 +27,7 @@ export function post(url, data) {
         ).then(res => {
             resolve(res.data)
         }).catch(err => {
-            reject(err)
+            message.error(err);
         })
     })
 }
