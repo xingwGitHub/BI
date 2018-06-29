@@ -46,13 +46,20 @@ class SiderCustom extends Component {
         popoverHide && popoverHide();
     };
     openMenu = v => {
-        console.log(v);
         this.setState({
             openKey: v[v.length - 1],
             firstHide: false,
         })
     };
     render() {
+        const {openKey} = this.state;
+        let openKeyKey = ['/app/ranklist'],openKeyArr = [];
+        if (openKey == '/app/ranklist/order' || openKey == '/app/ranklist/driver' || openKey == '/app/ranklist/user'){
+            openKeyKey.push(openKey);
+            openKeyArr = openKeyKey;
+        }else {
+            openKeyArr.push(openKey)
+        }
         return (
             <Sider
                 trigger={null}
@@ -65,19 +72,11 @@ class SiderCustom extends Component {
                         <span className="logo-title">商业智能系统</span>
                     </Link>
                 </div>
-                {/*<SiderMenu*/}
-                    {/*menus={menus}*/}
-                    {/*onClick={this.menuClick}*/}
-                    {/*theme="dark"*/}
-                    {/*mode="inline"*/}
-                    {/*selectedKeys={[this.state.selectedKey]}*/}
-                    {/*openKeys={this.state.firstHide ? null : [this.state.openKey]}*/}
-                    {/*onOpenChange={this.openMenu}*/}
-                {/*/>*/}
                 <Menu theme="dark"
                       mode="inline"
                       selectedKeys={[this.state.selectedKey]}
-                      openKeys={this.state.firstHide ? null : [this.state.openKey]}
+                      // openKeys={this.state.firstHide ? null : [this.state.openKey]}
+                        openKeys = {this.state.firstHide ? null : openKeyArr}
                       onClick={this.menuClick}
                       onOpenChange={this.openMenu}
                       inlineCollapsed={this.state.collapsed}
@@ -103,36 +102,36 @@ class SiderCustom extends Component {
                         <Menu.Item key="/app/operatingdaily/serviceQualityOfDrivers"><Link to={`/app/operatingdaily/serviceQualityOfDrivers`}>司机服务质量</Link></Menu.Item>
                     </SubMenu>
 
-                    <SubMenu key="/app/ranklist" title={<span><Icon type="flag"/><span  className="nav-text">排行榜</span></span>}>
-                        <SubMenu key="/app/ranklist/order" title="订单">
-                            <Menu.Item key="order_0"><Link to={`/app/ranklist/order/order_0`}>完成订单数</Link></Menu.Item>
-                            <Menu.Item key="order_1"><Link to={`/app/ranklist/order/order_1`}>完成订单金额</Link></Menu.Item>
-                            <Menu.Item key="order_2"><Link to={`/app/ranklist/order/order_2`}>订单平均金额</Link></Menu.Item>
-                            <Menu.Item key="order_3"><Link to={`/app/ranklist/order/order_3`}>订单平均时长</Link></Menu.Item>
-                            <Menu.Item key="order_4"><Link to={`/app/ranklist/order/order_4`}>平均行驶距离</Link></Menu.Item>
-                            <Menu.Item key="order_5"><Link to={`/app/ranklist/order/order_5`}>C to R订单完成率</Link></Menu.Item>
-                            <Menu.Item key="order_6"><Link to={`/app/ranklist/order/order_6`}>创建订单</Link></Menu.Item>
-                            <Menu.Item key="order_7"><Link to={`/app/ranklist/order/order_7`}>派单成功率</Link></Menu.Item>
-                            <Menu.Item key="order_8"><Link to={`/app/ranklist/order/order_8`}>计费差额</Link></Menu.Item>
-                            <Menu.Item key="order_9"><Link to={`/app/ranklist/order/order_9`}>服务成本</Link></Menu.Item>
-                            <Menu.Item key="order_10"><Link to={`/app/ranklist/order/order_10`}>无车可派</Link></Menu.Item>
+                    <SubMenu key="/app/ranking" title={<span><Icon type="flag"/><span  className="nav-text">排行榜</span></span>}>
+                        <SubMenu key="/app/ranking/order" title="订单">
+                            <Menu.Item key="order_0"><Link to={`/app/ranking/order/order_0`} replace>完成订单数</Link></Menu.Item>
+                            <Menu.Item key="order_1"><Link to={`/app/ranking/order/order_1`}>完成订单金额</Link></Menu.Item>
+                            <Menu.Item key="order_2"><Link to={`/app/ranking/order/order_2`}>订单平均金额</Link></Menu.Item>
+                            <Menu.Item key="order_3"><Link to={`/app/ranking/order/order_3`}>订单平均时长</Link></Menu.Item>
+                            <Menu.Item key="order_4"><Link to={`/app/ranking/order/order_4`}>平均行驶距离</Link></Menu.Item>
+                            <Menu.Item key="order_5"><Link to={`/app/ranking/order/order_5`}>C to R订单完成率</Link></Menu.Item>
+                            <Menu.Item key="order_6"><Link to={`/app/ranking/order/order_6`}>创建订单</Link></Menu.Item>
+                            <Menu.Item key="order_7"><Link to={`/app/ranking/order/order_7`}>派单成功率</Link></Menu.Item>
+                            <Menu.Item key="order_8"><Link to={`/app/ranking/order/order_8`}>计费差额</Link></Menu.Item>
+                            <Menu.Item key="order_9"><Link to={`/app/ranking/order/order_9`}>服务成本</Link></Menu.Item>
+                            <Menu.Item key="order_10"><Link to={`/app/ranking/order/order_10`}>无车可派</Link></Menu.Item>
                         </SubMenu>
-                        <SubMenu key="/app/ranklist/driver" title="司机">
-                            <Menu.Item key="driver_0"><Link to={`/app/ranklist/driver/driver_0`}>活跃司机</Link></Menu.Item>
-                            <Menu.Item key="driver_1"><Link to={`/app/ranklist/driver/driver_1`}>司机均单量</Link></Menu.Item>
-                            <Menu.Item key="driver_2"><Link to={`/app/ranklist/driver/driver_2`}>新注册司机</Link></Menu.Item>
-                            <Menu.Item key="driver_3"><Link to={`/app/ranklist/driver/driver_3`}>新增激活司机</Link></Menu.Item>
-                            <Menu.Item key="driver_4"><Link to={`/app/ranklist/driver/driver_4`}>差评率</Link></Menu.Item>
+                        <SubMenu key="/app/ranking/driver" title="司机">
+                            <Menu.Item key="driver_0"><Link to={`/app/ranking/driver/driver_0`} replace>活跃司机</Link></Menu.Item>
+                            <Menu.Item key="driver_1"><Link to={`/app/ranking/driver/driver_1`}>司机均单量</Link></Menu.Item>
+                            <Menu.Item key="driver_2"><Link to={`/app/ranking/driver/driver_2`}>新注册司机</Link></Menu.Item>
+                            <Menu.Item key="driver_3"><Link to={`/app/ranking/driver/driver_3`}>新增激活司机</Link></Menu.Item>
+                            <Menu.Item key="driver_4"><Link to={`/app/ranking/driver/driver_4`}>差评率</Link></Menu.Item>
                             {/*<Menu.Item key="driver_5"><Link to={`/rank/driver/driver_5`} >司机流失率</Link></Menu.Item>*/}
                         </SubMenu>
-                        <SubMenu key="/app/ranklist/user" title="用户">
-                            <Menu.Item key="user_0"><Link to={`/app/ranklist/user/user_0`}>活跃用户</Link></Menu.Item>
-                            <Menu.Item key="user_1"><Link to={`/app/ranklist/user/user_1`}>乘客单均量</Link></Menu.Item>
-                            <Menu.Item key="user_2"><Link to={`/app/ranklist/user/user_2`}>新注册用户</Link></Menu.Item>
-                            <Menu.Item key="user_3"><Link to={`/app/ranklist/user/user_3`}>新激活用户</Link></Menu.Item>
-                            <Menu.Item key="user_4"><Link to={`/app/ranklist/user/user_4`}>充值金额</Link></Menu.Item>
+                        <SubMenu key="/app/ranking/user" title="用户">
+                            <Menu.Item key="user_0"><Link to={`/app/ranking/user/user_0`} replace>活跃用户</Link></Menu.Item>
+                            <Menu.Item key="user_1"><Link to={`/app/ranking/user/user_1`}>乘客单均量</Link></Menu.Item>
+                            <Menu.Item key="user_2"><Link to={`/app/ranking/user/user_2`}>新注册用户</Link></Menu.Item>
+                            <Menu.Item key="user_3"><Link to={`/app/ranking/user/user_3`}>新激活用户</Link></Menu.Item>
+                            <Menu.Item key="user_4"><Link to={`/app/ranking/user/user_4`}>充值金额</Link></Menu.Item>
                             {/*<Menu.Item key="user_5"><Link to={`/rank/user/user_5`} >用户流失率</Link></Menu.Item>*/}
-                            <Menu.Item key="user_6"><Link to={`/app/ranklist/user/user_6`}>下单用户数</Link></Menu.Item>
+                            <Menu.Item key="user_6"><Link to={`/app/ranking/user/user_6`}>下单用户数</Link></Menu.Item>
                         </SubMenu>
                     </SubMenu>
                 </Menu>
