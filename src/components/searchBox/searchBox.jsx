@@ -3,6 +3,8 @@ import {Row, Col, Select, DatePicker} from 'antd';
 import moment from 'moment';
 import dateFormatter from '../../utils/dateFormat';
 
+
+import {getFun} from '../../utils/api'
 import './searchBox.less';
 
 const Option = Select.Option;
@@ -18,15 +20,15 @@ class SearchBox extends React.Component{
             selectedStartDate: '',
             selectedEndDate: '',
             dayNum: 10,
-            cityOptionData: {
-                "am": "澳门",
-                "anshun": "安顺",
-                "as": "鞍山"
-            }
+            cityOptionData: {},
+            cityData: {}
         };
     }
     componentWillMount() {
         this.initDateRange(this.state.dayNum);//初始化查询日期
+    }
+    componentDidMount(){
+        this.getCityData();
     }
     //初始化查询起止日期
     initDateRange(rangeDays) {
@@ -36,6 +38,15 @@ class SearchBox extends React.Component{
             selectedStartDate: moment().subtract(rangeDays, 'days'), //当前时间减n天
         });
 
+    }
+    getCityData(){
+        let cityData = getFun('/web_api/dim_info/city');
+        cityData.then( res => {
+            this.setState({
+                cityOptionData: res.data
+            })
+            sessionStorage.setItem("cityFlag", 1);
+        })
     }
     formatDate (date) {
         var y = date.getFullYear();
