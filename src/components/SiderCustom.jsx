@@ -53,13 +53,14 @@ class SiderCustom extends Component {
     };
     render() {
         const {openKey} = this.state;
-        let openKeyKey = ['/app/ranklist'],openKeyArr = [];
-        if (openKey == '/app/ranklist/order' || openKey == '/app/ranklist/driver' || openKey == '/app/ranklist/user'){
+        let openKeyKey = ['/app/ranking'],openKeyArr = [];
+        if (openKey == '/app/ranking/order' || openKey == '/app/ranking/driver' || openKey == '/app/ranking/user'){
             openKeyKey.push(openKey);
             openKeyArr = openKeyKey;
         }else {
             openKeyArr.push(openKey)
         }
+        console.log(openKeyArr)
         return (
             <Sider
                 trigger={null}
