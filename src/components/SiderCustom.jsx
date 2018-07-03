@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 import logo from '../style/imgs/logo.png';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
-const SubMenu = Menu.SubMenu;
 const { Sider } = Layout;
+const SubMenu = Menu.SubMenu;
 
 class SiderCustom extends Component {
     state = {
@@ -15,6 +15,66 @@ class SiderCustom extends Component {
         openKey: '',
         selectedKey: '',
         firstHide: true,        // 点击收缩菜单，第一次隐藏展开子菜单，openMenu时恢复
+        menuArr: [
+            {   key: '/app/realtime', title: '实时数据概况', icon: 'clock-circle-o',
+                sub: [
+                    { key: '/app/realtime/survey', title: '概况'},
+                    { key: '/app/realtime/order', title: '订单'}
+                ]
+            },
+            {
+                key: '/app/operatingdaily', title: '运营日报', icon: 'schedule',
+                sub: [
+                    { key: '/app/operatingdaily/incomeCost', title: '订单收入及成本'},
+                    { key: '/app/operatingdaily/distribution', title: '订单分布'},
+                    { key: '/app/operatingdaily/portrait', title: '订单画像'},
+                    { key: '/app/operatingdaily/bargainingAnalysis', title: '议价分析'},
+                    { key: '/app/operatingdaily/capacityAnalysis', title: '运力分析'},
+                    { key: '/app/operatingdaily/userStatistics', title: '用户统计'},
+                    { key: '/app/operatingdaily/piesAnalysis', title: '派单分析'},
+                    { key: '/app/operatingdaily/serviceQualityOfDrivers', title: '司机服务质量'}
+                ]
+            },
+            {
+                key: '/app/ranking', title: '排行榜', icon: 'flag',
+                sub: [
+                    { key: '/app/ranking/rank_order', title: '订单',
+                        sub: [
+                            { key: '/app/ranking/rank_order/complete_count', title: '完成订单数'},
+                            { key: '/app/ranking/rank_order/complete_amount', title: '完成订单金额'},
+                            { key: '/app/ranking/rank_order/average_amount', title: '订单平均金额'},
+                            { key: '/app/ranking/rank_order/average_time', title: '订单平均时长'},
+                            { key: '/app/ranking/rank_order/average_distance', title: '平均行驶距离'},
+                            { key: '/app/ranking/rank_order/complete_rate', title: 'C to R订单完成率'},
+                            { key: '/app/ranking/rank_order/create_total', title: '创建订单'},
+                            { key: '/app/ranking/rank_order/dispatch_success_rate', title: '派单成功率'},
+                            { key: '/app/ranking/rank_order/billing_difference', title: '计费差额'},
+                            { key: '/app/ranking/rank_order/service_cost', title: '服务成本'},
+                            { key: '/app/ranking/rank_order/no_car_can_dispatch', title: '无车可派'}
+                        ]
+                    },
+                    { key: '/app/ranking/rank_driver', title: '司机',
+                        sub: [
+                            { key: '/app/ranking/rank_driver/active_total', title: '活跃司机'},
+                            { key: '/app/ranking/rank_driver/average_orders', title: '司机均单量'},
+                            { key: '/app/ranking/rank_driver/registered_total', title: '新注册司机'},
+                            { key: '/app/ranking/rank_driver/activation_total', title: '新增激活司机'},
+                            { key: '/app/ranking/rank_driver/negative_rate', title: '差评率'}
+                        ]
+                    },
+                    { key: '/app/ranking/rank_user', title: '用户',
+                        sub: [
+                            { key: '/app/ranking/rank_user/active_total', title: '活跃用户'},
+                            { key: '/app/ranking/rank_user/average_total', title: '乘客单均量'},
+                            { key: '/app/ranking/rank_user/registered_total', title: '新注册用户'},
+                            { key: '/app/ranking/rank_user/activation_total', title: '新激活用户'},
+                            { key: '/app/ranking/rank_user/recharge_amount', title: '充值金额'},
+                            { key: '/app/ranking/rank_user/place_order_user_total', title: '下单用户数'}
+                        ]
+                    }
+                ]
+            }
+        ]
     };
     componentDidMount() {
         this.setMenuOpen(this.props);
@@ -51,8 +111,27 @@ class SiderCustom extends Component {
             firstHide: false,
         })
     };
+    formSubmenusChild(obj){
+        let cHtml=<div></div>;
+        let childArray=obj.sub;
+        if("undefined"!=typeof(childArray)&&childArray.length>0) {
+            cHtml = childArray.map((item, i) => {
+                return this.formSubmenusChild(item);
+            });
+            if(obj.icon){
+                return <SubMenu key={obj.key} title={<span><Icon type={obj.icon}></Icon><span className="nav-text">{obj.title}</span></span>}>{cHtml}</SubMenu>
+            }else {
+                return <SubMenu key={obj.key} title={obj.title}>{cHtml}</SubMenu>
+            }
+
+        }else{
+            return <Menu.Item key={obj.key}>{obj.title}</Menu.Item>
+        }
+
+    }
+
     render() {
-        const {openKey} = this.state;
+        const {openKey, menuArr} = this.state;
         let openKeyKey = ['/app/ranking'],openKeyArr = [];
         if (openKey == '/app/ranking/order' || openKey == '/app/ranking/driver' || openKey == '/app/ranking/user'){
             openKeyKey.push(openKey);
@@ -60,7 +139,15 @@ class SiderCustom extends Component {
         }else {
             openKeyArr.push(openKey)
         }
-        console.log(openKeyArr)
+        let columnMenu = menuArr;
+        let htmlMenu =columnMenu.map((obj, i)=>{
+            if ("undefined"!=typeof(obj.sub)&&obj.sub.length>0) {
+                return this.formSubmenusChild(obj);
+            } else {
+                //这里的routeurl是路由地址，是自定义的一个属性
+                return <Menu.Item key={obj.key}>{obj.name}</Menu.Item>
+            }
+        })
         return (
             <Sider
                 trigger={null}
@@ -73,68 +160,16 @@ class SiderCustom extends Component {
                         <span className="logo-title">商业智能系统</span>
                     </Link>
                 </div>
-                <Menu theme="dark"
-                      mode="inline"
-                      selectedKeys={[this.state.selectedKey]}
-                      // openKeys={this.state.firstHide ? null : [this.state.openKey]}
-                        openKeys = {this.state.firstHide ? null : openKeyArr}
-                      onClick={this.menuClick}
-                      onOpenChange={this.openMenu}
-                      inlineCollapsed={this.state.collapsed}
+                <Menu
+                    theme="dark"
+                    mode="inline"
+                    selectedKeys={[this.state.selectedKey]}
+                    openKeys = {this.state.firstHide ? null : openKeyArr}
+                    onClick={this.menuClick}
+                    onOpenChange={this.openMenu}
+                    inlineCollapsed={this.state.collapsed}
                 >
-                    <SubMenu key="/app/realtime"
-                             title={<span>
-                                         <Icon type="clock-circle-o"/>
-                                         <span className="nav-text">实时数据概况</span></span>}
-                    >
-                        <Menu.Item key="/app/realtime/survey"><Link to={`/app/realtime/survey`}>概况</Link></Menu.Item>
-                        <Menu.Item key="/app/realtime/order"><Link to={`/app/realtime/order`}>订单</Link></Menu.Item>
-                    </SubMenu>
-                    <SubMenu key="/app/operatingdaily" title={<span><Icon type="schedule"/><span className="nav-text">运营日报</span></span>}>
-                        <Menu.Item key="/app/operatingdaily/incomeCost"><Link to={`/app/operatingdaily/incomeCost`}>订单收入及成本</Link></Menu.Item>
-                        <Menu.Item key="/app/operatingdaily/distribution"><Link to={`/app/operatingdaily/distribution`}>订单分布</Link></Menu.Item>
-
-                        <Menu.Item key="/app/operatingdaily/portrait"><Link to={`/app/operatingdaily/portrait`}>订单画像</Link></Menu.Item>
-                        <Menu.Item key="/app/operatingdaily/bargainingAnalysis"><Link to={`/app/operatingdaily/bargainingAnalysis`}>议价分析</Link></Menu.Item>
-
-                        <Menu.Item key="/app/operatingdaily/capacityAnalysis"><Link to={`/app/operatingdaily/capacityAnalysis`}>运力分析</Link></Menu.Item>
-                        <Menu.Item key="/app/operatingdaily/userStatistics"><Link to={`/app/operatingdaily/userStatistics`}>用户统计</Link></Menu.Item>
-                        <Menu.Item key="/app/operatingdaily/piesAnalysis"><Link to={`/app/operatingdaily/piesAnalysis`}>派单分析</Link></Menu.Item>
-                        <Menu.Item key="/app/operatingdaily/serviceQualityOfDrivers"><Link to={`/app/operatingdaily/serviceQualityOfDrivers`}>司机服务质量</Link></Menu.Item>
-                    </SubMenu>
-
-                    <SubMenu key="/app/ranking" title={<span><Icon type="flag"/><span  className="nav-text">排行榜</span></span>}>
-                        <SubMenu key="/app/ranking/order" title="订单">
-                            <Menu.Item key="order_0"><Link to={`/app/ranking/order/order_0`} replace>完成订单数</Link></Menu.Item>
-                            <Menu.Item key="order_1"><Link to={`/app/ranking/order/order_1`}>完成订单金额</Link></Menu.Item>
-                            <Menu.Item key="order_2"><Link to={`/app/ranking/order/order_2`}>订单平均金额</Link></Menu.Item>
-                            <Menu.Item key="order_3"><Link to={`/app/ranking/order/order_3`}>订单平均时长</Link></Menu.Item>
-                            <Menu.Item key="order_4"><Link to={`/app/ranking/order/order_4`}>平均行驶距离</Link></Menu.Item>
-                            <Menu.Item key="order_5"><Link to={`/app/ranking/order/order_5`}>C to R订单完成率</Link></Menu.Item>
-                            <Menu.Item key="order_6"><Link to={`/app/ranking/order/order_6`}>创建订单</Link></Menu.Item>
-                            <Menu.Item key="order_7"><Link to={`/app/ranking/order/order_7`}>派单成功率</Link></Menu.Item>
-                            <Menu.Item key="order_8"><Link to={`/app/ranking/order/order_8`}>计费差额</Link></Menu.Item>
-                            <Menu.Item key="order_9"><Link to={`/app/ranking/order/order_9`}>服务成本</Link></Menu.Item>
-                            <Menu.Item key="order_10"><Link to={`/app/ranking/order/order_10`}>无车可派</Link></Menu.Item>
-                        </SubMenu>
-                        <SubMenu key="/app/ranking/driver" title="司机">
-                            <Menu.Item key="driver_0"><Link to={`/app/ranking/driver/driver_0`} replace>活跃司机</Link></Menu.Item>
-                            <Menu.Item key="driver_1"><Link to={`/app/ranking/driver/driver_1`}>司机均单量</Link></Menu.Item>
-                            <Menu.Item key="driver_2"><Link to={`/app/ranking/driver/driver_2`}>新注册司机</Link></Menu.Item>
-                            <Menu.Item key="driver_3"><Link to={`/app/ranking/driver/driver_3`}>新增激活司机</Link></Menu.Item>
-                            <Menu.Item key="driver_4"><Link to={`/app/ranking/driver/driver_4`}>差评率</Link></Menu.Item>
-                            {/*<Menu.Item key="driver_5"><Link to={`/rank/driver/driver_5`} >司机流失率</Link></Menu.Item>*/}
-                        </SubMenu>
-                        <SubMenu key="/app/ranking/user" title="用户">
-                            <Menu.Item key="user_0"><Link to={`/app/ranking/user/user_0`} replace>活跃用户</Link></Menu.Item>
-                            <Menu.Item key="user_1"><Link to={`/app/ranking/user/user_1`}>乘客单均量</Link></Menu.Item>
-                            <Menu.Item key="user_2"><Link to={`/app/ranking/user/user_2`}>新注册用户</Link></Menu.Item>
-                            <Menu.Item key="user_3"><Link to={`/app/ranking/user/user_3`}>新激活用户</Link></Menu.Item>
-                            <Menu.Item key="user_4"><Link to={`/app/ranking/user/user_4`}>充值金额</Link></Menu.Item>
-                            {/*<Menu.Item key="user_5"><Link to={`/rank/user/user_5`} >用户流失率</Link></Menu.Item>*/}
-                            <Menu.Item key="user_6"><Link to={`/app/ranking/user/user_6`}>下单用户数</Link></Menu.Item>
-                        </SubMenu>
-                    </SubMenu>
+                    {htmlMenu}
                 </Menu>
                 <style>
                     {`

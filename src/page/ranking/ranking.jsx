@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Select, Card, Button, Icon, Table, Spin} from 'antd';
 import moment from 'moment';
 
+import {getFun} from '../../utils/api'
+
 import * as carType from '../../components/ranking/car_types';
 import * as navMenu from '../../components/ranking/navs';
 import * as dateUtil from '../../components/ranking/DateFormat';
@@ -11,6 +13,7 @@ import * as hash from '../../components/ranking/hashes';
 import deepMerge from 'deepmerge';
 
 import './ranking.less';
+import {objectToArr} from "../../utils/dataHandle";
 
 const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';;
 const HEADER_DATE_FORMAT = 'MM/DD';
@@ -90,32 +93,34 @@ export default class Ranking extends Component {
 
   //生成接口请求数据参数
   getApiParams(groupBy = '') {
-    const pageUrl = this.state.pageUrl;
-    let apiParams = {
-      jobList: navMenu.getPageHashString(pageUrl),
-      timeAt: this.getRangeDays().join(),
-      groupBy: groupBy,
-      CycleType: this.state.selectedDateType,
+    // const pageUrl = this.state.pageUrl;
+    let params = {
+      // jobList: navMenu.getPageHashString(pageUrl),
+      // timeAt: this.getRangeDays().join(),
+      // groupBy: groupBy,
+      // CycleType: this.state.selectedDateType,
+        start_at: this.state.selectedBaseDay,
+        date_limit: 8,
+        cycle_type: this.state.selectedDateType,
+        car_type_id: this.state.selectedCarType
     };
     const carTypeIds = carType.getCarTypeIds(this.state.selectedCarType);
     if (this.state.selectedCarType === 'other') {
-      apiParams['car_type_id!'] = carTypeIds;
+        params['car_type_id!'] = carTypeIds;
     } else {
-      apiParams['car_type_id'] = carTypeIds;
+        params['car_type_id'] = carTypeIds;
     }
-    return apiParams;
+    return params;
   }
 
   //获取分城市数据
   getCityData() {
     return api.getDatamartData(this.getApiParams('city'));
-    // return getFun.getDatamartData(this.getApiParams('city'));
   }
 
   //获取全国数据
   getNationData() {
-    //return api.getDatamartData(this.getApiParams());
-    // return getFun.getDatamartData(this.getApiParams());
+    return api.getDatamartData(this.getApiParams());
   }
 
   //获取数据，包含分城市数据和全国数据
@@ -144,9 +149,8 @@ export default class Ranking extends Component {
   formatTableData(originData) {
     let flipData = {};
     for (let day in originData) {
-      let dayKey = moment(day).format(ROW_KEY_DATE_FORMAT);
-      let cityDataArray = originData[day];
-
+      let dayKey = moment(day).format(ROW_KEY_DATE_FORMAT);//20180625
+      let cityDataArray = originData[day];//{order_average_time_am: 0, order_average_time_anshun: 0, order_average_time_as: 25.38,…}
       for (let cityHash in cityDataArray) {
         let hashArray = cityHash.split('_');
         let cityKey = hashArray.length === 2 ? hashArray[1] : 'allcity';

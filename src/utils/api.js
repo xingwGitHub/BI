@@ -10,6 +10,7 @@ const API_DATAMART_BASE_URL = 'https://datamart1.yongche.com/bi_web_api';
 const API_BI_BASE_URL = 'https://api_bi.yongche.com';
 const API_GRAB_BASE_URL = 'https://grab.yongche.com/api';
 
+const BI_API_BASE_URL = 'https://bi_api.yongche.com/web_api';
 
 const REQUEST_METHOD_GET = 'GET';
 const REQUEST_METHOD_POST = 'POST';
@@ -47,19 +48,22 @@ function request(url, method, params) {
           resolve(data);
         });
       } else {
-        message.error('请求失败');
+        // message.error('请求失败');
         reject(-2);
       }
     }).catch((err) => {
-      message.error('请求错误: ' + err);
+      // message.error('请求错误: ' + err);
       reject(-1);
     });
   });
 }
 
 export const getDatamartData = (params) => {
+    let path = window.location.hash.split('/').slice(3).join('/').trim();
+    //console.log(path)
     return new Promise((resolve, reject) => {
-        request(API_DATAMART_BASE_URL + '/bi_data', REQUEST_METHOD_GET, params).then((data) => {
+        //request(API_DATAMART_BASE_URL + '/bi_data', REQUEST_METHOD_GET, params).then((data) => {
+        request(BI_API_BASE_URL + '/' +path, REQUEST_METHOD_GET, params).then((data) => {
             if (data.status) {
                 resolve(data.results);
             } else {
@@ -78,14 +82,14 @@ export const getDatamartData = (params) => {
 
 export const getDatamartDim = (params) => {
   return new Promise((resolve, reject) => {
-    request(API_DATAMART_BASE_URL + '/dim_Info', REQUEST_METHOD_GET, params).then((data) => {
+    request(BI_API_BASE_URL + '/dim_info/city', REQUEST_METHOD_GET, params).then((data) => {
       if (data.status) {
         resolve(data.results);
       } else {
         if (data.msg === '用户未登陆') {
           Auth.redirectLogin();
         } else {
-          message.error(data.msg);
+          // message.error(data.msg);
           reject(-3);
         }
       }
