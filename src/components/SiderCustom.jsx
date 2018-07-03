@@ -133,7 +133,7 @@ class SiderCustom extends Component {
     render() {
         const {openKey, menuArr} = this.state;
         let openKeyKey = ['/app/ranking'],openKeyArr = [];
-        if (openKey == '/app/ranking/order' || openKey == '/app/ranking/driver' || openKey == '/app/ranking/user'){
+        if (openKey == '/app/ranking/rank_order' || openKey == '/app/ranking/rank_driver' || openKey == '/app/ranking/rank_user'){
             openKeyKey.push(openKey);
             openKeyArr = openKeyKey;
         }else {
