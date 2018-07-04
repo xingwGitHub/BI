@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea915226-dd70-48de-bec7-b10196381440" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/service-worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/main.907fd690.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/main.907fd690.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/charts.2e275edd.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/charts.2e275edd.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.273f5f41.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.273f5f41.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/vendor.95e94db9.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/vendor.95e94db9.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SiderCustom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SiderCustom.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ranking/city.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ranking/city.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ranking/hashes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ranking/hashes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ranking/navs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ranking/navs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/ranking/ranking.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/ranking/ranking.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/menu.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/menu.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/http.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/http.js" afterDir="false" />
-    </list>
+    <list default="true" id="ea915226-dd70-48de-bec7-b10196381440" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -39,8 +17,8 @@
       <file leaf-file-name="ranking.jsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/page/ranking/ranking.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="200" selection-start-line="200" selection-end-line="200" />
+            <state relative-caret-position="161">
+              <caret line="135" column="37" lean-forward="true" selection-start-line="135" selection-start-column="37" selection-end-line="135" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -163,12 +141,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1530612254777</updated>
-      <workItem from="1530612256382" duration="6148000" />
+      <workItem from="1530612256382" duration="6753000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6148000" />
+    <option name="totallyTimeSpent" value="6753000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="24" y="40" width="1260" height="669" extended-state="0" />
@@ -282,8 +260,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/page/ranking/ranking.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="200" selection-start-line="200" selection-end-line="200" />
+        <state relative-caret-position="161">
+          <caret line="135" column="37" lean-forward="true" selection-start-line="135" selection-start-column="37" selection-end-line="135" selection-end-column="37" />
         </state>
       </provider>
     </entry>
