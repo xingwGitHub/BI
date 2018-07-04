@@ -131,7 +131,6 @@ const navs = {
 };
 
 export function getPageInfo(urlPath) {
-  //console.log(urlPath)
   const pathArray = urlPath.split('/').slice(1);
   const pathDepth = pathArray.length;
    //console.log(pathArray[2],pathDepth) //["app", "ranking", "order", "order_0"], 4

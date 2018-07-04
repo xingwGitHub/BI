@@ -65,12 +65,12 @@ export const getDatamartData = (params) => {
         //request(API_DATAMART_BASE_URL + '/bi_data', REQUEST_METHOD_GET, params).then((data) => {
         request(BI_API_BASE_URL + '/' +path, REQUEST_METHOD_GET, params).then((data) => {
             if (data.status) {
-                resolve(data.results);
+                resolve(data.data);
             } else {
                 if (data.msg === '用户未登陆') {
                     Auth.redirectLogin();
                 } else {
-                    message.error(data.msg);
+                    //message.error(data.msg);
                     reject(-3);
                 }
             }
@@ -83,16 +83,19 @@ export const getDatamartData = (params) => {
 export const getDatamartDim = (params) => {
   return new Promise((resolve, reject) => {
     request(BI_API_BASE_URL + '/dim_info/city', REQUEST_METHOD_GET, params).then((data) => {
-      if (data.status) {
-        resolve(data.results);
-      } else {
-        if (data.msg === '用户未登陆') {
-          Auth.redirectLogin();
-        } else {
-          // message.error(data.msg);
-          reject(-3);
-        }
-      }
+
+        resolve(data.data);
+
+      // if (data.status) {
+      //   resolve(data.data);
+      // } else {
+      //    if (data.msg === '用户未登陆') {
+      //      Auth.redirectLogin();
+      //    } else {
+      //      // message.error(data.msg);
+      //     reject(-3);
+      //    }
+      //  }
     }).catch(errCode => {
       reject(errCode);
     });
@@ -107,22 +110,22 @@ export const getBiData = (url, params) => {
           resolve(data.data);
           break;
         case 400:
-          message.error('参数错误');
+          // message.error('参数错误');
           reject(400);
           break;
         case 401:
           Auth.redirectLogin();
           break;
         case 402:
-          message.error('BI访问权限已过期');
+          // message.error('BI访问权限已过期');
           reject(402);
           break;
         case 403:
-          message.error('无权访问该页面');
+          // message.error('无权访问该页面');
           reject(403);
           break;
         default:
-          message.error(data.code);
+          // message.error(data.code);
           reject(data.code);
           break;
       }

@@ -1,5 +1,5 @@
 const hashes = {
-  order_finish_count: {
+  complete_count: {
     name: '完成订单数',
     // hash: 'a2427a575dbc6848dac57748b71531a75e69a07c',
     hash: 'complete_count',

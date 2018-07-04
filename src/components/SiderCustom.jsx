@@ -125,7 +125,7 @@ class SiderCustom extends Component {
             }
 
         }else{
-            return <Menu.Item key={obj.key}>{obj.title}</Menu.Item>
+            return <Menu.Item key={obj.key}><Link to={obj.key}>{obj.title}</Link></Menu.Item>
         }
 
     }

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Select, Card, Button, Icon, Table, Spin} from 'antd';
+import {Select, Card, Button, Icon, Table} from 'antd';
 import moment from 'moment';
 
-import {getFun} from '../../utils/api'
+import {getRankFun, getCityFun} from '../../utils/http'
 
 import * as carType from '../../components/ranking/car_types';
 import * as navMenu from '../../components/ranking/navs';
@@ -115,7 +115,7 @@ export default class Ranking extends Component {
 
   //获取分城市数据
   getCityData() {
-    return api.getDatamartData(this.getApiParams('city'));
+    return api.getDatamartData(this.getApiParams());
   }
 
   //获取全国数据
@@ -129,7 +129,7 @@ export default class Ranking extends Component {
       pageLoading: true,
     });
 
-    Promise.all([this.getCityData(), this.getNationData()]).then(allData => {
+    /*Promise.all([this.getCityData(), this.getNationData()]).then(allData => {
       allData = deepMerge(allData[0], allData[1]);
       this.setState({
         tableData: this.formatTableData(allData),
@@ -142,46 +142,64 @@ export default class Ranking extends Component {
         tableData: [],
         tableHeader: [],
       })
-    });
+    });*/
+      let searchParams = this.getApiParams();
+      let result =getRankFun(searchParams);
+      result.then(res => {
+// console.log(res)
+          this.setState({
+              tableData: this.formatTableData(res.data),
+              tableHeader: this.formatTableHeader(),
+              pageLoading: false
+          });
+      }).catch(err => {
+          this.setState({
+              pageLoading: false,
+              tableData: [],
+              tableHeader: [],
+          })
+      })
   }
 
   //格式化表数据，以用于Table组件
-  formatTableData(originData) {
-    let flipData = {};
-    for (let day in originData) {
-      let dayKey = moment(day).format(ROW_KEY_DATE_FORMAT);//20180625
-      let cityDataArray = originData[day];//{order_average_time_am: 0, order_average_time_anshun: 0, order_average_time_as: 25.38,…}
-      for (let cityHash in cityDataArray) {
-        let hashArray = cityHash.split('_');
-        let cityKey = hashArray.length === 2 ? hashArray[1] : 'allcity';
-        if (!flipData.hasOwnProperty(cityKey)) {
-          flipData[cityKey] = {};
+    formatTableData(originData) {
+        let flipData = {};
+        for (let day in originData) {
+            let dayKey = moment(day).format(ROW_KEY_DATE_FORMAT);//20180625
+            let cityDataObj = originData[day];//{order_average_time_am: 0, order_average_time_anshun: 0, order_average_time_as: 25.38,…}
+            let arr = [];
+            for (let cityHash in cityDataObj) {
+                let hashArray = cityHash.split('_');//["total", "of", "active", "drivers", "zz"]
+                let a = hashArray.length;
+                arr.push(a);
+                let b = Math.max.apply(null, arr)
+                let cityKey = hashArray.length === b ? hashArray[b-1] : 'allcity';
+                if (!flipData.hasOwnProperty(cityKey)) {
+                    flipData[cityKey] = {};
+                }
+                flipData[cityKey][dayKey] = cityDataObj[cityHash];
+            }
         }
-        flipData[cityKey][dayKey] = cityDataArray[cityHash];
-      }
+
+        let data = [];
+        for (let city in flipData) {
+            let item = flipData[city];
+            item['city'] = this.state.allCities[city];
+            data.push(item);
+        }
+        let sortDay = this.getRangeDays()[0];
+        let sortKey = moment(sortDay).format(ROW_KEY_DATE_FORMAT);
+        const result = data.sort(this.compareLastItem(sortKey));
+
+        let finalResult = [];
+        for (let idx in result) {
+            let item = result[idx];
+            item['rank'] = parseInt(idx) + 1;
+            item['key'] = parseInt(idx) + 1;
+            finalResult.push(item);
+        }
+        return finalResult;
     }
-
-    let data = [];
-    for (let city in flipData) {
-      let item = flipData[city];
-      item['city'] = this.state.allCities[city];
-      data.push(item);
-    }
-
-    let sortDay = this.getRangeDays()[0];
-    let sortKey = moment(sortDay).format(ROW_KEY_DATE_FORMAT);
-    const result = data.sort(this.compareLastItem(sortKey));
-
-    let finalResult = [];
-    for (let idx in result) {
-      let item = result[idx];
-      item['rank'] = parseInt(idx) + 1;
-      item['key'] = parseInt(idx) + 1;
-      finalResult.push(item);
-    }
-    return finalResult;
-  }
-
   //格式化表头内容，以用于Table组件
   formatTableHeader() {
     let headers = [{
@@ -279,11 +297,21 @@ export default class Ranking extends Component {
     this.setState({
       carTypes: carType.getCarTypes(),
     });
+
     city.getAllCities().then(cities => {
       this.setState({
         allCities: cities,
       });
     });
+
+    // let result = getCityFun();
+    // result.then(res => {
+    //   this.setState({
+    //       allCities: res.data,
+    //   });
+    // }).catch(err => {
+    //     console.log(err)
+    // })
   }
 
   componentDidMount() {
