@@ -28,32 +28,67 @@ class Distribution extends React.Component{
             selectValue: '',
 
             orderOptions: { //选项
-                productType: '产品类型',
-                plantform: '下单平台',
-                userLevel: '用户级别',
-                userType: '用户类型'
+                product_type_id: '产品类型',
+                order_source: '下单平台',
+                user_level_id: '用户级别',
+                user_active_type: '用户类型'
             },
             city: '',
             start_at: '',
             end_at: '',
-            car_type_id: '',
+            group_by: 'product_type_id',
             searchParams: {},
             tableHeader: [
                 {
                     title: '统计日期', dataIndex: 'start_time', key: 'start_time'
                 },
                 {
-                    title: '当日新激活用户',
+                    title: 'ASAP用车',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders', key: 'total_of_finished_orders'},
-                        {title: '订单金额', dataIndex: 'order_origin_amount', key: 'order_origin_amount'}
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_asap', key: 'total_of_finished_orders_asap'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_asap', key: 'order_origin_amount_asap'}
                     ]
                 },
                 {
-                    title: '当日老用户',
+                    title: '预约用车',
                     children: [
-                        {title: '订单数', dataIndex: 'service_cost', key: 'service_cost'},
-                        {title: '订单金额', dataIndex: 'driver_charge_record', key: 'driver_charge_record'}
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_reservation', key: 'total_of_finished_orders_reservation'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_reservation', key: 'order_origin_amount_reservation'}
+                    ]
+                },
+                {
+                    title: '定价-接机',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_airport_pick_up', key: 'total_of_finished_orders_airport_pick_up'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_airport_pick_up', key: 'order_origin_amount_airport_pick_up'}
+                    ]
+                },
+                {
+                    title: '定价-送机',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_airport_drop_off', key: 'total_of_finished_orders_airport_drop_off'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_airport_drop_off', key: 'order_origin_amount_airport_drop_off'}
+                    ]
+                },
+                {
+                    title: '定价-半日租',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_half_day_rent', key: 'total_of_finished_orders_half_day_rent'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_half_day_rent', key: 'order_origin_amount_half_day_rent'}
+                    ]
+                },
+                {
+                    title: '定价-日租',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_daily_rent', key: 'total_of_finished_orders_daily_rent'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_daily_rent', key: 'order_origin_amount_daily_rent'}
+                    ]
+                },
+                {
+                    title: '定价-热门路线',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_hot_line', key: 'total_of_finished_orders_hot_line'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_hot_line', key: 'order_origin_amount_hot_line'}
                     ]
                 }
             ],
@@ -68,7 +103,7 @@ class Distribution extends React.Component{
             city: '',
             start_at: this.state.start_at,
             end_at: this.state.end_at, //当前时间减n天
-            car_type_id: ''
+            group_by: this.state.group_by
         }
         this.setState({
             load:true
@@ -127,7 +162,7 @@ class Distribution extends React.Component{
     carTypeChange(e) {
         let index = e.target.value;
         this.setState({
-            car_type_id: this.state.carCombine[index].join(',')
+            group_by: index
         },() => {
             this.searchBtn()
         })
@@ -163,7 +198,7 @@ class Distribution extends React.Component{
     // 获取表格数据
     getTableData() {
         let searchParams = this.getParams();
-        let result =getFun('/web_api/operation/income',  searchParams);
+        let result =getFun('/web_api/operation/order_dist',  searchParams);
         result.then(res => {
             this.setState({
                 load: false,
@@ -183,7 +218,7 @@ class Distribution extends React.Component{
             start_at: start,
             end_at: end,
             city: this.state.city,
-            car_type_id: this.state.car_type_id
+            group_by: this.state.group_by
         }
         return params;
     }
@@ -226,7 +261,7 @@ class Distribution extends React.Component{
                                     <SearchBox searchParams={params => this.searchParams(params)}></SearchBox>
                                 </div>
                                 <div className="cartype-wrapper">
-                                    <RadioGroup onChange={this.carTypeChange.bind(this)} defaultValue='0' >
+                                    <RadioGroup onChange={this.carTypeChange.bind(this)} defaultValue='product_type_id' >
                                         {radioChildren}
                                     </RadioGroup>
                                 </div>

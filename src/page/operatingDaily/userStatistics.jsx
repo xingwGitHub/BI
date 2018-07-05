@@ -59,10 +59,10 @@ class UserStatistics extends React.Component{
                 {
                     title: '企业账户',
                     children: [
-                        // {title: '累计注册', dataIndex: 'user_preferential', key: 'user_preferential'},
-                        {title: '新增注册', dataIndex: 'total_of_enterprise_registered_users', key: 'total_of_enterprise_registered_users'},
-                        // {title: '累计激活', dataIndex: 'chongfan_preferential', key: 'chongfan_preferential'},
-                        {title: '新增激活', dataIndex: 'total_of_enterprise_activation_users', key: 'total_of_enterprise_activation_usersS'}
+                        {title: '累计注册', dataIndex: 'total_of_enterprise_registered_users', key: 'total_of_enterprise_registered_users'},
+                        {title: '新增注册', dataIndex: 'total_of_enterprise_registered_users_new', key: 'total_of_enterprise_registered_users_new'},
+                        {title: '累计激活', dataIndex: 'total_of_enterprise_activation_users', key: 'total_of_enterprise_activation_users'},
+                        {title: '新增激活', dataIndex: 'total_of_enterprise_activation_users_new', key: 'total_of_enterprise_activation_users_new'}
                     ]
                 }
             ],
