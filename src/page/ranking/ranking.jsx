@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Select, Card, Button, Icon, Table} from 'antd';
 import moment from 'moment';
 
-import {getRankFun, getCityFun} from '../../utils/http'
+import {getRankFun} from '../../utils/http'
 
 import * as carType from '../../components/ranking/car_types';
 import * as navMenu from '../../components/ranking/navs';
@@ -10,10 +10,8 @@ import * as dateUtil from '../../components/ranking/DateFormat';
 import * as api from '../../utils/api';
 import * as city from '../../components/ranking/city';
 import * as hash from '../../components/ranking/hashes';
-import deepMerge from 'deepmerge';
 
 import './ranking.less';
-import {objectToArr} from "../../utils/dataHandle";
 
 const DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';;
 const HEADER_DATE_FORMAT = 'MM/DD';

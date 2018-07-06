@@ -114,7 +114,7 @@ class SiderCustom extends Component {
     formSubmenusChild(obj){
         let cHtml=<div></div>;
         let childArray=obj.sub;
-        if("undefined"!=typeof(childArray)&&childArray.length>0) {
+        if("undefined"!== typeof(childArray)&&childArray.length>0) {
             cHtml = childArray.map((item, i) => {
                 return this.formSubmenusChild(item);
             });
@@ -133,7 +133,7 @@ class SiderCustom extends Component {
     render() {
         const {openKey, menuArr} = this.state;
         let openKeyKey = ['/app/ranking'],openKeyArr = [];
-        if (openKey == '/app/ranking/rank_order' || openKey == '/app/ranking/rank_driver' || openKey == '/app/ranking/rank_user'){
+        if (openKey === '/app/ranking/rank_order' || openKey === '/app/ranking/rank_driver' || openKey === '/app/ranking/rank_user'){
             openKeyKey.push(openKey);
             openKeyArr = openKeyKey;
         }else {
@@ -141,7 +141,7 @@ class SiderCustom extends Component {
         }
         let columnMenu = menuArr;
         let htmlMenu =columnMenu.map((obj, i)=>{
-            if ("undefined"!=typeof(obj.sub)&&obj.sub.length>0) {
+            if ("undefined"!==typeof(obj.sub)&&obj.sub.length>0) {
                 return this.formSubmenusChild(obj);
             } else {
                 //这里的routeurl是路由地址，是自定义的一个属性

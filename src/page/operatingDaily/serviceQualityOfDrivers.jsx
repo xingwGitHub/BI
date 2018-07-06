@@ -59,7 +59,7 @@ class ServiceQualityOfDrivers extends React.Component{
                     title: '诱导乘客取消',
                     children: [
                         {title: '有效诱导乘客取消订单数', dataIndex: 'total_of_valid_induced_cancel_orders', key: 'total_of_valid_induced_cancel_orders'},
-                        {title: '有效诱导乘客取消率', dataIndex: 'rate_of_valid_induced_cancel_order', key: 'rate_of_valid_induced_cancel_order'}
+                        {title: '有效诱导乘客取消率(%)', dataIndex: 'rate_of_valid_induced_cancel_order', key: 'rate_of_valid_induced_cancel_order'}
                     ]
                 },
                 {
@@ -73,7 +73,7 @@ class ServiceQualityOfDrivers extends React.Component{
                     title: '司机等待时长asap',
                     children: [
                         {title: '90%等待时长', dataIndex: 'asap_waiting_for_long_90', key: 'asap_waiting_for_long_90'},
-                        {title: '异常误差', dataIndex: 'asap_waiting_for_long_ext', key: 'asap_waiting_for_long_ext'}
+                        {title: '异常误差', dataIndex: 'asap_waiting_for_long_10', key: 'asap_waiting_for_long_10'}
                     ]
                 },
                 {
@@ -198,12 +198,13 @@ class ServiceQualityOfDrivers extends React.Component{
     }
     // 获取表格数据
     getTableData() {
+        let arrStr = ['start_time', 'rate_of_negative_comment', 'rate_of_valid_induced_cancel_order', 'rate_of_reassignment_order', 'asap_waiting_for_long_10', 'asap_waiting_for_long_90'];
         let searchParams = this.getParams();
         let result =getFun('/web_api/operation/service_quality',  searchParams);
         result.then(res => {
             this.setState({
                 load: false,
-                tableData: objectToArr(res.data)
+                tableData: objectToArr(res.data, arrStr)
 
             })
         }).catch(err => {

@@ -18,9 +18,9 @@ const topColResponsiveProps = {
     style: {marginBottom: 24},
 };
 
-const ColItem = React.createClass({
+class ColItem extends Component{
 
-    render: function () {
+    render() {
         return (
             <Col {...topColResponsiveProps} >
                 <Card>
@@ -33,7 +33,7 @@ const ColItem = React.createClass({
 
         )
     }
-});
+}
 
 export default class RealTimeOrder extends Component {
     constructor(props) {

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Row, Col, Select, DatePicker} from 'antd';
 import moment from 'moment';
-import dateFormatter from '../../utils/dateFormat';
 
 
 import {getFun} from '../../utils/api'

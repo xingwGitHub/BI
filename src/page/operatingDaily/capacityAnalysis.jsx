@@ -179,12 +179,13 @@ class CapacityAnalysis extends React.Component{
     }
     // 获取表格数据
     getTableData() {
+        let arrStr = ['start_time', 'rate_of_active_drivers', 'rate_of_accept', 'rate_of_win_bid'];
         let searchParams = this.getParams();
         let result =getFun('/web_api/operation/driver',  searchParams);
         result.then(res => {
             this.setState({
                 load: false,
-                tableData: objectToArr(res.data)
+                tableData: objectToArr(res.data, arrStr)
 
             })
         }).catch(err => {

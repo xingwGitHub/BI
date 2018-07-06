@@ -186,12 +186,13 @@ class Portrait extends React.Component{
     }
     // 获取表格数据
     getTableData() {
+        let arrStr = ['start_time', 'rate_of_bymeter_order'];
         let searchParams = this.getParams();
         let result =getFun('/web_api/operation/portrait',  searchParams);
         result.then(res => {
             this.setState({
                 load: false,
-                tableData: objectToArr(res.data)
+                tableData: objectToArr(res.data, arrStr)
 
             })
         }).catch(err => {

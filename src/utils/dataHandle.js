@@ -1,35 +1,26 @@
 /*
-* 接口返回的对象转换为数组，多用于表格数据
+* 接口返回的对象转换为数组，且字段值向上取整，多用于表格数据
 * @param obj
+* @param arrStr      不需要向上取整的字段数组
 * @return arr
 * */
-export function objectToArr (obj) {
+export function objectToArr (obj, arrStr) {
     let arr = [];
     let keyArr = Object.keys(obj);
     for(let k in keyArr) {
         arr.push(Object.assign({},{start_time: keyArr[k], key: k}, obj[keyArr[k]]));
     }
+    arr.map( item => {
+        Object.keys(item).map( item1 => {
+            if(arrStr.indexOf(item1) > -1){
+                return item[item1];
+            }
+            else {
+                return (item[item1] = Math.ceil(item[item1]));
+            }
+        })
+    });
     return arr.reverse();
-}
-//按时间倒序排列数组
-const by = function(name){
-    return function(o, p){
-        let a, b;
-        if (typeof o === "object" && typeof p === "object" && o && p) {
-            a = o[name];
-            b = p[name];
-            if (a === b) {
-                return 0;
-            }
-            if (typeof a === typeof b) {
-                return a < b ? 1 : -1;
-            }
-            return typeof a < typeof b ? -1 : 1;
-        }
-        else {
-            throw ("error");
-        }
-    }
 }
 /*
 * 计算两个日期相差多少天，例如：2018-06-01和2018-06-20
@@ -46,3 +37,16 @@ export function dateDiff (startDateString, endDateString){
     return parseInt(Math.abs(endDate - startDate ) / 1000 / 60 / 60 /24);//把相差的毫秒数转换为天数
     // return parseInt(Math.abs(endDate - startDate ) / 1000 / 60 / 60 /24)+1;  // 相差天数包含今天
 };
+
+export function dataCeil(data, arr){
+    data.map( item => {
+        Object.keys(item).map( item1 => {
+            if(arr.indexOf(item1) > -1){
+                return item[item1];
+            }else {
+                return (item[item1] = Math.ceil(item[item1]));
+            }
+        })
+    });
+    return data;
+}

@@ -80,7 +80,7 @@ class PiesAnalysis extends React.Component{
                 {
                     title: '订单概览',
                     children: [
-                        {title: '派单成功率', dataIndex: 'rate_of_dispatch_success', key: 'rate_of_dispatch_success'},
+                        {title: '派单成功率(%)', dataIndex: 'rate_of_dispatch_success', key: 'rate_of_dispatch_success'},
                         {title: '决策率(%)', dataIndex: 'rate_of_dispatch_descision', key: 'rate_of_dispatch_descision'},
                         {title: '当日完成率(%)', dataIndex: 'rate_of_dispatch_intraday_finished_order', key: 'rate_of_dispatch_intraday_finished_order'},
                         {title: '订单完成率(%)', dataIndex: 'rate_of_finished_order', key: 'rate_of_finished_order'}
@@ -192,12 +192,13 @@ class PiesAnalysis extends React.Component{
     }
     // 获取表格数据
     getTableData() {
+        let arrStr = ['start_time', 'rate_of_dispatch_descision', 'rate_of_dispatch_intraday_finished_order', 'rate_of_finished_order', 'rate_of_dispatch_success'];
         let searchParams = this.getParams();
         let result =getFun('/web_api/operation/dispatch',  searchParams);
         result.then(res => {
             this.setState({
                 load: false,
-                tableData: objectToArr(res.data)
+                tableData: objectToArr(res.data, arrStr)
 
             })
         }).catch(err => {

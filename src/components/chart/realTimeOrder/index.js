@@ -71,7 +71,7 @@ export default class TimeLineChart extends Component {
                     }
                 }
             })
-            selected[legend[index]] = index == 0;
+            selected[legend[index]] = index === 0;
 
 
         });

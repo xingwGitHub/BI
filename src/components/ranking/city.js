@@ -5,7 +5,6 @@ export const getAllCities = () => {
     api.getDatamartDim({
       name: 'city',
     }).then(cities => {
-      console.log(cities)
       cities['allcity'] = '全国';
       resolve(cities);
     });

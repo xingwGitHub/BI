@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Card, Table, Radio, Row, Col, Button, Pagination} from 'antd';
+import {Card, Table, Row, Col, Button, Pagination} from 'antd';
 import moment from 'moment';
 import SearchBox from '../../components/searchBox/searchBox'
 import ExportFileCom from '../../components/exportFile/exportFile'
@@ -8,9 +8,6 @@ import ExportFileCom from '../../components/exportFile/exportFile'
 import {getFun} from '../../utils/api'
 import {objectToArr, dateDiff} from '../../utils/dataHandle'
 import './operating.less'
-
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
 
 class UserStatistics extends React.Component{
     constructor(props) {
@@ -168,13 +165,13 @@ class UserStatistics extends React.Component{
     }
     // 获取表格数据
     getTableData() {
+        let arrStr = ['start_time']
         let searchParams = this.getParams();
         let result =getFun('/web_api/operation/user',  searchParams);
         result.then(res => {
             this.setState({
                 load: false,
-                tableData: objectToArr(res.data)
-
+                tableData: objectToArr(res.data, arrStr)
             })
         }).catch(err => {
             console.log(err)
