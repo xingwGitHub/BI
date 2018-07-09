@@ -6,7 +6,7 @@ import SearchBox from '../../components/searchBox/searchBox'
 import ExportFileCom from '../../components/exportFile/exportFile'
 
 import {getFun} from '../../utils/api'
-import {objectToArr, dateDiff} from '../../utils/dataHandle'
+import {objectToArr, dateDiff, milliFormat} from '../../utils/dataHandle'
 import './operating.less'
 
 const RadioButton = Radio.Button;
@@ -118,7 +118,7 @@ class PiesAnalysis extends React.Component{
             start_at: this.formatDate(start),
             end_at: this.formatDate(end), //当前时间减n天
             car_type_id: ''
-        }, () => {this.initExportData()});
+        });
     }
     // 初始化导出所需数据
     initExportData() {
@@ -200,7 +200,7 @@ class PiesAnalysis extends React.Component{
                 load: false,
                 tableData: objectToArr(res.data, arrStr)
 
-            })
+            }, () => {this.initExportData()})
         }).catch(err => {
             console.log(err)
         })
@@ -242,10 +242,11 @@ class PiesAnalysis extends React.Component{
         return day;
     }
     render() {
-        let {title, carTypes, tableData, load, tableHeader, total, pageSize} = this.state;
+        let {title, carTypes, load, tableHeader, total, pageSize} = this.state;
         const radioChildren = Object.keys(carTypes).map((key, index) => {
             return <RadioButton key={key} value={key}>{carTypes[key]}</RadioButton>
         });
+        let tableData = milliFormat(this.state.tableData);
         return (
             <div>
                 <div className="operating-wrapper">

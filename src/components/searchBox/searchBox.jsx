@@ -39,13 +39,21 @@ class SearchBox extends React.Component{
 
     }
     getCityData(){
-        let cityData = getFun('/web_api/dim_info/city');
-        cityData.then( res => {
+        let obj = localStorage.getItem('cityData');
+        let objJson = JSON.parse(obj);
+        if(objJson){
             this.setState({
-                cityOptionData: res.data
+                cityOptionData: objJson
             })
-            sessionStorage.setItem("cityFlag", 1);
-        })
+        }else {
+            let cityData = getFun('/web_api/dim_info/city');
+            cityData.then( res => {
+                localStorage.setItem('cityData', JSON.stringify(res.data))
+                this.setState({
+                    cityOptionData: res.data
+                })
+            })
+        }
     }
     formatDate (date) {
         var y = date.getFullYear();
@@ -78,6 +86,7 @@ class SearchBox extends React.Component{
             selectedStartDate: dateStrings[0],
             selectedEndDate: dateStrings[1]
         }
+        console.log(param)
         this.props.searchParams(param)
     }
     disabledDate(current) {

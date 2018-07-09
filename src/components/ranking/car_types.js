@@ -32,7 +32,8 @@ export const getCarTypeIds = (carType) => {
   if (carType === 'other') {
     return [...getCarTypeIds('yida_plus'), ...getCarTypeIds('comfort_plus'), ...getCarTypeIds('business_plus')].join();
   }
-  return carTypes[carType].types;
+  let arr = carTypes[carType].types;
+  return arr.join(",");
 };
 
 export const getCarTypes = () => {

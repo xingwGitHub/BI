@@ -8,7 +8,7 @@ import SearchBox from '../../components/searchBox/searchBox'
 import ExportFileCom from '../../components/exportFile/exportFile'
 
 import {getFun} from '../../utils/api'
-import {objectToArr, dateDiff} from '../../utils/dataHandle'
+import {objectToArr, dateDiff, milliFormat} from '../../utils/dataHandle'
 import './operating.less'
 
 const RadioButton = Radio.Button;
@@ -38,7 +38,9 @@ class Distribution extends React.Component{
             end_at: '',
             group_by: 'product_type_id',
             searchParams: {},
-            tableHeader: [
+            xScroll: '100%',
+            tableHeader: [],
+            tableHeader0: [
                 {
                     title: '统计日期', dataIndex: 'start_time', key: 'start_time'
                 },
@@ -92,6 +94,133 @@ class Distribution extends React.Component{
                     ]
                 }
             ],
+            tableHeader1: [
+                {
+                    title: '统计日期', dataIndex: 'start_time', key: 'start_time', fixed: 'left', width: 100,
+                },
+                {
+                    title: 'ios',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_yidao_ios', key: 'total_of_finished_orders_yidao_ios'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_yidao_ios', key: 'order_origin_amount_yidao_ios'}
+                    ]
+                },
+                {
+                    title: 'Android',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_yidao_android', key: 'total_of_finished_orders_yidao_android'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_yidao_android', key: 'order_origin_amount_yidao_android'}
+                    ]
+                },
+                {
+                    title: '网站',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_web', key: 'total_of_finished_orders_web'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_web', key: 'order_origin_amount_web'}
+                    ]
+                },
+                {
+                    title: '手机网站',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_mobile_web', key: 'total_of_finished_orders_mobile_web'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_mobile_web', key: 'order_origin_amount_mobile_web'}
+                    ]
+                },
+                {
+                    title: 'CRM',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_crm', key: 'total_of_finished_orders_crm'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_crm', key: 'order_origin_amount_crm'}
+                    ]
+                },
+                {
+                    title: '开放平台',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_open_platform', key: 'total_of_finished_orders_open_platform'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_open_platform', key: 'order_origin_amount_open_platform'}
+                    ]
+                },
+                {
+                    title: '网站第三方嵌套',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_web_open_platform', key: 'total_of_finished_orders_web_open_platform'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_web_open_platform', key: 'order_origin_amount_web_open_platform'}
+                    ]
+                },
+                {
+                    title: 'H5第三方嵌套',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_mobile_open_platform', key: 'total_of_finished_orders_mobile_open_platform'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_mobile_open_platform', key: 'order_origin_amount_mobile_open_platform'}
+                    ]
+                },
+                {
+                    title: 'iPhone App',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_iphone', key: 'total_of_finished_orders_iphone'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_iphone', key: 'order_origin_amount_iphone'}
+                    ]
+                },
+                {
+                    title: '其他',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_other', key: 'total_of_finished_orders_other'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_other', key: 'order_origin_amount_other'}
+                    ]
+                }
+            ],
+            tableHeader2: [
+                {
+                    title: '统计日期', dataIndex: 'start_time', key: 'start_time'
+                },
+                {
+                    title: '钻石用户',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_diamond_card', key: 'total_of_finished_orders_diamond_card'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_diamond_card', key: 'order_origin_amount_diamond_card'}
+                    ]
+                },
+                {
+                    title: '白金用户',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_white_gold_card', key: 'total_of_finished_orders_white_gold_card'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_white_gold_card', key: 'order_origin_amount_white_gold_card'}
+                    ]
+                },
+                {
+                    title: '金卡用户',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_golden_card', key: 'total_of_finished_orders_golden_card'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_golden_card', key: 'order_origin_amount_golden_card'}
+                    ]
+                },
+                {
+                    title: '银卡用户',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_silver_card', key: 'total_of_finished_orders_silver_card'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_silver_card', key: 'order_origin_amount_silver_card'}
+                    ]
+                }
+            ],
+            tableHeader3: [
+                {
+                    title: '统计日期', dataIndex: 'start_time', key: 'start_time'
+                },
+                {
+                    title: '当日新激活用户',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_new', key: 'total_of_finished_orders_new'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_new', key: 'order_origin_amount_new'}
+                    ]
+                },
+                {
+                    title: '当日老用户',
+                    children: [
+                        {title: '订单数', dataIndex: 'total_of_finished_orders_old', key: 'total_of_finished_orders_old'},
+                        {title: '订单金额', dataIndex: 'order_origin_amount_old', key: 'order_origin_amount_old'}
+                    ]
+                }
+            ],
             exportParams: {}
         }
     }
@@ -106,7 +235,8 @@ class Distribution extends React.Component{
             group_by: this.state.group_by
         }
         this.setState({
-            load:true
+            load:true,
+            tableHeader: this.state.tableHeader0
         },() => {
             this.getTableData(params);
         })
@@ -123,7 +253,7 @@ class Distribution extends React.Component{
             start_at: this.formatDate(start),
             end_at: this.formatDate(end), //当前时间减n天
             car_type_id: ''
-        }, () => {this.initExportData()});
+        });
     }
     // 初始化导出所需数据
     initExportData() {
@@ -161,6 +291,27 @@ class Distribution extends React.Component{
     // 获取车型参数
     carTypeChange(e) {
         let index = e.target.value;
+        if(index === 'product_type_id'){
+            this.setState({
+                tableHeader: this.state.tableHeader0,
+                xScroll: '100%'
+            })
+        }else if(index === 'order_source'){
+            this.setState({
+                tableHeader: this.state.tableHeader1,
+                xScroll: '160%'
+            })
+        }else if(index === 'user_level_id'){
+            this.setState({
+                tableHeader: this.state.tableHeader2,
+                xScroll: '100%'
+            })
+        }else if(index === 'user_active_type'){
+            this.setState({
+                tableHeader: this.state.tableHeader3,
+                xScroll: '100%'
+            })
+        }
         this.setState({
             group_by: index
         },() => {
@@ -205,7 +356,7 @@ class Distribution extends React.Component{
                 load: false,
                 tableData: objectToArr(res.data, arrStr)
 
-            })
+            },() => this.initExportData())
         }).catch(err => {
             console.log(err)
         })
@@ -247,10 +398,11 @@ class Distribution extends React.Component{
         return day;
     }
     render() {
-        let {title, orderOptions, tableData, load, tableHeader, total, pageSize} = this.state;
+        let {title, orderOptions, load, tableHeader, total, pageSize, xScroll, exportParams} = this.state;
         const radioChildren = Object.keys(orderOptions).map((key, index) => {
             return <RadioButton key={key} value={key}>{orderOptions[key]}</RadioButton>
         });
+        let tableData = milliFormat(this.state.tableData);
         return (
             <div>
                 <div className="operating-wrapper">
@@ -272,14 +424,14 @@ class Distribution extends React.Component{
                             </Col>
                         </Row>
                         <div>
-                            <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
+                            <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false} scroll={{x: xScroll}}>
 
                             </Table>
                         </div>
                         <div className="page-footer">
                             <Row>
                                 <Col span={10}>
-                                    <ExportFileCom params={this.state.exportParams}></ExportFileCom>
+                                    <ExportFileCom params={exportParams}></ExportFileCom>
                                 </Col>
                                 <Col span={14} style={{textAlign: 'right'}}>
                                     <Pagination size="small" total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize} showSizeChanger={true} onShowSizeChange={this.onShowSizeChange.bind(this)} showQuickJumper></Pagination>

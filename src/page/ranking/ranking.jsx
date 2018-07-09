@@ -25,6 +25,8 @@ export default class Ranking extends Component {
       selectedCarType: 'all',
       selectedDateType: 'days',
       selectedBaseDay: YESTERDAY,
+      prevTime: '',
+      nextTime: '',
 
       pageLoading: false,
       pageName: '',
@@ -65,19 +67,31 @@ export default class Ranking extends Component {
 
   //上一页、下一页改变的处理方法
   handlePageChange(num) {
-    const baseDay = moment(this.state.selectedBaseDay);
-    let newBaseDay = '';
-    if (num > 0) {
-      newBaseDay = baseDay.add(num, this.state.selectedDateType);
-    } else {
-      newBaseDay = baseDay.subtract(-num, this.state.selectedDateType);
-    }
-    newBaseDay = newBaseDay.format(DEFAULT_DATE_FORMAT);
-    this.setState({
-      selectedBaseDay: newBaseDay,
-    }, () => {
-      this.getAllData();
-    });
+      console.log(num)
+
+      if(num > 0){
+          this.setState({
+              selectedBaseDay: this.state.nextTime,
+          },() => this.getAllData());
+      }else {
+          this.setState({
+            selectedBaseDay: this.state.prevTime,
+          },() => this.getAllData());
+      }
+
+    // const baseDay = moment(this.state.selectedBaseDay);
+    // let newBaseDay = '';
+    // if (num > 0) {
+    //   newBaseDay = baseDay.add(num, this.state.prevTime);
+    // } else {
+    //   newBaseDay = baseDay.subtract(-num, this.state.nextTime);
+    // }
+    // newBaseDay = newBaseDay.format(DEFAULT_DATE_FORMAT);
+    // this.setState({
+    //   selectedBaseDay: newBaseDay,
+    // }, () => {
+    //   this.getAllData();
+    // });
   }
 
   //获取时间数组，用于请求api的时候的timeAt参数
@@ -91,18 +105,13 @@ export default class Ranking extends Component {
 
   //生成接口请求数据参数
   getApiParams(groupBy = '') {
-    // const pageUrl = this.state.pageUrl;
     let params = {
-      // jobList: navMenu.getPageHashString(pageUrl),
-      // timeAt: this.getRangeDays().join(),
-      // groupBy: groupBy,
-      // CycleType: this.state.selectedDateType,
         start_at: this.state.selectedBaseDay,
         date_limit: 8,
         cycle_type: this.state.selectedDateType,
         car_type_id: this.state.selectedCarType
     };
-    const carTypeIds = carType.getCarTypeIds(this.state.selectedCarType);
+    let carTypeIds = carType.getCarTypeIds(this.state.selectedCarType);
     if (this.state.selectedCarType === 'other') {
         params['car_type_id!'] = carTypeIds;
     } else {
@@ -126,29 +135,15 @@ export default class Ranking extends Component {
     this.setState({
       pageLoading: true,
     });
-
-    /*Promise.all([this.getCityData(), this.getNationData()]).then(allData => {
-      allData = deepMerge(allData[0], allData[1]);
-      this.setState({
-        tableData: this.formatTableData(allData),
-        tableHeader: this.formatTableHeader(),
-        pageLoading: false
-      });
-    }).catch(errCode => {
-      this.setState({
-        pageLoading: false,
-        tableData: [],
-        tableHeader: [],
-      })
-    });*/
       let searchParams = this.getApiParams();
       let result =getRankFun(searchParams);
       result.then(res => {
-// console.log(res)
           this.setState({
               tableData: this.formatTableData(res.data),
               tableHeader: this.formatTableHeader(),
-              pageLoading: false
+              pageLoading: false,
+              prevTime: res.pages.prev,
+              nextTime: res.pages.next
           });
       }).catch(err => {
           this.setState({

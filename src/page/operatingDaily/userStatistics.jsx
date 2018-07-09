@@ -6,7 +6,7 @@ import SearchBox from '../../components/searchBox/searchBox'
 import ExportFileCom from '../../components/exportFile/exportFile'
 
 import {getFun} from '../../utils/api'
-import {objectToArr, dateDiff} from '../../utils/dataHandle'
+import {objectToArr, dateDiff, milliFormat} from '../../utils/dataHandle'
 import './operating.less'
 
 class UserStatistics extends React.Component{
@@ -172,7 +172,7 @@ class UserStatistics extends React.Component{
             this.setState({
                 load: false,
                 tableData: objectToArr(res.data, arrStr)
-            })
+            }, () => {this.initExportData()})
         }).catch(err => {
             console.log(err)
         })
@@ -213,7 +213,8 @@ class UserStatistics extends React.Component{
         return day;
     }
     render() {
-        let {title, tableData, load, tableHeader, total, pageSize} = this.state;
+        let {title, load, tableHeader, total, pageSize} = this.state;
+        let tableData = milliFormat(this.state.tableData);
         return (
             <div>
                 <div className="operating-wrapper">

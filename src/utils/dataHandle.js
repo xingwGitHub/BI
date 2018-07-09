@@ -4,23 +4,40 @@
 * @param arrStr      不需要向上取整的字段数组
 * @return arr
 * */
-export function objectToArr (obj, arrStr) {
+export function objectToArr (obj, arrStr, flag) {
     let arr = [];
     let keyArr = Object.keys(obj);
     for(let k in keyArr) {
-        arr.push(Object.assign({},{start_time: keyArr[k], key: k}, obj[keyArr[k]]));
+        let oo = obj[keyArr[k]];
+        arr.push(Object.assign({},{start_time: keyArr[k], key: k}, oo));
     }
-    arr.map( item => {
-        Object.keys(item).map( item1 => {
-            if(arrStr.indexOf(item1) > -1){
-                return item[item1];
-            }
-            else {
-                return (item[item1] = Math.ceil(item[item1]));
-            }
-        })
-    });
+    if(!flag){
+        arr.map( item => {
+            Object.keys(item).map( item1 => {
+                if(arrStr.indexOf(item1) > -1){
+                    return item[item1];
+                }
+                else {
+                    return (item[item1] = Math.ceil(item[item1]));
+                }
+            })
+        });
+    }
     return arr.reverse();
+}
+//数字添加千分符
+export function milliFormat(arr) {
+    arr.map( item => {
+        for(let item1 in item){
+            if(item1 == 'key' || item1 == 'start_time'){
+                item[item1] = item[item1]
+            }else {
+                item[item1] = item[item1] && item[item1].toString()
+                    .replace(/^\d+/g, (m) => m.replace(/(?=(?!^)(\d{3})+$)/g, ','))
+            }
+        }
+    });
+    return arr;
 }
 /*
 * 计算两个日期相差多少天，例如：2018-06-01和2018-06-20
