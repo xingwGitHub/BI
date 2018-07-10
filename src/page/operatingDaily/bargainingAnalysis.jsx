@@ -214,7 +214,7 @@ class BargainingAnalysis extends React.Component{
     // 获取接口参数
     getParams() {
         let start, end;
-        start = this.pageStartDate().format("YYYY-MM-DD");
+        start = this.pageStartDate();
         end = this.pageEndDate().format("YYYY-MM-DD");
         const params = {
             start_at: start,
@@ -238,10 +238,12 @@ class BargainingAnalysis extends React.Component{
         copy = moment(this.state.end_at); //复制结束日期的副本
         copy = copy.add(1, 'days'); //查日期为当前结束日期+1天
         dt = copy.subtract(days, 'days');
-        if(this.state.start_at && dt< this.state.start_at) {
+        let bb = dt.format("YYYY-MM-DD");
+        if(this.state.start_at && bb < this.state.start_at) {
             return this.state.start_at;
+        }else {
+            return bb;
         }
-        return dt;
     }
     getTotalPage() {
         let day = dateDiff(this.state.start_at, this.state.end_at);

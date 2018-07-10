@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea915226-dd70-48de-bec7-b10196381440" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/exportFile/exportFile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/exportFile/exportFile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ranking/car_types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ranking/car_types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/searchBox/searchBox.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/searchBox/searchBox.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/orderDistribution.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/orderDistribution.jsx" afterDir="false" />
@@ -14,9 +10,7 @@
       <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/piesAnalysis.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/piesAnalysis.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/userStatistics.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/userStatistics.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/ranking/ranking.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/ranking/ranking.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/dataHandle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/dataHandle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/exportFile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/exportFile.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,86 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="orderDistribution.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderDistribution.jsx">
+      <file leaf-file-name="SiderCustom.jsx" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/SiderCustom.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="404" column="58" lean-forward="true" selection-start-line="404" selection-start-column="8" selection-end-line="404" selection-end-column="58" />
-              <folding>
-                <element signature="e#3#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="orderIncomeCost.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderIncomeCost.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="70">
-              <caret line="8" column="42" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="orderPortrait.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderPortrait.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-              <folding>
-                <element signature="e#1#27#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="piesAnalysis.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/piesAnalysis.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3540">
-              <caret line="244" column="28" selection-start-line="244" selection-start-column="28" selection-end-line="244" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="serviceQualityOfDrivers.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="250" column="28" selection-start-line="250" selection-start-column="28" selection-end-line="250" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="userStatistics.jsx" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/userStatistics.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3225">
-              <caret line="215" column="18" selection-start-line="215" selection-start-column="18" selection-end-line="215" selection-end-column="18" />
-              <folding>
-                <element signature="e#1#27#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="capacityAnalysis.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="42" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bargainingAnalysis.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="254" column="8" selection-start-line="254" selection-start-column="8" selection-end-line="254" selection-end-column="58" />
-              <folding>
-                <element signature="e#2#28#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1465">
+              <caret line="139" column="36" lean-forward="true" selection-start-line="139" selection-start-column="36" selection-end-line="139" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -187,13 +106,13 @@
         <option value="$PROJECT_DIR$/src/page/ranking/ranking.jsx" />
         <option value="$PROJECT_DIR$/src/utils/dataHandle.js" />
         <option value="$PROJECT_DIR$/src/page/operatingDaily/orderIncomeCost.jsx" />
+        <option value="$PROJECT_DIR$/src/page/operatingDaily/userStatistics.jsx" />
+        <option value="$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx" />
+        <option value="$PROJECT_DIR$/src/page/operatingDaily/piesAnalysis.jsx" />
+        <option value="$PROJECT_DIR$/src/page/operatingDaily/orderPortrait.jsx" />
+        <option value="$PROJECT_DIR$/src/page/operatingDaily/orderDistribution.jsx" />
         <option value="$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx" />
         <option value="$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx" />
-        <option value="$PROJECT_DIR$/src/page/operatingDaily/orderDistribution.jsx" />
-        <option value="$PROJECT_DIR$/src/page/operatingDaily/orderPortrait.jsx" />
-        <option value="$PROJECT_DIR$/src/page/operatingDaily/piesAnalysis.jsx" />
-        <option value="$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx" />
-        <option value="$PROJECT_DIR$/src/page/operatingDaily/userStatistics.jsx" />
       </list>
     </option>
   </component>
@@ -214,8 +133,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="39" />
+    <option name="x" value="3" />
+    <option name="y" value="23" />
     <option name="width" value="1260" />
     <option name="height" value="669" />
   </component>
@@ -240,27 +159,13 @@
               <item name="BI" type="b2602c69:ProjectViewProjectNode" />
               <item name="BI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BI" type="b2602c69:ProjectViewProjectNode" />
               <item name="BI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="page" type="462c0819:PsiDirectoryNode" />
-              <item name="operatingDaily" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
-              <item name="ranking" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BI" type="b2602c69:ProjectViewProjectNode" />
@@ -309,15 +214,15 @@
       <updated>1530612254777</updated>
       <workItem from="1530612256382" duration="26725000" />
       <workItem from="1530868514553" duration="5956000" />
-      <workItem from="1531101475837" duration="8047000" />
+      <workItem from="1531101475837" duration="12833000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40728000" />
+    <option name="totallyTimeSpent" value="45514000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="39" width="1260" height="669" extended-state="0" />
+    <frame x="3" y="23" width="1260" height="669" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24939467" />
@@ -476,13 +381,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/SiderCustom.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="145" column="20" lean-forward="true" selection-start-line="145" selection-start-column="20" selection-end-line="145" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/chart/realTimeOrder/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -562,8 +460,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/dataHandle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+        <state relative-caret-position="247">
+          <caret line="54" column="4" lean-forward="true" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -572,8 +470,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="254" column="8" selection-start-line="254" selection-start-column="8" selection-end-line="254" selection-end-column="58" />
+        <state relative-caret-position="169">
+          <caret line="216" column="36" selection-start-line="216" selection-start-column="36" selection-end-line="216" selection-end-column="36" />
           <folding>
             <element signature="e#2#28#0" expanded="true" />
           </folding>
@@ -582,32 +480,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="42" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderIncomeCost.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="8" column="42" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="42" />
+        <state relative-caret-position="284">
+          <caret line="197" column="36" selection-start-line="197" selection-start-column="36" selection-end-line="197" selection-end-column="36" />
+          <folding>
+            <element signature="e#1#27#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderDistribution.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="404" column="58" lean-forward="true" selection-start-line="404" selection-start-column="8" selection-end-line="404" selection-end-column="58" />
+        <state relative-caret-position="129">
+          <caret line="366" column="36" selection-start-line="366" selection-start-column="36" selection-end-line="366" selection-end-column="36" />
           <folding>
             <element signature="e#3#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderIncomeCost.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="542">
+          <caret line="233" column="35" selection-start-line="233" selection-start-column="35" selection-end-line="233" selection-end-column="35" />
+          <folding>
+            <element signature="e#1#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderPortrait.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="176">
+          <caret line="204" column="36" selection-start-line="204" selection-start-column="36" selection-end-line="204" selection-end-column="36" />
           <folding>
             <element signature="e#1#27#0" expanded="true" />
           </folding>
@@ -616,25 +520,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/piesAnalysis.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3540">
-          <caret line="244" column="28" selection-start-line="244" selection-start-column="28" selection-end-line="244" selection-end-column="28" />
+        <state relative-caret-position="206">
+          <caret line="210" column="36" selection-start-line="210" selection-start-column="36" selection-end-line="210" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="250" column="28" selection-start-line="250" selection-start-column="28" selection-end-line="250" selection-end-column="28" />
+        <state relative-caret-position="133">
+          <caret line="216" column="36" selection-start-line="216" selection-start-column="36" selection-end-line="216" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/userStatistics.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3225">
-          <caret line="215" column="18" selection-start-line="215" selection-start-column="18" selection-end-line="215" selection-end-column="18" />
+        <state relative-caret-position="184">
+          <caret line="182" column="36" selection-start-line="182" selection-start-column="36" selection-end-line="182" selection-end-column="36" />
           <folding>
             <element signature="e#1#27#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/SiderCustom.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1465">
+          <caret line="139" column="36" lean-forward="true" selection-start-line="139" selection-start-column="36" selection-end-line="139" selection-end-column="36" />
         </state>
       </provider>
     </entry>

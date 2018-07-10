@@ -51,8 +51,8 @@ export function dateDiff (startDateString, endDateString){
     var endDates = endDateString.split(separator);
     var startDate = new Date(startDates[0], startDates[1]-1, startDates[2]);
     var endDate = new Date(endDates[0], endDates[1]-1, endDates[2]);
-    return parseInt(Math.abs(endDate - startDate ) / 1000 / 60 / 60 /24);//把相差的毫秒数转换为天数
-    // return parseInt(Math.abs(endDate - startDate ) / 1000 / 60 / 60 /24)+1;  // 相差天数包含今天
+    //return parseInt(Math.abs(endDate - startDate ) / 1000 / 60 / 60 /24);//把相差的毫秒数转换为天数
+    return parseInt(Math.abs(endDate - startDate ) / 1000 / 60 / 60 /24)+1;  // 相差天数包含今天
 };
 
 export function dataCeil(data, arr){
