@@ -1,7 +1,6 @@
 
 
 import {message} from 'antd';
-import * as Auth from './Auth';
 import fetchJsonp from 'fetch-jsonp';
 
 import {get} from './http'
@@ -10,8 +9,13 @@ const API_DATAMART_BASE_URL = 'https://datamart1.yongche.com/bi_web_api';
 const API_BI_BASE_URL = 'https://api_bi.yongche.com';
 const API_GRAB_BASE_URL = 'https://grab.yongche.com/api';
 
-const BI_API_BASE_URL = 'https://bi_api.yongche.com/web_api';
-
+const domain = window.location.host;
+let BI_API_BASE_URL = '';
+// if(domain == 'localhost:3000'){
+//     BI_API_BASE_URL = 'https://bi.yongche.com/';
+// }else {
+//     BI_API_BASE_URL = 'https://'+domain;
+// }
 const REQUEST_METHOD_GET = 'GET';
 const REQUEST_METHOD_POST = 'POST';
 
@@ -68,7 +72,7 @@ export const getDatamartData = (params) => {
                 resolve(data.data);
             } else {
                 if (data.msg === '用户未登陆') {
-                    Auth.redirectLogin();
+                    // Auth.redirectLogin();
                 } else {
                     //message.error(data.msg);
                     reject(-3);
@@ -82,7 +86,7 @@ export const getDatamartData = (params) => {
 
 export const getDatamartDim = (params) => {
   return new Promise((resolve, reject) => {
-    request(BI_API_BASE_URL + '/dim_info/city', REQUEST_METHOD_GET, params).then((data) => {
+    request(BI_API_BASE_URL + '/web_api/dim_info/city', REQUEST_METHOD_GET, params).then((data) => {
 
         resolve(data.data);
 
@@ -104,7 +108,7 @@ export const getBiData = (url, params) => {
           reject(400);
           break;
         case 401:
-          Auth.redirectLogin();
+          // Auth.redirectLogin();
           break;
         case 402:
           message.error('BI访问权限已过期');

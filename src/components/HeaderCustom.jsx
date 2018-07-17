@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import { Menu, Icon, Layout, Popover, Avatar, Tabs, List, Modal, Button } from 'antd';
 import screenfull from 'screenfull';
-import { gitOauthToken, gitOauthInfo } from '../axios';
-import { queryString } from '../utils';
 import SiderCustom from './SiderCustom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -14,7 +12,9 @@ const TabPane = Tabs.TabPane;
 
 class HeaderCustom extends Component {
     state = {
-        user: '',
+        flag: false,
+        userName: '张三',
+        userID: 0,
         visible: false,
         messageFlag: false,
         visibleDetail: false,
@@ -26,37 +26,12 @@ class HeaderCustom extends Component {
         ]
     };
     componentDidMount() {
-        const QueryString = queryString();
-        // if (QueryString.hasOwnProperty('code')) {
-        //     console.log(QueryString);
-        //     const _user = JSON.parse(localStorage.getItem('user'));
-        //     !_user && gitOauthToken(QueryString.code).then(res => {
-        //         console.log(res);
-        //         gitOauthInfo(res.access_token).then(info => {
-        //             this.setState({
-        //                 user: info
-        //             });
-        //             localStorage.setItem('user', JSON.stringify(info));
-        //         });
-        //     });
-        //     _user && this.setState({
-        //         user: _user
-        //     });
-        // }
-        const _user = JSON.parse(localStorage.getItem('user')) || '测试';
-        if (!_user && QueryString.hasOwnProperty('code')) {
-            gitOauthToken(QueryString.code).then(res => {
-                gitOauthInfo(res.access_token).then(info => {
-                    this.setState({
-                        user: info
-                    });
-                    localStorage.setItem('user', JSON.stringify(info));
-                });
-            });
-        } else {
+        let userName = localStorage.getItem("userInfo");
+        if(userName){
             this.setState({
-                user: _user
-            });
+                userName: userName.name,
+                userID: userName.id
+            })
         }
     };
     screenFull = () => {
@@ -106,7 +81,7 @@ class HeaderCustom extends Component {
     }
     render() {
         const { responsive, path  } = this.props;
-        const {messageData, messageFlag, details} = this.state;
+        const {messageData, messageFlag, details, userName} = this.state;
         const content = (
             <Tabs defaultActiveKey="1" onChange={this.headerTabCallback}>
                 <TabPane tab="系统公告" key="1">
@@ -128,17 +103,12 @@ class HeaderCustom extends Component {
         return (
             <Header style={{ background: '#fff', padding: 0, height: 65 }} className="custom-theme" >
                 {
-                    responsive.data.isMobile ? (
-                        <Popover content={<SiderCustom path={path} popoverHide={this.popoverHide} />} trigger="click" placement="bottomLeft" visible={this.state.visible} onVisibleChange={this.handleVisibleChange}>
-                            <Icon type="bars" className="trigger custom-trigger" />
-                        </Popover>
-                    ) : (
+
                         <Icon
                             className="trigger custom-trigger"
                             type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
                             onClick={this.props.toggle}
                         />
-                    )
                 }
                 <Menu
                     mode="horizontal"
@@ -146,7 +116,7 @@ class HeaderCustom extends Component {
                     onClick={this.menuClick}
                 >
 
-                    <SubMenu title={<p><Avatar icon="user" size="small"></Avatar><span className="username">张三</span></p>}>
+                    <SubMenu title={<p><Avatar icon="user" size="small"></Avatar><span className="username">{userName}</span></p>}>
                         <MenuItemGroup title="">
                             {/*<Menu.Item key="setting:1">你好 - {this.props.user.userName}</Menu.Item>*/}
                             <Menu.Item key="user"><Icon type="user" />个人中心</Menu.Item>
@@ -289,9 +259,6 @@ class HeaderCustom extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    const { responsive = {data: {}} } = state.httpData;
-    return {responsive};
-};
 
-export default withRouter(connect(mapStateToProps)(HeaderCustom));
+
+export default withRouter(connect()(HeaderCustom));

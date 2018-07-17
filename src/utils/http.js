@@ -2,12 +2,16 @@ import axios from 'axios'
 import qs from 'qs'
 import {message} from 'antd';
 import 'promise'
-import * as Auth from "./Auth";
 
-axios.defaults.baseURL = 'https://bi_api.yongche.com/';
-
-const BI_API_BASE_URL = 'https://bi_api.yongche.com/web_api';
-
+const domain = window.location.host;
+let BI_API_BASE_URL = '';
+// if(domain == 'localhost:3000'){
+//     // BI_API_BASE_URL = 'https://bi.yongche.com/';
+//     // axios.defaults.baseURL = 'https://bi.yongche.com/';
+// }else {
+//     BI_API_BASE_URL = 'https://'+domain;
+//     axios.defaults.baseURL = 'https://'+domain;
+// }
 export function get(url, params) {
     return new Promise((resolve, reject) => {
         axios.get(url, {
@@ -22,7 +26,7 @@ export function get(url, params) {
 export function getRankFun(params) {
     let path = window.location.hash.split('/').slice(3).join('/').trim();
     return new Promise((resolve, reject) => {
-        axios.get(BI_API_BASE_URL + '/' +path, {
+        axios.get(BI_API_BASE_URL + 'web_api/' +path, {
             params: params
         }).then(res => {
             resolve(res.data)
@@ -35,7 +39,7 @@ export function getRankFun(params) {
 export function getCityFun() {
     let path = window.location.hash.split('/').slice(3).join('/').trim();
     return new Promise((resolve, reject) => {
-        axios.get(BI_API_BASE_URL + '/dim_info/city' +path, {
+        axios.get(BI_API_BASE_URL + 'web_api/dim_info/city' +path, {
             //params: params
         }).then(res => {
             // resolve(res.data)

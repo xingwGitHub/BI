@@ -23,10 +23,11 @@ const AddEditForm = Form.create()(
             }else{
                 popValues = popValues;
             }
+            const { TextArea } = Input;
             const { getFieldDecorator } = form;
             const formItemLayout = {
-                labelCol: { span: 4 },
-                wrapperCol: { span: 20 },
+                labelCol: { span: 5 },
+                wrapperCol: { span: 19 },
             }
             const validFunction = (rule, value, callback) => {
                 if(value){
@@ -80,7 +81,7 @@ const AddEditForm = Form.create()(
                                 }],
                                 initialValue: popValues.describe
                             })(
-                                <Input type="textarea" autosize={{ minRows: 2,maxRows:4}}/>
+                                <TextArea rows={2}/>
                             )}
                         </FormItem>
                         <FormItem label="公告内容" {...formItemLayout}>
@@ -91,7 +92,7 @@ const AddEditForm = Form.create()(
                                 }],
                                 initialValue: popValues.detail
                             })(
-                                <Input type="textarea" autosize={{ minRows: 2}}/>
+                                <TextArea rows={4}/>
                             )}
                         </FormItem>
                         <FormItem label="创建人" {...formItemLayout}>
@@ -140,8 +141,8 @@ export default class SystemNotice extends Component {
         this.getTableData();
     }
     // 排序
-    handleChange = (pagination, sorter) => {
-        console.log('Various parameters', pagination, sorter);
+    handleSortChange = (pagination, sorter) => {
+        console.log('排序', pagination, sorter);
         this.setState({
             sortedInfo: sorter,
         });
@@ -156,6 +157,7 @@ export default class SystemNotice extends Component {
     // }
     // 点击查询
     //点击查询
+    // 查询
     searchBtn() {
         let params = {
             title: this.state.inputTitle,
@@ -191,23 +193,23 @@ export default class SystemNotice extends Component {
             this.getTableData()
         })
     }
-    onShowSizeChange(current, size) {
-        this.setState({
-            pageSize: size,
-            current: current,
-            load: true
-        }, () => {
-            this.getTableData();
-        });
-    }
+    // onShowSizeChange(current, size) {
+    //     this.setState({
+    //         pageSize: size,
+    //         current: current,
+    //         load: true
+    //     }, () => {
+    //         this.getTableData();
+    //     });
+    // }
     // 获取表格数据
     getTableData(params) {
-        // let result =getFun('/web_api/system_informs/informs_list',params);
+        // let result =getFun('system/informs/list',params);
         // result.then(res => {
         //     console.log(res)
         //     this.setState({
         //         load: false,
-        //         tableData: res.data
+        //         tableData: res.data.data
         //
         //     })
         // }).catch(err => {
@@ -256,7 +258,7 @@ export default class SystemNotice extends Component {
         // console.log(idx,txt)
         let params = {
             id: txt.id,
-            create_id: txt.create_id
+            // create_id: txt.create_id
         };
 
         confirm({
@@ -277,7 +279,7 @@ export default class SystemNotice extends Component {
                 _this.setState({
                     tableData:tableData2
                 })
-                // let result =getFun('/web_api/system_informs/informs_stop',params);
+                // let result =getFun('system/informs/stop',params);
                 // result.then(res => {
                 //     if(res.data[0]){
                 //         let tableData2 = tableData;
@@ -302,7 +304,13 @@ export default class SystemNotice extends Component {
     }
     //添加公告
     addNotice(params) {
-        let result =getFun('/web_api/system_informs/informs_add',params);
+        let url = '';
+        if (this.state.btnFlag == 1){
+            url = 'system／informs/edit';
+        }else{
+            url = 'system／informs/add';
+        }
+        let result =getFun(url,params);
         result.then(res => {
             console.log(res)
         }).catch(err => {
@@ -330,10 +338,10 @@ export default class SystemNotice extends Component {
                 title: values.title,
                 desc: values.desc,
                 detail: values.detail,
-                create_id: this.state.noticeCreatorId,
-                create_name: this.state.noticeCreator
+                // create_id: this.state.noticeCreatorId,
+                // create_name: this.state.noticeCreator
             };
-            //添加
+            //添加/编辑
             this.addNotice(parameter);
             form.resetFields();
             this.setState({ visible: false });
@@ -420,7 +428,7 @@ export default class SystemNotice extends Component {
                             </Col>
                         </Row>
                         <div>
-                            <Table onChange={this.handleChange} dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
+                            <Table onChange={this.handleSortChange} dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
 
                             </Table>
                         </div>

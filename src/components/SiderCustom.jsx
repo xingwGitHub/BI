@@ -88,7 +88,7 @@ class SiderCustom extends Component {
             {
                 key: '/app/systemManage', title: '系统中心', icon: 'appstore-o',
                 sub: [
-                    { key: '/app/systemManage/systemNotice', title: '系统公告'}
+                    { key: '/app/systemManage/systemNotice', title: '系统公告', menuID: 'web_api/system_informs/informs_list'}
                 ]
             }
         ]
@@ -144,7 +144,6 @@ class SiderCustom extends Component {
         // this.getMenuItem();
     }
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         this.onCollapse(nextProps.collapsed);
         this.setMenuOpen(nextProps)
     }
