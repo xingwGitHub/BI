@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Layout } from 'antd';
+import { Layout, LocaleProvider } from 'antd';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
 import './style/index.less';
 import 'antd/dist/antd.css';
 import SiderCustom from './components/SiderCustom';
@@ -8,7 +10,10 @@ import { receiveData } from './action';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Routes from './routes';
+import {getFun} from './utils/api'
+import NoticeBox from "./components/noticeBox";
 const { Content, Footer } = Layout;
+
 
 class App extends Component {
     state = {
@@ -23,31 +28,24 @@ class App extends Component {
         this.getClientWidth();
         window.onresize = () => {
             console.log('屏幕变化了');
-            this.getClientWidth();
             // console.log(document.body.clientWidth);
         }
+        this.getInitData();
     }
     componentDidMount() {
-        // const openNotification = () => {
-        //     notification.open({
-        //       message: '博主-yezihaohao',
-        //       description: (
-        //           <div>
-        //               <p>
-        //                   GitHub地址： <a href="https://github.com/yezihaohao" target="_blank" rel="noopener noreferrer">https://github.com/yezihaohao</a>
-        //               </p>
-        //               <p>
-        //                   博客地址： <a href="https://yezihaohao.github.io/" target="_blank" rel="noopener noreferrer">https://yezihaohao.github.io/</a>
-        //               </p>
-        //           </div>
-        //       ),
-        //       icon: <Icon type="smile-circle" style={{ color: 'red' }} />,
-        //       duration: 0,
-        //     });
-        //     localStorage.setItem('isFirst', JSON.stringify(true));
-        // };
-        // const isFirst = JSON.parse(localStorage.getItem('isFirst'));
-        // !isFirst && openNotification();
+    }
+    getInitData(){
+        let initData = getFun('/index/init');
+        initData.then(res => {
+            if(res.code === 0){
+                localStorage.setItem("userInfo",res.data.userInfo);
+                localStorage.setItem("systemNotice",res.data.informs);
+            }else if(res.code == 100){
+                // window.location.href='https://sso.yongche.com/'
+            }
+        }).catch(err => {
+            console.log(err)
+        })
     }
     getClientWidth = () => {    // 获取当前浏览器宽度并设置responsive管理响应式
         const { receiveData } = this.props;
@@ -64,7 +62,10 @@ class App extends Component {
         // console.log(this.props.responsive);
         const { auth, responsive } = this.props;
         return (
+            <LocaleProvider locale={zhCN}>
+
             <Layout>
+                <NoticeBox></NoticeBox>
                 {!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} />}
                 <Layout style={{flexDirection: 'column'}}>
                     <HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} user={auth.data || {}} />
@@ -88,6 +89,7 @@ class App extends Component {
                     )
                 } */}
             </Layout>
+            </LocaleProvider>
         );
     }
 }

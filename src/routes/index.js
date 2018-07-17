@@ -17,6 +17,8 @@ import ServiceQualityOfDrivers from '../page/operatingDaily/serviceQualityOfDriv
 import UserStatistics from '../page/operatingDaily/userStatistics';
 // 排行榜
 import Ranking from '../page/ranking/ranking';
+// 系统中心-系统公告
+import SystemNotice from '../page/systemManage/systemNotice';
 
 
 
@@ -76,6 +78,8 @@ export default class CRouter extends Component {
                 {/*<Route exact path="/app/auth/basic" component={AuthBasic} />*/}
                 {/*<Route exact path="/app/auth/routerEnter" component={(props) => this.requireAuth('auth/testPage', <RouterEnter {...props} />)} />*/}
 
+
+                <Route exact path="/app/systemManage/systemNotice" component={SystemNotice} />
 
                 {/*<Route render={() => <Redirect to="/404" />} />*/}
             </Switch>

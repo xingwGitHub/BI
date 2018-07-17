@@ -31,7 +31,7 @@ class PaginationCom extends React.Component{
     render(){
         return(
             <div className="pagination-wrapper">
-                <Pagination pageSize={this.state.pageSize} size="small" total={this.state.total} showSizeChanger showQuickJumper
+                <Pagination pageSize={this.state.pageSize} size="small" total={this.state.total}  showQuickJumper
                  onChange={this.handlePage.bind(this)} showSizeChanger={true} onShowSizeChange={this.onShowSizeChange.bind(this)} showQuickJumper
                 />
             </div>

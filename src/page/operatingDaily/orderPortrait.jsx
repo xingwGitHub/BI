@@ -47,7 +47,7 @@ class Portrait extends React.Component{
             searchParams: {},
             tableHeader: [
                 {
-                    title: '统计日期', dataIndex: 'start_time', key: 'start_time'
+                    title: '统计日期', dataIndex: 'start_time', key: 'start_time',  width: '100px'
                 },
                 {
                     title: '订单概览',
@@ -249,7 +249,7 @@ class Portrait extends React.Component{
                     <Card title={title}  bordered={false}>
 
                         <Row gutter={16}>
-                            <Col span={14}>
+                            <Col span={16}>
                                 <div>
                                     <SearchBox searchParams={params => this.searchParams(params)}></SearchBox>
                                 </div>
@@ -259,7 +259,7 @@ class Portrait extends React.Component{
                                     </RadioGroup>
                                 </div>
                             </Col>
-                            <Col span={10}>
+                            <Col span={8}>
                                 <Button type="primary" onClick={this.searchBtn.bind(this)}>查询</Button>
                             </Col>
                         </Row>
@@ -274,7 +274,7 @@ class Portrait extends React.Component{
                                     <ExportFileCom params={this.state.exportParams}></ExportFileCom>
                                 </Col>
                                 <Col span={14} style={{textAlign: 'right'}}>
-                                    <Pagination size="small" total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize} showSizeChanger={true} onShowSizeChange={this.onShowSizeChange.bind(this)} showQuickJumper></Pagination>
+                                    <Pagination size="small" total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
                                 </Col>
                             </Row>
                         </div>
