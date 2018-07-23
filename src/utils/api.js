@@ -1,21 +1,19 @@
 
-
+import axios from 'axios'
 import {message} from 'antd';
-import fetchJsonp from 'fetch-jsonp';
+import 'promise'
 
-import {get} from './http'
-
-const API_DATAMART_BASE_URL = 'https://datamart1.yongche.com/bi_web_api';
+// const API_DATAMART_BASE_URL = 'https://datamart1.yongche.com/bi_web_api';
 const API_BI_BASE_URL = 'https://api_bi.yongche.com';
-const API_GRAB_BASE_URL = 'https://grab.yongche.com/api';
+// const API_GRAB_BASE_URL = 'https://grab.yongche.com/api';
 
 const domain = window.location.host;
 let BI_API_BASE_URL = '';
-// if(domain == 'localhost:3000'){
-//     BI_API_BASE_URL = 'https://bi.yongche.com/';
-// }else {
-//     BI_API_BASE_URL = 'https://'+domain;
-// }
+if(domain === 'localhost:3000'){
+    BI_API_BASE_URL = 'http://test.bi.yongche.com';
+}else {
+    BI_API_BASE_URL = 'http://'+domain;
+}
 const REQUEST_METHOD_GET = 'GET';
 const REQUEST_METHOD_POST = 'POST';
 
@@ -129,15 +127,38 @@ export const getBiData = (url, params) => {
   });
 };
 
-export const removeCookieByGrab = () => {
-  fetchJsonp(API_GRAB_BASE_URL + '/auth/remove_cookie');
-};
-
-export const setCookieByJsonp = () => {
-  fetchJsonp(API_GRAB_BASE_URL + '/auth/set_cookie');
-};
 
 export function getFun(url, params) {
     const result = get(url, params);
     return result;
+}
+
+export function get(url, params) {
+    return new Promise((resolve, reject) => {
+
+        axios.get(BI_API_BASE_URL+url, {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+            withCredentials: true,
+            params: params
+        }).then(res => {
+            resolve(res.data)
+        }).catch(err => {
+            console.log(err)
+            message.error(err);
+        })
+    })
+}
+export function getRankFun(params) {
+    let path = window.location.hash.split('/').slice(3).join('/').trim();
+    return new Promise((resolve, reject) => {
+        axios.get(BI_API_BASE_URL + '/web_api/' +path, {
+            params: params
+        }).then(res => {
+            resolve(res.data)
+        }).catch(err => {
+            message.error(err);
+        })
+    })
 }

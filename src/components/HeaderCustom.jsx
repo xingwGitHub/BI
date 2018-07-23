@@ -1,37 +1,61 @@
 
 import React, { Component } from 'react';
-import { Menu, Icon, Layout, Popover, Avatar, Tabs, List, Modal, Button } from 'antd';
+import {Icon, Layout, Avatar, Tabs, List, Modal } from 'antd';
 import screenfull from 'screenfull';
-import SiderCustom from './SiderCustom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 const { Header } = Layout;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 const TabPane = Tabs.TabPane;
 
 class HeaderCustom extends Component {
-    state = {
-        flag: false,
-        userName: '张三',
-        userID: 0,
-        visible: false,
-        messageFlag: false,
-        visibleDetail: false,
-        details:{},
-        messageData: [
-            {title: '通知1', descriptions: '通知内容通知内容通知通知内容通知内容通知通知内容通知内容通知通知内容通知内容通知', content: '概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1概要1'},
-            {title: '通知2', descriptions: '概要2概要2概要2概要2概要2概要2', content: '概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2概要2'},
-            {title: '通知3', descriptions: '概要概要概要概要', content: '概要概要概要概要'}
-        ]
-    };
-    componentDidMount() {
-        let userName = localStorage.getItem("userInfo");
+    constructor(props){
+        super(props);
+        this.state = {
+            flag: false,
+            userName: '',
+            userID: 0,
+            visible: false,
+            messageFlag: false,
+            visibleDetail: false,
+            details:{},
+            messageDataArr: [],
+            messageData: []
+        };
+    }
+    componentWillMount(){
+        let userInfo = this.props.userInfo;
+        let informs = this.props.informs;
+        let userName = userInfo.name;
         if(userName){
             this.setState({
-                userName: userName.name,
-                userID: userName.id
+                userName: userName,
+                userID: userInfo.id
             })
+        }
+        if(informs && informs.length) {
+            if(informs.length > 3){
+                this.setState({
+                    messageData: informs.slice(0,3)
+                })
+            }else {
+                this.setState({
+                    messageData: informs
+                })
+            }
+        }
+    }
+    componentDidMount() {
+
+        let _this = this;
+        document.onclick=function(e){
+            _this.setState({
+                messageFlag: false
+            })
+            if(e.target.id === 'bell'){
+                _this.setState({
+                    messageFlag: true
+                })
+            }
         }
     };
     screenFull = () => {
@@ -41,7 +65,6 @@ class HeaderCustom extends Component {
 
     };
     menuClick = e => {
-        console.log(e);
         e.key === 'logout' && this.logout();
     };
     logout = () => {
@@ -57,15 +80,15 @@ class HeaderCustom extends Component {
         this.setState({ visible });
     };
     // 点击头部消息，显示消息列表
-    bellClick(){
+    bellClick(e){
+        e.stopPropagation();
         this.setState({
-            messageFlag: !this.state.messageFlag
+            messageFlag: true
         })
     }
 
     // 头部消息通知弹出列表，TAB切换
     headerTabCallback(key){
-        console.log(key)
     }
     // 点击公告查看详情
     messageDetailClick(item){
@@ -80,9 +103,9 @@ class HeaderCustom extends Component {
         });
     }
     render() {
-        const { responsive, path  } = this.props;
         const {messageData, messageFlag, details, userName} = this.state;
-        const content = (
+
+        let content = (
             <Tabs defaultActiveKey="1" onChange={this.headerTabCallback}>
                 <TabPane tab="系统公告" key="1">
                     <List
@@ -92,7 +115,7 @@ class HeaderCustom extends Component {
                             <List.Item actions={[<a onClick={this.messageDetailClick.bind(this, item)}>查看详情</a>]}>
                                 <List.Item.Meta
                                     title={<span>{item.title}</span>}
-                                    description={<span>{item.descriptions}</span>}
+                                    description={<span>{item.describe}</span>}
                                 />
                             </List.Item>
                         )}
@@ -110,28 +133,13 @@ class HeaderCustom extends Component {
                             onClick={this.props.toggle}
                         />
                 }
-                <Menu
-                    mode="horizontal"
-                    style={{ height: '50px', float: 'right', marginRight: '20px', marginTop:'14px' }}
-                    onClick={this.menuClick}
-                >
-
-                    <SubMenu title={<p><Avatar icon="user" size="small"></Avatar><span className="username">{userName}</span></p>}>
-                        <MenuItemGroup title="">
-                            {/*<Menu.Item key="setting:1">你好 - {this.props.user.userName}</Menu.Item>*/}
-                            <Menu.Item key="user"><Icon type="user" />个人中心</Menu.Item>
-                            <Menu.Item key="setting"><Icon type="setting" />设置</Menu.Item>
-
-                        </MenuItemGroup>
-                        <MenuItemGroup title="">
-                            <Menu.Item key="logout"><span onClick={this.logout}><Icon type="logout"/>退出登录</span></Menu.Item>
-                        </MenuItemGroup>
-                    </SubMenu>
-                </Menu>
-                <div className="popover-wrapper">
-                    <a className="bell-wrapper"><Icon type="bell" className="bell" onClick={this.bellClick.bind(this)}></Icon></a>
-                    <div className={messageFlag? 'message-box active' : 'message-box'}>{content}</div>
-                </div>
+                <p className="user-info"><Avatar icon="user" size="small"></Avatar><span className="username">{userName}</span></p>
+                {
+                    messageData?(<div className="popover-wrapper">
+                        <a className="bell-wrapper"><Icon type="bell" className="bell" id="bell" onClick={this.bellClick.bind(this)}></Icon></a>
+                        <div className={messageFlag? 'message-box active' : 'message-box'}>{content}</div>
+                    </div>):''
+                }
                     <Modal
                         className="details-modal"
                         title="公告详情"
@@ -143,20 +151,22 @@ class HeaderCustom extends Component {
                     >
                         <div className="notice-wrapper ">
                             <p><span className="detail-title">标题：</span><span className="detail-title-txt">{details.title}</span></p>
-                            <p><span className="detail-title">通告概要：</span><span className="detail-title-txt">{details.descriptions}</span></p>
-                            <p><span className="detail-title">通告内容：</span><span className="detail-title-txt">{details.content}</span></p>
+                            <p><span className="detail-title">通告概要：</span><span className="detail-title-txt">{details.describe}</span></p>
+                            <p><span className="detail-title">通告内容：</span><span className="detail-title-txt">{details.detail}</span></p>
+                            <p><span className="detail-title">创建人：</span><span className="detail-title-txt">{details.create_name}</span></p>
                         </div>
                     </Modal>
                 <style>{`
                     .popover-wrapper{
                         float: right;
+                        margin-right: 10px;
                         position: relative;
                     }
                     .bell-wrapper{
                         color: #666;
                     }
                     .message-box{
-                        width: 300px;
+                        width: 350px;
                         position: absolute;
                         top: 70px;
                         right: -100px;
@@ -190,7 +200,7 @@ class HeaderCustom extends Component {
                     }
                     .ant-avatar-sm.ant-avatar-icon{
                         float: left;
-                        margin: 7px 8px 0 0;
+                        margin: 20px 8px 0 0;
                     }
                     .bell{
                         float: right;
@@ -200,7 +210,6 @@ class HeaderCustom extends Component {
                     }
                     .username{
                         float: left;
-                        margin-top: -4px;
                     }
                     .ant-popover-placement-bottom, .ant-popover-placement-bottomLeft, .ant-popover-placement-bottomRight{
                         width: 300px;
@@ -252,6 +261,15 @@ class HeaderCustom extends Component {
                     }
                     .details-modal .ant-modal-footer .ant-btn-primary{
                         visibility: visible;
+                    }
+                    .ant-layout p.user-info{
+                        height: 65px;
+                        float: right;
+                        margin-right: 20px;
+                        line-height: 65px;
+                    }
+                    .ant-list-item-action{
+                        margin-left: 20px;
                     }
                 `}</style>
             </Header>

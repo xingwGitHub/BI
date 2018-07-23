@@ -253,21 +253,21 @@ class IncomeAndCost extends React.Component{
         <div className="operating-wrapper">
           <Card title={title}  bordered={false}>
 
-            <Row gutter={16}>
-                <Col span={16}>
-                    <div>
-                        <SearchBox searchParams={params => this.searchParams(params)}></SearchBox>
-                    </div>
-                    <div className="cartype-wrapper">
-                        <RadioGroup onChange={this.carTypeChange.bind(this)} defaultValue='0' >
-                            {radioChildren}
-                        </RadioGroup>
-                    </div>
-                </Col>
-                <Col span={8}>
-                    <Button type="primary" onClick={this.searchBtn.bind(this)}>查询</Button>
-                </Col>
-            </Row>
+              <div className="search-content">
+                  <div className="search-wrapper">
+                      <div>
+                          <SearchBox searchParams={params => this.searchParams(params)}></SearchBox>
+                      </div>
+                      <div className="cartype-wrapper">
+                          <RadioGroup onChange={this.carTypeChange.bind(this)} defaultValue='0' >
+                              {radioChildren}
+                          </RadioGroup>
+                      </div>
+                  </div>
+                  <div className="search-btn-wrapper">
+                      <Button type="primary"  icon='search' onClick={this.searchBtn.bind(this)}>查询</Button>
+                  </div>
+              </div>
             <div>
                 <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
 
@@ -279,7 +279,7 @@ class IncomeAndCost extends React.Component{
                        <ExportFileCom params={this.state.exportParams}></ExportFileCom>
                     </Col>
                     <Col span={14} style={{textAlign: 'right'}}>
-                        <Pagination size="small" total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}   showQuickJumper></Pagination>
+                        <Pagination size="small" current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}   showQuickJumper></Pagination>
                     </Col>
                 </Row>
             </div>

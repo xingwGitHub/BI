@@ -7,17 +7,26 @@ class NoticeBox extends React.Component {
     state = {
         visibleDetail: false,
         details: {},
-        notificationData: [
-            {id: 1,message: '通知标题通知标题', description: '通知内容通知内容通知通知内容通知内容通知通知内容通知内容通知通知内容通知内容通知', content: '通知内容通知内容通知通知内容通知内容通知通知内容通知内容通知通知内容通知内容通知'},
-            {id: 2,message: '通知标题通知标题1', description: '通知内容3通知内容通知通知内容通知内容通知通知内容通知内容通知通知内容通知内容通知', content: '通知内容22通知内容通知通知内容通知内容通知通知内容通知内容通知通知内容通知内容通知'},
-            {id: 3,message: '通知标题通知标题2', description: '通知内容通3知内容通知通知内容通知内容通知通知内容通知内容通知通知内容通知内容通知', content: '通知内容通33知内容通知通知内容通知内容通知通知内容通知内容通知通知内容通知内容通知'}
-        ]
+        notificationData: []
     };
+    componentWillMount(){
+        let informs = this.props.informs;
+        if(informs && informs.length) {
+            if(informs.length > 5){
+                this.setState({
+                    notificationData: informs.slice(0,5)
+                })
+            }else {
+                this.setState({
+                    notificationData: informs
+                })
+            }
+        }
+    }
     componentDidMount() {
         this.openNotification();
     }
     close() {
-        console.log('关闭');
     };
     notificationClick(item){
         // notification.close(item.id);
@@ -42,8 +51,8 @@ class NoticeBox extends React.Component {
                 </div>
             );
             notification.open({
-                message: item.message,
-                description: item.description,
+                message: item.title,
+                description: item.describe,
                 icon: <Icon type="info-circle-o" style={{ color: '#108ee9' }} />,
                 btn,
                 key,
@@ -76,13 +85,19 @@ class NoticeBox extends React.Component {
                     okText="关闭"
                 >
                     <div className="notice-wrapper">
-                        <p><span className="detail-title">标题：</span><span className="detail-title-txt">{details.message}</span></p>
-                        <p><span className="detail-title">通告概要：</span><span className="detail-title-txt">{details.description}</span></p>
-                        <p><span className="detail-title">通告内容：</span><span className="detail-title-txt">{details.content}</span></p>
+                        <p><span className="detail-title">标题：</span><span className="detail-title-txt">{details.title}</span></p>
+                        <p><span className="detail-title">通告概要：</span><span className="detail-title-txt">{details.describe}</span></p>
+                        <p><span className="detail-title">通告内容：</span><span className="detail-title-txt">{details.detail}</span></p>
+                        <p><span className="detail-title">创建人：</span><span className="detail-title-txt">{details.create_name}</span></p>
                     </div>
                 </Modal>
                 <style>{`
-
+                    .checkMore:active, .checkMore.active,
+                    .checkMore:focus, .checkMore.focus{
+                        color: #49a9ee;
+                        background: none!important;
+                        border: none!important;
+                    }
                 `}</style>
             </div>
 

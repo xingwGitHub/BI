@@ -86,7 +86,6 @@ class SearchBox extends React.Component{
             selectedStartDate: dateStrings[0],
             selectedEndDate: dateStrings[1]
         }
-        console.log(param)
         this.props.searchParams(param)
     }
     disabledDate(current) {
@@ -99,24 +98,22 @@ class SearchBox extends React.Component{
             cityOption.push(<Option key={item}>{cityOptionData[item]}</Option>)
         } )
         return (
-            <div>
-                <Row gutter={16}>
-                    <Col span={8}>
-                        <label>城市：</label>
-                        <Select defaultValue='全国' style={{width: 120}} onChange={this.handleChange.bind(this)}>
-                            {cityOption}
-                        </Select>
-                    </Col>
-                    <Col span={16}>
-                        <label>时间范围：</label>
-                        <RangePicker
-                            value={[selectedStartDate, selectedEndDate]}
-                            format={dateFormat}
-                            onChange={this.handlePickerChange.bind(this)}
-                            disabledDate={this.disabledDate.bind(this)}
-                        />
-                    </Col>
-                </Row>
+            <div className="search-box-wrapper">
+                <div className="city-select">
+                    <label>城市：</label>
+                    <Select defaultValue='全国' style={{width: 120}} onChange={this.handleChange.bind(this)}>
+                        {cityOption}
+                    </Select>
+                </div>
+                <div className="time-range">
+                    <label>时间范围：</label>
+                    <RangePicker
+                        value={[selectedStartDate, selectedEndDate]}
+                        format={dateFormat}
+                        onChange={this.handlePickerChange.bind(this)}
+                        disabledDate={this.disabledDate.bind(this)}
+                    />
+                </div>
             </div>
         )
     }

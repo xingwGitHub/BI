@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Select, Card, Button, Icon, Table} from 'antd';
 import moment from 'moment';
 
-import {getRankFun} from '../../utils/http'
 
 import * as carType from '../../components/ranking/car_types';
 import * as navMenu from '../../components/ranking/navs';
@@ -136,7 +135,7 @@ export default class Ranking extends Component {
       pageLoading: true,
     });
       let searchParams = this.getApiParams();
-      let result =getRankFun(searchParams);
+      let result =api.getRankFun(searchParams);
       result.then(res => {
           this.setState({
               tableData: this.formatTableData(res.data),
@@ -287,14 +286,21 @@ export default class Ranking extends Component {
   }
 
   componentWillMount() {
+      let cityData = JSON.parse(localStorage.getItem("cityData"))
+      if(cityData){
+          cityData['allcity'] = '全国';
+          this.setState({
+              allCities: cityData,
+          },()=>console.log(this.state.allCities));
+      }else {
+          city.getAllCities().then(cities => {
+              this.setState({
+                  allCities: cities,
+              });
+          });
+      }
     this.setState({
       carTypes: carType.getCarTypes(),
-    });
-
-    city.getAllCities().then(cities => {
-      this.setState({
-        allCities: cities,
-      });
     });
 
     // let result = getCityFun();

@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 // import { Router, Route, hashHistory, IndexRedirect } from 'react-router';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 // 实时数据概况
 import Order from '../page/realTimeData/order';
@@ -19,6 +19,10 @@ import UserStatistics from '../page/operatingDaily/userStatistics';
 import Ranking from '../page/ranking/ranking';
 // 系统中心-系统公告
 import SystemNotice from '../page/systemManage/systemNotice';
+// 系统中心-权限管理
+import RightsManageRole from '../page/systemManage/rightsManageRole';
+import RightsManageUser from '../page/systemManage/rightsManageUser';
+import RightsManageModule from '../page/systemManage/rightsManageModule';
 
 
 
@@ -80,6 +84,9 @@ export default class CRouter extends Component {
 
 
                 <Route exact path="/app/systemManage/systemNotice" component={SystemNotice} />
+                <Route exact path="/app/systemManage/rightsManage/role" component={RightsManageRole} />
+                <Route exact path="/app/systemManage/rightsManage/user" component={RightsManageUser} />
+                <Route exact path="/app/systemManage/rightsManage/module" component={RightsManageModule} />
 
                 {/*<Route render={() => <Redirect to="/404" />} />*/}
             </Switch>

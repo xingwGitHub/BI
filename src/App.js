@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Layout, LocaleProvider } from 'antd';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
-import './style/index.less';
 import 'antd/dist/antd.css';
+import './style/index.less';
 import SiderCustom from './components/SiderCustom';
 import HeaderCustom from './components/HeaderCustom';
 import { connect } from 'react-redux';
@@ -14,23 +14,29 @@ const { Content, Footer } = Layout;
 
 
 class App extends Component {
-    state = {
-        collapsed: false,
-    };
-    componentWillMount() {
-
-        this.getInitData();
+    constructor(props){
+        super(props);
+        this.state = {
+            collapsed: false,
+            userInfo: '',
+            informs: ''
+        };
     }
-    componentDidMount() {
+
+    componentWillMount() {
+        this.getInitData();
     }
     getInitData(){
         let initData = getFun('/index/init');
         initData.then(res => {
             if(res.code === 0){
-                localStorage.setItem("userInfo",res.data.userInfo);
-                localStorage.setItem("systemNotice",res.data.informs);
-            }else if(res.code == 100){
-                // window.location.href='https://sso.yongche.com/'
+                this.setState({
+                    userInfo: res.data.userInfo,
+                    informs: res.data.informs
+                })
+
+            }else if(res.code === 100){
+                window.location.href='/index.php/index/login'
             }
         }).catch(err => {
             console.log(err)
@@ -42,16 +48,18 @@ class App extends Component {
         });
     };
     render() {
-        // console.log(this.props.auth);
-        // console.log(this.props.responsive);
+        const {userInfo,informs} = this.state;
+
         return (
             <LocaleProvider locale={zhCN}>
 
             <Layout>
-                <NoticeBox></NoticeBox>
+                {informs?<NoticeBox informs={informs}></NoticeBox>:''}
                 <SiderCustom collapsed={this.state.collapsed} />
                 <Layout style={{flexDirection: 'column'}}>
-                    <HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} />
+                    {
+                        userInfo?<HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} userInfo={userInfo} informs={informs}/>:''
+                    }
                     <Content style={{ margin: '0 16px', overflow: 'initial' }}>
                         <Routes />
                     </Content>

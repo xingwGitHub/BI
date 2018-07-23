@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {Card, Table, Row, Col, Input, Form, Button, Pagination, Badge, Modal} from 'antd';
-import moment from 'moment';
 
 
 import {getFun} from '../../utils/api'
 
 import './systemNotice.less';
-import * as dateUtil from "../../components/ranking/DateFormat";
 
 const FormItem = Form.Item;
 const confirm = Modal.confirm;
@@ -17,11 +15,8 @@ const AddEditForm = Form.create()(
         render() {
             const { noticeCreator, visible, onCancel, onSubmit, form, popTitle, btnFlag } = this.props;
             let {popValues} = this.props;
-            // console.log(popValues)
-            if(btnFlag == 0){
+            if(btnFlag === 0){
                 popValues = {};
-            }else{
-                popValues = popValues;
             }
             const { TextArea } = Input;
             const { getFieldDecorator } = form;
@@ -111,8 +106,9 @@ export default class SystemNotice extends Component {
         this.state={
             title: '系统公告',
             total: 100,
-            pageSize: 10,
+            pageSize: 5,
             current: 1,
+            current_page: 1,
             load: true,
             sortedInfo: null,
             tableData: [],
@@ -129,13 +125,22 @@ export default class SystemNotice extends Component {
             noticeCreatorId: 11,
             titleDetail: '',
             describeDetail: '',
-            detailDetail: ''
+            detailDetail: '',
+            createNameDetail: '',
+            editId: ''
         };
         this.inputTitleChange = this.inputTitleChange.bind(this);
         this.inputCreatorChange = this.inputCreatorChange.bind(this);
     }
     componentWillMount() {
-
+        let userName = JSON.parse(localStorage.getItem("userInfo"));
+        if(userName){
+            let name = userName.name
+            this.setState({
+                noticeCreator: name,
+                userId: userName.id
+            })
+        }
     }
     componentDidMount(){
         this.getTableData();
@@ -147,109 +152,60 @@ export default class SystemNotice extends Component {
             sortedInfo: sorter,
         });
     }
-    // setAgeSort = () => {
-    //     this.setState({
-    //         sortedInfo: {
-    //             order: 'descend',
-    //             columnKey: 'addDate',
-    //         },
-    //     });
-    // }
-    // 点击查询
     //点击查询
     // 查询
     searchBtn() {
         let params = {
             title: this.state.inputTitle,
-            create_name: this.state.inputCreator
+            create_name: this.state.inputCreator,
+            page: this.state.current_page
         };
-        console.log(params);
         this.setState({
-            load: true,
-            total: this.state.total
+            load: true
         },() => {
             this.getTableData(params)
         })
     }
     //查询参数
     inputTitleChange(event) {
-        console.log(event.target.value)
         this.setState({
             inputTitle:event.target.value,
         })
     }
     inputCreatorChange(event) {
-        console.log(event.target.value)
         this.setState({
             inputCreator:event.target.value,
         })
     }
     // 获取当前页数
     onChange(page) {
+        let params = {
+            title: this.state.inputTitle,
+            create_name: this.state.inputCreator,
+            page: page
+        };
         this.setState({
             current: page,
+            current_page: page,
             load: true
         },() => {
-            this.getTableData()
+            this.getTableData(params)
         })
     }
-    // onShowSizeChange(current, size) {
-    //     this.setState({
-    //         pageSize: size,
-    //         current: current,
-    //         load: true
-    //     }, () => {
-    //         this.getTableData();
-    //     });
-    // }
     // 获取表格数据
     getTableData(params) {
-        // let result =getFun('system/informs/list',params);
-        // result.then(res => {
-        //     console.log(res)
-        //     this.setState({
-        //         load: false,
-        //         tableData: res.data.data
-        //
-        //     })
-        // }).catch(err => {
-        //     console.log(err)
-        // })
-        this.setState({
-            load: false,
-            tableData: [{
-                id: '1',
-                title: '摘要标题',
-                describe: '通告内容通告内容通告内容通告内容...',
-                detail: '111',
-                create_id: 3,
-                create_name: 'vida',
-                status: 1,
-                created_at: '2016-09-21  08:50:08'
-            }, {
-                id: '2',
-                title: '摘要标题2',
-                describe: '通告内容通告内容通告内容通告内容...',
-                detail: '2222',
-                create_id: 2,
-                create_name: '哆啦B梦',
-                status: 0,
-                created_at: '2016-09-22  08:50:08'
-            }]
+        let result =getFun('/system/informs/list',params);
+        result.then(res => {
+            this.setState({
+                load: false,
+                tableData: res.data.data,
+                total: res.data.total,
+                current_page: res.data.current_page,
+                pageSize: res.data.per_page
+            })
+        }).catch(err => {
+            console.log(err)
         })
-    }
-    // 获取接口参数
-    getParams() {
-        // let start, end;
-        // start = this.pageStartDate().format("YYYY-MM-DD");
-        // end = this.pageEndDate().format("YYYY-MM-DD");
-        // const params = {
-        //     start_at: start,
-        //     end_at: end,
-        //     city: this.state.city,
-        //     car_type_id: this.state.car_type_id
-        // }
-        // return params;
     }
     //停用
     switchFun(txt,idx) {
@@ -267,34 +223,22 @@ export default class SystemNotice extends Component {
             okText: '确认',
             cancelText: '取消',
             onOk(){
-                // console.log(_this)
-                // console.log(tableData)
-                // console.log(idx,txt);
-                let tableData2 = tableData;
-                tableData2.map(item=>{
-                    if(item.id ==txt.id){
-                        item.status =!item.status;
+                let result =getFun('/system/informs/stop',params);
+                result.then(res => {
+                    if(res.data[0]){
+                        let tableData2 = tableData;
+                            tableData2.map(item=>{
+                                if(item.id ==txt.id){
+                                    item.status =!item.status;
+                                }
+                            })
+                            _this.setState({
+                                tableData:tableData2
+                            })
                     }
+                }).catch(err => {
+                    console.log(err)
                 })
-                _this.setState({
-                    tableData:tableData2
-                })
-                // let result =getFun('system/informs/stop',params);
-                // result.then(res => {
-                //     if(res.data[0]){
-                //         let tableData2 = tableData;
-                //             tableData2.map(item=>{
-                //                 if(item.id ==txt.id){
-                //                     item.status =!item.status;
-                //                 }
-                //             })
-                //             _this.setState({
-                //                 tableData:tableData2
-                //             })
-                //     }
-                // }).catch(err => {
-                //     console.log(err)
-                // })
 
             },
             onCancel(){
@@ -303,16 +247,19 @@ export default class SystemNotice extends Component {
         })
     }
     //添加公告
-    addNotice(params) {
+    addNotice(params, params1) {
         let url = '';
+        let param = {};
         if (this.state.btnFlag == 1){
-            url = 'system／informs/edit';
+            param = params1;
+            url = '/system/informs/edit';
         }else{
-            url = 'system／informs/add';
+            param = params;
+            url = '/system/informs/add';
         }
-        let result =getFun(url,params);
+        let result =getFun(url,param);
         result.then(res => {
-            console.log(res)
+            this.getTableData();
         }).catch(err => {
             console.log(err)
         })
@@ -333,18 +280,22 @@ export default class SystemNotice extends Component {
             if (err) {
                 return;
             }
-            console.log(values)
             let parameter = {
                 title: values.title,
                 desc: values.desc,
-                detail: values.detail,
-                // create_id: this.state.noticeCreatorId,
-                // create_name: this.state.noticeCreator
+                detail: values.detail
+            };
+            let parameter1 = {
+                id: this.state.editId,
+                title: values.title,
+                desc: values.desc,
+                detail: values.detail
             };
             //添加/编辑
-            this.addNotice(parameter);
+            this.addNotice(parameter, parameter1);
             form.resetFields();
             this.setState({ visible: false });
+
         });
     }
     saveFormRef = (formRef) => {
@@ -352,29 +303,30 @@ export default class SystemNotice extends Component {
     }
     //编辑公告
     noticeEdit(text,index) {
-        console.log(text)
-        this.setState({ visible: true, popTitle: '编辑公告', popValues: text, btnFlag:1});
+        this.setState({ visible: true, popTitle: '编辑公告', popValues: text, btnFlag:1, editId: text.id});
     }
     //公告详情
     noticeDetail(text,index) {
-        // console.log(text)
-        this.setState({ visibleDetail: true, titleDetail: text.title, describeDetail: text.describe, detailDetail: text.detail });
+        console.log(text)
+        this.setState({ visibleDetail: true, titleDetail: text.title, describeDetail: text.describe, detailDetail: text.detail, createNameDetail: text.create_name });
 
     }
     handleOk = () => {
         this.setState({ visibleDetail: false });
     }
     render() {
-        let {title, load, total, pageSize,visible, confirmLoading} = this.state;
+        let {title, load, total, pageSize, current} = this.state;
         let tableHeader = [
             {
                 title: '标题',
                 dataIndex: 'title',
                 key: 'title',
+                width: 280
             }, {
                 title: '概要',
                 dataIndex: 'describe',
-                key: 'describe'
+                key: 'describe',
+                className: 'describe'
             }, {
                 title: '创建人',
                 dataIndex: 'create_name',
@@ -389,7 +341,7 @@ export default class SystemNotice extends Component {
                 title: '添加时间',
                 dataIndex: 'created_at',
                 key: 'created_at',
-                sorter: (a, b) => a.created_at - b.created_at,
+                sorter: (a, b) => new Date(a.created_at) - new Date(b.created_at),
                 // sortOrder: this.sortedInfo.columnKey === 'addDate' && this.sortedInfo.order,
             },
             {
@@ -397,8 +349,8 @@ export default class SystemNotice extends Component {
                 key: 'action',
                 render: (text, record, index) => (
                     <span>
-                        <a href="javascript:;" className={record.status?"stop":"stopped"} onClick={() => this.switchFun(text,index)}>{text.status?"停用":"已停用"}</a>
-                        <span className="ant-divider" />
+                        <span className={record.create_id == this.state.userId ? "stop-show": "stop-hide"}><a href="javascript:;" className={record.status?"stop":"stopped"} onClick={() => this.switchFun(text,index)} >{text.status?"停用":"已停用"}</a>
+                        <span className="ant-divider" /></span>
                         <a onClick={() => this.noticeDetail(text,index)} href="javascript:;" >详情</a>
                         <span className={record.status && record.create_id == this.state.userId ? "ant-divider" : ""}/>
                         <a onClick={() => this.noticeEdit(text,index)} href="javascript:;">{record.status && record.create_id == this.state.userId ? "编辑" : ""}</a>
@@ -406,13 +358,15 @@ export default class SystemNotice extends Component {
                 ),
             }]
         let tableData = this.state.tableData;
+        tableData.map( item => {
+            item.key = item.id;
+        })
         return (
             <div>
                 <div className="notice-wrapper">
                     <Card title={title}  bordered={false}>
-
-                        <Row gutter={16}>
-                            <Col span={16}>
+                        <div className="search-content">
+                            <div className="search-wrapper">
                                 <div className="input-wrapper">
                                     <label>查询内容：</label>
                                     <Input type="text" placeholder="" defaultValue={this.state.inputTitle} onChange={this.inputTitleChange}/>
@@ -421,13 +375,13 @@ export default class SystemNotice extends Component {
                                     <label>创建人：</label>
                                     <Input type="text" placeholder="" defaultValue={this.state.inputCreator} onChange={this.inputCreatorChange}/>
                                 </div>
-                            </Col>
-                            <Col span={8}>
+                            </div>
+                            <div className="search-btn-wrapper">
                                 <Button type="primary" icon='search' style={{marginRight: '20px'}} onClick={this.searchBtn.bind(this)}>查询</Button>
                                 <Button type="primary" icon='plus' onClick={this.addBtn.bind(this)}>添加</Button>
-                            </Col>
-                        </Row>
-                        <div>
+                            </div>
+                        </div>
+                        <div style={{marginTop: '20px'}}>
                             <Table onChange={this.handleSortChange} dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
 
                             </Table>
@@ -435,7 +389,7 @@ export default class SystemNotice extends Component {
                         <div className="page-footer">
                             <Row>
                                 <Col style={{textAlign: 'right'}}>
-                                    <Pagination showQuickJumper defaultCurrent={1} total={total} onChange={this.onChange.bind(this)} size="small"/>
+                                    <Pagination size="small" current={current} total={total} onChange={this.onChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
                                     {/*<Pagination total={total} pageSize={pageSize} onChange={this.pageChange.bind(this)} showSizeChanger={true} onShowSizeChange={this.onShowSizeChange.bind(this)} showQuickJumper size="small" ></Pagination>*/}
                                 </Col>
                             </Row>
@@ -463,6 +417,7 @@ export default class SystemNotice extends Component {
                                 <p><span className="detail-title">标题：</span><span className="detail-title-txt">{this.state.titleDetail}</span></p >
                                 <p><span className="detail-title">通告概要：</span><span className="detail-title-txt">{this.state.describeDetail}</span></p >
                                 <p><span className="detail-title">通告内容：</span><span className="detail-title-txt">{this.state.detailDetail}</span></p >
+                                <p><span className="detail-title">创建人：</span><span className="detail-title-txt">{this.state.createNameDetail}</span></p >
                             </div>
                         </Modal>
                     </Card>

@@ -88,9 +88,17 @@ class SiderCustom extends Component {
             {
                 key: '/app/systemManage', title: '系统中心', icon: 'appstore-o',
                 sub: [
-                    { key: '/app/systemManage/systemNotice', title: '系统公告', menuID: 'web_api/system_informs/informs_list'}
+                    { key: '/app/systemManage/systemNotice', title: '系统公告', menuID: 'web_api/system_informs/informs_list'},
+                    { key: '/app/systemManage/rightsManage', title: '权限管理',
+                        sub: [
+                            {key: '/app/systemManage/rightsManage/role', title: '角色组', menuID: ''},
+                            {key: '/app/systemManage/rightsManage/user', title: '用户列表', menuID: ''},
+                            {key: '/app/systemManage/rightsManage/module', title: '模块列表', menuID: ''}
+                        ]
+                    }
                 ]
             }
+
         ]
     };
     getMenuItem(){
@@ -113,7 +121,7 @@ class SiderCustom extends Component {
 
                             }else {
                                 Object.keys(menuObj).map( obj => {
-                                    if(obj == item3.menuID){
+                                    if(obj === item3.menuID){
                                         item2menu.sub.push(item3)
                                     }
                                 })
@@ -124,7 +132,7 @@ class SiderCustom extends Component {
                         }
                     }else {
                         Object.keys(menuObj).map( obj => {
-                            if(obj == item2.menuID){
+                            if(obj === item2.menuID){
                                 item1menu.sub.push(item2)
                             }
                         })
@@ -196,10 +204,13 @@ class SiderCustom extends Component {
 
     render() {
         const {openKey, menuArr} = this.state;
-        let openKeyKey = ['/app/ranking'],openKeyArr = [];
+        let openKeyKey = ['/app/ranking'],openKeyArr = [],openKeyKey1=['/app/systemManage'];
         if (openKey === '/app/ranking/rank_order' || openKey === '/app/ranking/rank_driver' || openKey === '/app/ranking/rank_user'){
             openKeyKey.push(openKey);
             openKeyArr = openKeyKey;
+        }else if (openKey === '/app/systemManage/rightsManage'){
+            openKeyKey1.push(openKey);
+            openKeyArr = openKeyKey1;
         }else {
             openKeyArr.push(openKey)
         }

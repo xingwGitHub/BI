@@ -259,9 +259,8 @@ class BargainingAnalysis extends React.Component{
             <div>
                 <div className="operating-wrapper">
                     <Card title={title}  bordered={false}>
-
-                        <Row gutter={16}>
-                            <Col span={16}>
+                        <div className="search-content">
+                            <div className="search-wrapper">
                                 <div>
                                     <SearchBox searchParams={params => this.searchParams(params)}></SearchBox>
                                 </div>
@@ -270,11 +269,11 @@ class BargainingAnalysis extends React.Component{
                                         {radioChildren}
                                     </RadioGroup>
                                 </div>
-                            </Col>
-                            <Col span={8}>
-                                <Button type="primary" onClick={this.searchBtn.bind(this)}>查询</Button>
-                            </Col>
-                        </Row>
+                            </div>
+                            <div className="search-btn-wrapper">
+                                <Button type="primary" icon='search' onClick={this.searchBtn.bind(this)}>查询</Button>
+                            </div>
+                        </div>
                         <div>
                             <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false} scroll={{x: '200%'}}>
 
@@ -286,7 +285,7 @@ class BargainingAnalysis extends React.Component{
                                     <ExportFileCom params={this.state.exportParams}></ExportFileCom>
                                 </Col>
                                 <Col span={14} style={{textAlign: 'right'}}>
-                                    <Pagination size="small" total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
+                                    <Pagination size="small" current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
                                 </Col>
                             </Row>
                         </div>
