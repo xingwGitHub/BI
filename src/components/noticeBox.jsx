@@ -1,9 +1,9 @@
 
-import React from 'react';
+import React, {Component} from 'react';
 import { Button, notification, Icon, Modal } from 'antd';
 
 
-class NoticeBox extends React.Component {
+class NoticeBox extends Component {
     state = {
         visibleDetail: false,
         details: {},
@@ -14,7 +14,7 @@ class NoticeBox extends React.Component {
         if(informs && informs.length) {
             if(informs.length > 5){
                 this.setState({
-                    notificationData: informs.slice(0,5)
+                    notificationData: informs.slice(0,2)
                 })
             }else {
                 this.setState({
@@ -38,7 +38,7 @@ class NoticeBox extends React.Component {
     openNotification() {
         let {notificationData} = this.state;
         let _this = this;
-        notificationData.map(item => {
+        notificationData.map((item, index) => {
             const key = item.id;
             const btn = (
                 <div>
@@ -56,9 +56,6 @@ class NoticeBox extends React.Component {
                 icon: <Icon type="info-circle-o" style={{ color: '#108ee9' }} />,
                 btn,
                 key,
-                // style: {
-                //     width: 260,
-                // },
                 duration: null,
                 onClose: _this.close,
             });

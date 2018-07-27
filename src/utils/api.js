@@ -1,6 +1,7 @@
 
 import axios from 'axios'
 import {message} from 'antd';
+import qs from 'qs'
 import 'promise'
 
 // const API_DATAMART_BASE_URL = 'https://datamart1.yongche.com/bi_web_api';
@@ -16,6 +17,7 @@ if(domain === 'localhost:3000'){
 }
 const REQUEST_METHOD_GET = 'GET';
 const REQUEST_METHOD_POST = 'POST';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 function objectToQueryString(queryObject) {
   let queryArray = [];
@@ -133,6 +135,7 @@ export function getFun(url, params) {
     return result;
 }
 
+
 export function get(url, params) {
     return new Promise((resolve, reject) => {
 
@@ -146,6 +149,16 @@ export function get(url, params) {
             resolve(res.data)
         }).catch(err => {
             console.log(err)
+            message.error(err);
+        })
+    })
+}
+export function post(url, params) {
+    return new Promise((resolve, reject) => {
+        axios.post(BI_API_BASE_URL+url, qs.stringify(params))
+        .then(res => {
+            resolve(res.data)
+        }).catch(err => {
             message.error(err);
         })
     })

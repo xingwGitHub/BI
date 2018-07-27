@@ -35,7 +35,20 @@ export default class CRouter extends Component {
         // if (!permissions || !permissions.includes(permission)) return <Redirect to={'404'} />;
         return component;
     };
+    constructor(props){
+        super(props);
+        this.state = {
+            flag: true
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        let flag = this.props.collapsed;
+        this.setState({
+            flag: flag
+        })
+    }
     render() {
+        const {flag} = this.state;
         return (
             <Switch>
 

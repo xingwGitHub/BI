@@ -29,6 +29,7 @@ export default class Survey extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            flag: true,
             loading: true,
             currentTabKey: '0',
             summaryType: [
@@ -42,7 +43,8 @@ export default class Survey extends Component {
         };
         this.Timer = null;
     }
-
+    componentWillMount(){
+    }
     componentDidMount() {
         this.getRealtime();
         this.Timer = setInterval(() => {

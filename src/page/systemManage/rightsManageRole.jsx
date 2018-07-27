@@ -21,10 +21,10 @@ export default class RightsManageRole extends Component{
             ],
             load: false,
             tableData: [
-                {id: 0, aa: 2, bb: 0, time: '2016-09-21 08:00:00'},
-                {id: 0, aa: 3, bb: 33, time: '2016-09-21 08:00:00'},
-                {id: 0, aa: 4, bb: 44, time: '2016-09-21 08:00:00'},
-                {id: 0, aa: 5, bb: 55, time: '2016-09-21 08:00:00'},
+                {id: 0, aa: 2, bb: 0, time: '2016-09-21 08:00:00',key: '0'},
+                {id: 1, aa: 3, bb: 33, time: '2016-09-21 08:00:00',key: '1'},
+                {id: 2, aa: 4, bb: 44, time: '2016-09-21 08:00:00',key: '2'},
+                {id: 3, aa: 5, bb: 55, time: '2016-09-21 08:00:00',key: '3'},
             ],
             tableHeader: [
                 {title: '功能数', dataIndex: 'aa', key: 'aa',
@@ -283,7 +283,7 @@ export default class RightsManageRole extends Component{
                             </div>
                         </div>
                         <div>
-                            <Table onChange={this.handleChange} dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
+                            <Table  dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
 
                             </Table>
                         </div>
@@ -309,7 +309,7 @@ export default class RightsManageRole extends Component{
                         <Search style={{ marginBottom: 8 }} placeholder="请输入" onChange={this.searchTreeChange.bind(this)} />
                         <Tree
                             checkable
-                            defaultExpandAll='true'
+                            defaultExpandAll={true}
                             onCheck={this.onCheck.bind(this)}
                             checkedKeys={checkedKeys}
                             onSelect={this.onSelect.bind(this)}

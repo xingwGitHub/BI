@@ -8,6 +8,7 @@ export default class RealSummaryChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            flag: true,
             legendSeries: ['today', 'yesterday', 'day7', 'day30'],
             lineColor: ['#269aff','#26d574', '#fed726', '#ff2672', '#26d1ce'],
         }
@@ -116,7 +117,10 @@ export default class RealSummaryChart extends Component {
             series: series
         };
 
-        window.onresize = myChart.resize;
+        window.onresize = function(){
+            myChart.resize();
+        }
+
 
         myChart.setOption(option);
 

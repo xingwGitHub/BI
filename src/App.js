@@ -19,7 +19,8 @@ class App extends Component {
         this.state = {
             collapsed: false,
             userInfo: '',
-            informs: ''
+            informs: '',
+            informsArr: []
         };
     }
 
@@ -43,13 +44,13 @@ class App extends Component {
         })
     }
     toggle = () => {
+        let flag = !this.state.collapsed;
         this.setState({
-            collapsed: !this.state.collapsed,
+            collapsed: flag,
         });
     };
     render() {
-        const {userInfo,informs} = this.state;
-
+        const {userInfo,informs, informsArr} = this.state;
         return (
             <LocaleProvider locale={zhCN}>
 
@@ -61,7 +62,7 @@ class App extends Component {
                         userInfo?<HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} userInfo={userInfo} informs={informs}/>:''
                     }
                     <Content style={{ margin: '0 16px', overflow: 'initial' }}>
-                        <Routes />
+                        <Routes collapsed={this.state.collapsed}/>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
                     ©2018 易到大数据中心
