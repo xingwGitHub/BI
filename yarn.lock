@@ -4691,7 +4691,7 @@ min-document@^2.19.0:
 
 mini-store@^1.0.2:
   version "1.0.3"
-  resolved "http://registry.npm.taobao.org/mini-store/download/mini-store-1.0.3.tgz#190e90831be7a3862baa532168b579273b00d818"
+  resolved "http://registry.npm.taobao.org/mini-mobx/download/mini-mobx-1.0.3.tgz#190e90831be7a3862baa532168b579273b00d818"
   dependencies:
     hoist-non-react-statics "^2.3.1"
     prop-types "^15.6.0"
@@ -5918,7 +5918,7 @@ rc-table@~6.1.0:
     component-classes "^1.2.6"
     lodash.get "^4.4.2"
     lodash.merge "^4.6.0"
-    mini-store "^1.0.2"
+    mini-mobx "^1.0.2"
     prop-types "^15.5.8"
     rc-util "^4.0.4"
     shallowequal "^1.0.2"

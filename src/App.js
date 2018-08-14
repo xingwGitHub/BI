@@ -1,47 +1,52 @@
 import React, { Component } from 'react';
 import { Layout, LocaleProvider } from 'antd';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {initData} from './store/index/action'
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import 'antd/dist/antd.css';
 import './style/index.less';
 import SiderCustom from './components/SiderCustom';
 import HeaderCustom from './components/HeaderCustom';
-import { connect } from 'react-redux';
 import Routes from './routes';
 import {getFun} from './utils/api'
 import NoticeBox from "./components/noticeBox";
 const { Content, Footer } = Layout;
 
-
 class App extends Component {
+    static propTypes = {
+        initData: PropTypes.func
+    }
     constructor(props){
         super(props);
         this.state = {
-            collapsed: false,
-            userInfo: '',
-            informs: '',
-            informsArr: []
+            collapsed: false
         };
     }
 
     componentWillMount() {
         this.getInitData();
+        this.getCityData();
+    }
+    componentDidMount(){
     }
     getInitData(){
         let initData = getFun('/index/init');
         initData.then(res => {
-            if(res.code === 0){
-                this.setState({
-                    userInfo: res.data.userInfo,
-                    informs: res.data.informs
-                })
-
-            }else if(res.code === 100){
-                window.location.href='/index.php/index/login'
-            }
-        }).catch(err => {
-            console.log(err)
+            this.props.initData(res.data);
+            localStorage.setItem("auth",JSON.stringify(res.data.auth))
         })
+
+    }
+    getCityData(){
+        let objJson = JSON.parse(localStorage.getItem('cityData'));
+        if(!objJson){
+            let cityData = getFun('/web_api/dim_info/city');
+            cityData.then( res => {
+                localStorage.setItem('cityData', JSON.stringify(res.data));
+            })
+        }
     }
     toggle = () => {
         let flag = !this.state.collapsed;
@@ -50,17 +55,14 @@ class App extends Component {
         });
     };
     render() {
-        const {userInfo,informs, informsArr} = this.state;
         return (
             <LocaleProvider locale={zhCN}>
 
             <Layout>
-                {informs?<NoticeBox informs={informs}></NoticeBox>:''}
+                <NoticeBox ></NoticeBox>
                 <SiderCustom collapsed={this.state.collapsed} />
                 <Layout style={{flexDirection: 'column'}}>
-                    {
-                        userInfo?<HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} userInfo={userInfo} informs={informs}/>:''
-                    }
+                    <HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} />
                     <Content style={{ margin: '0 16px', overflow: 'initial' }}>
                         <Routes collapsed={this.state.collapsed}/>
                     </Content>
@@ -85,6 +87,8 @@ class App extends Component {
         );
     }
 }
-
-
-export default connect()(App);
+export default connect(state => ({
+    initDataFun: state.initDataFun,
+}), {
+    initData,
+})(App);

@@ -1,159 +1,206 @@
 
 import React, { Component } from 'react';
+import { hashHistory } from 'react-router';
 import { Layout } from 'antd';
 import { withRouter } from 'react-router-dom';
 import logo from '../style/imgs/logo.png';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {initData, initMenu} from '../store/index/action'
+
+
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
 class SiderCustom extends Component {
-    state = {
-        collapsed: false,
-        mode: 'inline',
-        openKey: '',
-        selectedKey: '',
-        firstHide: true,        // 点击收缩菜单，第一次隐藏展开子菜单，openMenu时恢复
-        menuObj: {
-            'web_api/operation/income': {city: []},
-            'web_api/operation/order_dist': {city: []},
-            'web_api/operation/service_quality': {city: []},
-            'web_api/rank_order/complete_count': {city: []},
-            'web_api/rank_order/complete_amount': {city: []},
-            'web_api/rank_order/no_car_can_dispatch': {city: []},
-            'web_api/rank_user/active_total': {city: []},
-            'web_api/rank_user/average_total': {city: []},
-            'web_api/rank_user/place_order_user_total': {city: []}
-        },
-        menuArr: [
-            {   key: '/app/realtime', title: '实时数据概况', icon: 'clock-circle-o',
-                sub: [
-                    { key: '/app/realtime/survey', title: '概况', menuID: 'realtime/survey'},
-                    { key: '/app/realtime/order', title: '订单', menuID: 'realtime/order'}
-                ]
-            },
-            {
-                key: '/app/operatingdaily', title: '运营日报', icon: 'schedule',
-                sub: [
-                    { key: '/app/operatingdaily/incomeCost', title: '订单收入及成本', menuID: 'web_api/operation/income' },
-                    { key: '/app/operatingdaily/distribution', title: '订单分布', menuID: 'web_api/operation/order_dist'},
-                    { key: '/app/operatingdaily/portrait', title: '订单画像', menuID: 'web_api/operation/portrait'},
-                    { key: '/app/operatingdaily/bargainingAnalysis', title: '议价分析', menuID: 'web_api/operation/bargain'},
-                    { key: '/app/operatingdaily/capacityAnalysis', title: '运力分析', menuID: 'web_api/operation/driver'},
-                    { key: '/app/operatingdaily/userStatistics', title: '用户统计', menuID: 'web_api/operation/user'},
-                    { key: '/app/operatingdaily/piesAnalysis', title: '派单分析', menuID: 'web_api/operation/dispatch'},
-                    { key: '/app/operatingdaily/serviceQualityOfDrivers', title: '司机服务质量', menuID: 'web_api/operation/service_quality'}
-                ]
-            },
-            {
-                key: '/app/ranking', title: '排行榜', icon: 'flag',
-                sub: [
-                    { key: '/app/ranking/rank_order', title: '订单',
-                        sub: [
-                            { key: '/app/ranking/rank_order/complete_count', title: '完成订单数', menuID: 'web_api/rank_order/complete_count'},
-                            { key: '/app/ranking/rank_order/complete_amount', title: '完成订单金额', menuID: 'web_api/rank_order/complete_amount'},
-                            { key: '/app/ranking/rank_order/average_amount', title: '订单平均金额', menuID: 'web_api/rank_order/average_amount'},
-                            { key: '/app/ranking/rank_order/average_time', title: '订单平均时长', menuID: 'web_api/rank_order/average_time'},
-                            { key: '/app/ranking/rank_order/average_distance', title: '平均行驶距离', menuID: 'web_api/rank_order/average_distance'},
-                            { key: '/app/ranking/rank_order/complete_rate', title: 'C to R订单完成率', menuID: 'web_api/rank_order/complete_rate'},
-                            { key: '/app/ranking/rank_order/create_total', title: '创建订单', menuID: 'web_api/rank_order/create_total'},
-                            { key: '/app/ranking/rank_order/dispatch_success_rate', title: '派单成功率', menuID: 'web_api/rank_order/dispatch_success_rate'},
-                            { key: '/app/ranking/rank_order/billing_difference', title: '计费差额', menuID: 'web_api/rank_order/billing_difference'},
-                            { key: '/app/ranking/rank_order/service_cost', title: '服务成本', menuID: 'web_api/rank_order/service_cost'},
-                            { key: '/app/ranking/rank_order/no_car_can_dispatch', title: '无车可派', menuID: 'web_api/rank_order/no_car_can_dispatch'}
-                        ]
-                    },
-                    { key: '/app/ranking/rank_driver', title: '司机',
-                        sub: [
-                            { key: '/app/ranking/rank_driver/active_total', title: '活跃司机', menuID: 'web_api/rank_driver/active_total'},
-                            { key: '/app/ranking/rank_driver/average_orders', title: '司机均单量', menuID: 'web_api/rank_driver/average_orders'},
-                            { key: '/app/ranking/rank_driver/registered_total', title: '新注册司机', menuID: 'web_api/rank_driver/registered_total'},
-                            { key: '/app/ranking/rank_driver/activation_total', title: '新增激活司机', menuID: 'web_api/rank_driver/activation_total'},
-                            { key: '/app/ranking/rank_driver/negative_rate', title: '差评率', menuID: 'web_api/rank_driver/negative_rate'}
-                        ]
-                    },
-                    { key: '/app/ranking/rank_user', title: '用户',
-                        sub: [
-                            { key: '/app/ranking/rank_user/active_total', title: '活跃用户', menuID: 'web_api/rank_user/active_total'},
-                            { key: '/app/ranking/rank_user/average_total', title: '乘客单均量', menuID: 'web_api/rank_user/average_total'},
-                            { key: '/app/ranking/rank_user/registered_total', title: '新注册用户', menuID: 'web_api/rank_user/registered_total'},
-                            { key: '/app/ranking/rank_user/activation_total', title: '新激活用户', menuID: 'web_api/rank_user/activation_total'},
-                            { key: '/app/ranking/rank_user/recharge_amount', title: '充值金额', menuID: 'web_api/rank_user/recharge_amount'},
-                            { key: '/app/ranking/rank_user/place_order_user_total', title: '下单用户数', menuID: 'web_api/rank_user/place_order_user_total'}
-                        ]
-                    }
-                ]
-            },
-            {
-                key: '/app/systemManage', title: '系统中心', icon: 'appstore-o',
-                sub: [
-                    { key: '/app/systemManage/systemNotice', title: '系统公告', menuID: 'web_api/system_informs/informs_list'},
-                    { key: '/app/systemManage/rightsManage', title: '权限管理',
-                        sub: [
-                            {key: '/app/systemManage/rightsManage/role', title: '角色组', menuID: ''},
-                            {key: '/app/systemManage/rightsManage/user', title: '用户列表', menuID: ''},
-                            {key: '/app/systemManage/rightsManage/module', title: '模块列表', menuID: ''}
-                        ]
-                    }
-                ]
-            }
+    static propTypes = {
+        initData: PropTypes.func
+    }
+    constructor(props){
+        super(props);
+        this.state = {
+            collapsed: false,
+            mode: 'inline',
+            openKey: '',
+            selectedKey: '',
+            firstHide: true,        // 点击收缩菜单，第一次隐藏展开子菜单，openMenu时恢复
+            menuObj: {},
+            menuArrItem: [],
+            menuArr: [
+                {   key: '/app/realtime', title: '实时数据概况', icon: 'clock-circle-o',
+                    sub: [
+                        { key: '/app/realtime/survey', title: '概况', menuID: 'web_api/realtime/summary'},
+                        { key: '/app/realtime/order', title: '订单', menuID: 'web_api/realtime/order'}
+                    ]
+                },
+                {
+                    key: '/app/operation', title: '运营日报', icon: 'schedule',
+                    sub: [
+                        { key: '/app/operation/income', title: '订单收入及成本', menuID: 'web_api/operation/income' },
+                        { key: '/app/operation/order_dist', title: '订单分布', menuID: 'web_api/operation/order_dist'},
+                        { key: '/app/operation/portrait', title: '订单画像', menuID: 'web_api/operation/portrait'},
+                        { key: '/app/operation/bargain', title: '议价分析', menuID: 'web_api/operation/bargain'},
+                        { key: '/app/operation/driver', title: '运力分析', menuID: 'web_api/operation/driver'},
+                        { key: '/app/operation/user', title: '用户统计', menuID: 'web_api/operation/user'},
+                        { key: '/app/operation/dispatch', title: '派单分析', menuID: 'web_api/operation/dispatch'},
+                        { key: '/app/operation/service_quality', title: '司机服务质量', menuID: 'web_api/operation/service_quality'}
+                    ]
+                },
+                {
+                    key: '/app/ranking', title: '排行榜', icon: 'flag',
+                    sub: [
+                        { key: '/app/ranking/rank_order', title: '订单',
+                            sub: [
+                                { key: '/app/ranking/rank_order/complete_count', title: '完成订单数', menuID: 'web_api/rank_order/complete_count'},
+                                { key: '/app/ranking/rank_order/complete_amount', title: '完成订单金额', menuID: 'web_api/rank_order/complete_amount'},
+                                { key: '/app/ranking/rank_order/average_amount', title: '订单平均金额', menuID: 'web_api/rank_order/average_amount'},
+                                { key: '/app/ranking/rank_order/average_time', title: '订单平均时长', menuID: 'web_api/rank_order/average_time'},
+                                { key: '/app/ranking/rank_order/average_distance', title: '平均行驶距离', menuID: 'web_api/rank_order/average_distance'},
+                                { key: '/app/ranking/rank_order/complete_rate', title: 'C to R订单完成率', menuID: 'web_api/rank_order/complete_rate'},
+                                { key: '/app/ranking/rank_order/create_total', title: '创建订单', menuID: 'web_api/rank_order/create_total'},
+                                { key: '/app/ranking/rank_order/dispatch_success_rate', title: '派单成功率', menuID: 'web_api/rank_order/dispatch_success_rate'},
+                                { key: '/app/ranking/rank_order/billing_difference', title: '计费差额', menuID: 'web_api/rank_order/billing_difference'},
+                                { key: '/app/ranking/rank_order/service_cost', title: '服务成本', menuID: 'web_api/rank_order/service_cost'},
+                                { key: '/app/ranking/rank_order/no_car_can_dispatch', title: '无车可派', menuID: 'web_api/rank_order/no_car_can_dispatch'}
+                            ]
+                        },
+                        { key: '/app/ranking/rank_driver', title: '司机',
+                            sub: [
+                                { key: '/app/ranking/rank_driver/active_total', title: '活跃司机', menuID: 'web_api/rank_driver/active_total'},
+                                { key: '/app/ranking/rank_driver/average_orders', title: '司机均单量', menuID: 'web_api/rank_driver/average_orders'},
+                                { key: '/app/ranking/rank_driver/registered_total', title: '新注册司机', menuID: 'web_api/rank_driver/registered_total'},
+                                { key: '/app/ranking/rank_driver/activation_total', title: '新增激活司机', menuID: 'web_api/rank_driver/activation_total'},
+                                { key: '/app/ranking/rank_driver/negative_rate', title: '差评率', menuID: 'web_api/rank_driver/negative_rate'}
+                            ]
+                        },
+                        { key: '/app/ranking/rank_user', title: '用户',
+                            sub: [
+                                { key: '/app/ranking/rank_user/active_total', title: '活跃用户', menuID: 'web_api/rank_user/active_total'},
+                                { key: '/app/ranking/rank_user/average_total', title: '乘客单均量', menuID: 'web_api/rank_user/average_total'},
+                                { key: '/app/ranking/rank_user/registered_total', title: '新注册用户', menuID: 'web_api/rank_user/registered_total'},
+                                { key: '/app/ranking/rank_user/activation_total', title: '新激活用户', menuID: 'web_api/rank_user/activation_total'},
+                                { key: '/app/ranking/rank_user/recharge_amount', title: '充值金额', menuID: 'web_api/rank_user/recharge_amount'},
+                                { key: '/app/ranking/rank_user/place_order_user_total', title: '下单用户数', menuID: 'web_api/rank_user/place_order_user_total'}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    key: '/app/systemManage', title: '系统中心', icon: 'appstore-o',
+                    sub: [
+                        { key: '/app/systemManage/systemNotice', title: '系统公告', menuID: 'web_api/system_informs/informs_list'},
+                        { key: '/app/systemManage/rightsManage', title: '权限管理',
+                            sub: [
+                                {key: '/app/systemManage/rightsManage/role', title: '角色组', menuID: '/system/auth/role/list'},
+                                {key: '/app/systemManage/rightsManage/user', title: '用户列表', menuID: '/system/auth/user/list'},
+                                {key: '/app/systemManage/rightsManage/module', title: '模块列表', menuID: '/system/auth/permission/list'}
+                            ]
+                        }
+                    ]
+                }
 
-        ]
-    };
+            ]
+        };
+    }
+
     getMenuItem(){
         let arr = [];
         let menuArr = this.state.menuArr;
         let menuObj = this.state.menuObj;
-        menuArr.map( item => {
-            let item1sub = item.sub;
-            if(item1sub && item1sub.length){
-                let item1menu = item;
-                item1menu.sub = [];
-                item1sub.map( item2 => {
-                    let item2sub = item2.sub;
-                    if(item2sub && item2sub.length){
-                        let item2menu = item2;
-                        item2menu.sub = [];
-                        item2sub.map( item3 => {
-                            let item3sub = item3.sub;
-                            if(item3sub && item3sub.length){
+        if(menuObj){
+            menuArr.map( item => {
+                let item1sub = item.sub;
+                if(item1sub && item1sub.length){
+                    let item1menu = item;
+                    item1menu.sub = [];
+                    item1sub.map( item2 => {
+                        let item2sub = item2.sub;
+                        if(item2sub && item2sub.length){
+                            let item2menu = item2;
+                            item2menu.sub = [];
+                            item2sub.map( item3 => {
+                                let item3sub = item3.sub;
+                                if(item3sub && item3sub.length){
 
-                            }else {
-                                Object.keys(menuObj).map( obj => {
-                                    if(obj === item3.menuID){
-                                        item2menu.sub.push(item3)
-                                    }
-                                })
+                                }else {
+                                    Object.keys(menuObj).map( obj => {
+                                        if(obj === item3.menuID){
+                                            item2menu.sub.push(item3)
+                                        }
+                                    })
+                                }
+                            })
+                            if(item2menu.sub && item2menu.sub.length){
+                                item1menu.sub.push(item2menu)
                             }
-                        })
-                        if(item2menu.sub && item2menu.sub.length){
-                            item1menu.sub.push(item2menu)
+                        }else {
+                            Object.keys(menuObj).map( obj => {
+                                if(obj === item2.menuID){
+                                    item1menu.sub.push(item2)
+                                }
+                            })
                         }
-                    }else {
-                        Object.keys(menuObj).map( obj => {
-                            if(obj === item2.menuID){
-                                item1menu.sub.push(item2)
-                            }
-                        })
+                    })
+                    if(item1menu.sub && item1menu.sub.length){
+                        arr.push(item1menu)
                     }
-                })
-                if(item1menu.sub && item1menu.sub.length){
-                    arr.push(item1menu)
                 }
-            }
-        });
-        this.setState({
-            menuArr: arr
-        })
+            });
+            this.setState({
+                menuArrItem: arr
+            })
+            this.props.initMenu(arr[0].sub[0].key)
+        }else {
+            this.setState({
+                menuArrItem: []
+            })
+        }
+    }
+    componentWillMount(){
+
     }
     componentDidMount() {
         this.setMenuOpen(this.props);
-        // this.getMenuItem();
     }
     componentWillReceiveProps(nextProps) {
         this.onCollapse(nextProps.collapsed);
         this.setMenuOpen(nextProps)
+        let auth = nextProps.initDataFun.auth;
+        let userInfo = nextProps.initDataFun.userInfo;
+        if(!userInfo){
+           this.setState({
+               collapsed: true
+           })
+        }
+        if(auth instanceof Array){
+            auth = {...auth}
+        }
+        if(!(JSON.stringify(auth) == "{}")){
+            let arr = Object.keys(auth);
+            if(arr.indexOf("-1") > -1){
+                this.setState({
+                    menuArrItem: this.state.menuArr
+                })
+                this.props.initMenu('/app/realtime/survey')
+            }else {
+                this.setState({
+                    menuObj: auth
+                },() => this.getMenuItem())
+            }
+        }else {
+            this.setState({
+                collapsed: true,
+                menuArrItem: []
+            })
+            hashHistory.push({
+                pathname: '/app/pageError',
+                query: {
+                    code: 10002
+                },
+            })
+        }
     }
 
     setMenuOpen = props => {
@@ -203,7 +250,8 @@ class SiderCustom extends Component {
     }
 
     render() {
-        const {openKey, menuArr} = this.state;
+        const {openKey, menuArrItem, collapsed} = this.state;
+        const { initDataFun } = this.props;
         let openKeyKey = ['/app/ranking'],openKeyArr = [],openKeyKey1=['/app/systemManage'];
         if (openKey === '/app/ranking/rank_order' || openKey === '/app/ranking/rank_driver' || openKey === '/app/ranking/rank_user'){
             openKeyKey.push(openKey);
@@ -214,7 +262,7 @@ class SiderCustom extends Component {
         }else {
             openKeyArr.push(openKey)
         }
-        let columnMenu = menuArr;
+        let columnMenu = menuArrItem;
         let htmlMenu =columnMenu.map((obj, i)=>{
             if ("undefined"!==typeof(obj.sub)&&obj.sub.length>0) {
                 return this.formSubmenusChild(obj);
@@ -226,7 +274,7 @@ class SiderCustom extends Component {
         return (
             <Sider
                 trigger={null}
-                collapsed={this.props.collapsed}
+                collapsed={collapsed}
                 style={{ overflowY: 'auto' }}
             >
                 <div className="logo">
@@ -235,7 +283,7 @@ class SiderCustom extends Component {
                         <span className="logo-title">商业智能系统</span>
                     </Link>
                 </div>
-                <Menu
+                {initDataFun.auth?<Menu
                     theme="dark"
                     mode="inline"
                     selectedKeys={[this.state.selectedKey]}
@@ -245,7 +293,7 @@ class SiderCustom extends Component {
                     inlineCollapsed={this.state.collapsed}
                 >
                     {htmlMenu}
-                </Menu>
+                </Menu>:''}
                 <style>
                     {`
                     #nprogress .spinner{
@@ -279,4 +327,10 @@ class SiderCustom extends Component {
     }
 }
 
-export default withRouter(SiderCustom);
+// export default withRouter(SiderCustom);
+export default withRouter(connect(state => ({
+    initDataFun: state.initDataFun,
+}), {
+    initData,
+    initMenu
+})(SiderCustom));

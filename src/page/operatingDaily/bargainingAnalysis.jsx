@@ -27,19 +27,19 @@ class BargainingAnalysis extends React.Component{
             selectValue: '',
             carCombine: { //其他车型 当前展示车型取非
                 0: [],
-                1: [37, 78],
-                2: [2,3],
-                3: [5],
-                4: [78],
-                5: [37, 78, 2, 3, 5]
+                1: [37],
+                2: [2],
+                3: [3],
+                4: [5],
+                5: [78]
             },
             carTypes: { //车型
                 0: '全部',
-                1: '易达+',
-                2: '舒适+',
-                3: '商务+',
-                4: '出租车',
-                5: '其他'
+                1: '易达',
+                2: '舒适',
+                3: '豪华',
+                4: '商务',
+                5: '出租车'
             },
             city: '',
             start_at: '',
@@ -93,23 +93,22 @@ class BargainingAnalysis extends React.Component{
                     ]
                 }
             ],
-            exportParams: {}
+            exportParams: {},
+            flag: false
         }
     }
     componentWillMount() {
         this.initDateRange(this.state.dayNum);//初始化查询日期
+        let city = this.getCityParams();
+        this.setState({
+            city: city
+        })
     }
     componentDidMount(){
-        const params = {
-            city: '',
-            start_at: this.state.start_at,
-            end_at: this.state.end_at, //当前时间减n天
-            car_type_id: ''
-        }
         this.setState({
             load:true
         },() => {
-            this.getTableData(params);
+            this.getTableData();
         })
     }
     //初始化查询起止日期
@@ -120,7 +119,7 @@ class BargainingAnalysis extends React.Component{
         const start = new Date((moment(startTime).subtract())._d);
         const end = new Date((moment(endTime).subtract())._d);
         this.setState({
-            city: '',
+            city: this.state.city,
             start_at: this.formatDate(start),
             end_at: this.formatDate(end), //当前时间减n天
             car_type_id: ''
@@ -152,11 +151,11 @@ class BargainingAnalysis extends React.Component{
     };
     // 获取下拉框和日期参数
     searchParams(params){
-
         this.setState({
             city: params.city,
             start_at: params.selectedStartDate,
-            end_at: params.selectedEndDate
+            end_at: params.selectedEndDate,
+            flag: true
         })
     }
     // 获取车型参数
@@ -164,8 +163,6 @@ class BargainingAnalysis extends React.Component{
         let index = e.target.value;
         this.setState({
             car_type_id: this.state.carCombine[index].join(',')
-        },() => {
-            this.searchBtn()
         })
     }
     // 点击查询
@@ -219,7 +216,7 @@ class BargainingAnalysis extends React.Component{
         const params = {
             start_at: start,
             end_at: end,
-            city: this.state.city,
+            city: this.state.flag?this.state.city:this.getCityParams(),
             car_type_id: this.state.car_type_id
         }
         return params;
@@ -244,6 +241,24 @@ class BargainingAnalysis extends React.Component{
         }else {
             return bb;
         }
+    }
+    getCityParams(){
+        let path = document.location.toString();
+        let pathUrl = path.split('#');
+        let url = pathUrl[1].split('/');
+        let str = url[url.length - 1];
+        let city = "";
+        let auth = JSON.parse(localStorage.getItem("auth"));
+        if(auth){
+            let cityObj = auth;
+            Object.keys(cityObj).map(item => {
+                if(item.indexOf(str) > 0 ){
+                    let cityArr = cityObj[item].city;
+                    city = cityArr[cityArr.length - 1]
+                }
+            })
+        }
+        return city;
     }
     getTotalPage() {
         let day = dateDiff(this.state.start_at, this.state.end_at);

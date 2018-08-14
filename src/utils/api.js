@@ -1,5 +1,7 @@
 
+import { hashHistory } from 'react-router';
 import axios from 'axios'
+import * as Auth from './Auth'
 import {message} from 'antd';
 import qs from 'qs'
 import 'promise'
@@ -17,8 +19,9 @@ if(domain === 'localhost:3000'){
 }
 const REQUEST_METHOD_GET = 'GET';
 const REQUEST_METHOD_POST = 'POST';
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+axios.defaults.withCredentials = true;
 function objectToQueryString(queryObject) {
   let queryArray = [];
   for (let queryKey in queryObject) {
@@ -108,7 +111,7 @@ export const getBiData = (url, params) => {
           reject(400);
           break;
         case 401:
-          // Auth.redirectLogin();
+            Auth.redirectLogin();
           break;
         case 402:
           message.error('BI访问权限已过期');
@@ -138,15 +141,50 @@ export function getFun(url, params) {
 
 export function get(url, params) {
     return new Promise((resolve, reject) => {
-
-        axios.get(BI_API_BASE_URL+url, {
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-            },
-            withCredentials: true,
-            params: params
-        }).then(res => {
-            resolve(res.data)
+        request(BI_API_BASE_URL + url, REQUEST_METHOD_GET, params).then((res) => {
+            switch (res.code) {
+                case 0:
+                    resolve(res);
+                    break;
+                case 100:
+                    // message.error('用户未登录');
+                    window.location.href='/index.php/index/login'
+                    break;
+                case 105:
+                    resolve(res);
+                    // message.error('用户账户已过有效期');
+                    hashHistory.push({
+                        pathname: '/app/pageError',
+                        query: {
+                            code: res.code
+                        },
+                    })
+                    break;
+                case 106:
+                    resolve(res);
+                    // message.error('用户账户已被禁用');
+                    hashHistory.push({
+                        pathname: '/app/pageError',
+                        query: {
+                            code: res.code
+                        },
+                    })
+                    break;
+                case 10002:
+                    resolve(res);
+                    // message.error('用户没有相关操作权限');
+                    hashHistory.push({
+                        pathname: '/app/pageError',
+                        query: {
+                            code: res.code
+                        },
+                    })
+                    break;
+                default:
+                    message.error(res.code);
+                    reject(res.code);
+                    break;
+            }
         }).catch(err => {
             console.log(err)
             message.error(err);
@@ -155,9 +193,55 @@ export function get(url, params) {
 }
 export function post(url, params) {
     return new Promise((resolve, reject) => {
-        axios.post(BI_API_BASE_URL+url, qs.stringify(params))
-        .then(res => {
-            resolve(res.data)
+        axios.post(BI_API_BASE_URL+url, qs.stringify(params)).then(res => {
+            switch (res.data.code) {
+                case 0:
+                    resolve(res.data);
+                    break;
+                case 1:
+                    message.error(res.data.message);
+                    resolve(res.data);
+                    break;
+                case 100:
+                    // message.error('用户未登录');
+                    window.location.href='/index.php/index/login'
+                    break;
+                case 105:
+                    resolve(res.data);
+                    // message.error('用户账户已过有效期');
+                    hashHistory.push({
+                        pathname: '/app/pageError',
+                        query: {
+                            code: res.code
+                        },
+                    })
+
+                    break;
+                case 106:
+                    resolve(res.data);
+                    // message.error('用户账户已被禁用');
+                    hashHistory.push({
+                        pathname: '/app/pageError',
+                        query: {
+                            code: res.code
+                        },
+                    })
+                    resolve(res.data);
+                    break;
+                case 10002:
+                    resolve(res.data);
+                    // message.error('用户没有相关操作权限');
+                    hashHistory.push({
+                        pathname: '/app/pageError',
+                        query: {
+                            code: res.code
+                        },
+                    })
+                    break;
+                default:
+                    message.error(res.data.code);
+                    break;
+            }
         }).catch(err => {
             message.error(err);
         })

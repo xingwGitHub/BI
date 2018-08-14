@@ -4,23 +4,19 @@ import './index.css';
 import './style/lib/animate.css';
 // import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import { createStore, applyMiddleware } from 'redux';
 import { AppContainer } from 'react-hot-loader';
 import Page from './Page';
+import store from './store/store'
 
-// redux 注入操作
-const middleware = [thunk];
-const store = createStore(applyMiddleware(...middleware));
 
 
 const render = Component => {   // 增加react-hot-loader保持状态刷新操作，如果不需要可去掉并把下面注释的打开
     ReactDOM.render(
-        <AppContainer>
-            <Provider store={store}>
-                <Component store={store} />
-            </Provider>
-        </AppContainer>
+        <Provider store={store}>
+            <AppContainer>
+                    <Component  />
+            </AppContainer>
+        </Provider>
         ,
         document.getElementById('root')
     );
@@ -49,8 +45,8 @@ if (module.hot) {
 
 // ReactDOM.render(
 //     <AppContainer>
-//         <Provider store={store}>
-//             <CRouter store={store} />
+//         <Provider mobx={mobx}>
+//             <CRouter mobx={mobx} />
 //         </Provider>
 //     </AppContainer>
 //  ,

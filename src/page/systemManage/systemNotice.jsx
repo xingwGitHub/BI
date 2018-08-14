@@ -12,11 +12,12 @@ const confirm = Modal.confirm;
 const AddEditForm = Form.create()(
 
     class extends React.Component {
+
         render() {
             const { noticeCreator, visible, onCancel, onSubmit, form, popTitle, btnFlag } = this.props;
             let {popValues} = this.props;
             if(btnFlag === 0){
-                popValues = {};
+                // popValues = {};
             }
             const { TextArea } = Input;
             const { getFieldDecorator } = form;
@@ -216,41 +217,43 @@ export default class SystemNotice extends Component {
             id: txt.id,
             // create_id: txt.create_id
         };
-
-        confirm({
-            title:'你确定要停用此公告吗？',
-            content:'确认停用后该公告将不再显示。',
-            okText: '确认',
-            cancelText: '取消',
-            onOk(){
-                let result =getFun('/system/informs/stop',params);
-                result.then(res => {
-                    if(res.data[0]){
-                        let tableData2 = tableData;
+        if(txt.status){
+            confirm({
+                title:'你确定要停用此公告吗？',
+                content:'确认停用后该公告将不再显示。',
+                okText: '确认',
+                cancelText: '取消',
+                onOk(){
+                    let result =getFun('/system/informs/stop',params);
+                    result.then(res => {
+                        if(res.data[0]){
+                            let tableData2 = tableData;
                             tableData2.map(item=>{
-                                if(item.id ==txt.id){
+                                if(item.id === txt.id){
                                     item.status =!item.status;
                                 }
                             })
                             _this.setState({
                                 tableData:tableData2
                             })
-                    }
-                }).catch(err => {
-                    console.log(err)
-                })
+                        }
+                    }).catch(err => {
+                        console.log(err)
+                    })
 
-            },
-            onCancel(){
+                },
+                onCancel(){
 
-            }
-        })
+                }
+            })
+        }
+
     }
     //添加公告
     addNotice(params, params1) {
         let url = '';
         let param = {};
-        if (this.state.btnFlag == 1){
+        if (this.state.btnFlag === 1){
             param = params1;
             url = '/system/informs/edit';
         }else{
@@ -267,10 +270,14 @@ export default class SystemNotice extends Component {
     //点击添加
     addBtn = () => {
         this.setState({ visible: true, popTitle: '添加公告', btnFlag:0});
+
     }
     //取消提交和提交
-    handleCancel = () => {
+    handleCancel = (e) => {
         this.setState({ visible: false });
+        e.preventDefault();
+        const form = this.formRef.props.form;
+        form.resetFields();
     }
 
     handleSubmit = (e) => {
@@ -349,11 +356,11 @@ export default class SystemNotice extends Component {
                 key: 'action',
                 render: (text, record, index) => (
                     <span>
-                        <span className={record.create_id == this.state.userId ? "stop-show": "stop-hide"}><a href="javascript:;" className={record.status?"stop":"stopped"} onClick={() => this.switchFun(text,index)} >{text.status?"停用":"已停用"}</a>
+                        <span className={record.create_id === this.state.userId ? "stop-show": "stop-hide"}><a href="javascript:;" className={record.status?"stop":"stopped"} onClick={() => this.switchFun(text,index)} >{text.status?"停用":"已停用"}</a>
                         <span className="ant-divider" /></span>
                         <a onClick={() => this.noticeDetail(text,index)} href="javascript:;" >详情</a>
-                        <span className={record.status && record.create_id == this.state.userId ? "ant-divider" : ""}/>
-                        <a onClick={() => this.noticeEdit(text,index)} href="javascript:;">{record.status && record.create_id == this.state.userId ? "编辑" : ""}</a>
+                        <span className={record.status && record.create_id === this.state.userId ? "ant-divider" : ""}/>
+                        <a onClick={() => this.noticeEdit(text,index)} href="javascript:;">{record.status && record.create_id === this.state.userId ? "编辑" : ""}</a>
                 </span>
                 ),
             }]

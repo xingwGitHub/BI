@@ -1,6 +1,6 @@
 import { Table, message, Form, Select, Button } from 'antd';
 import React, {Component} from 'react';
-import {post} from '../../utils/api'
+import {getFun, post} from '../../utils/api'
 const Option = Select.Option;
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -18,6 +18,8 @@ class EditableCell extends React.Component {
         super(props);
     }
     componentWillMount(){
+    }
+    searchVal(val){
     }
     render() {
         const {
@@ -54,11 +56,17 @@ class EditableCell extends React.Component {
                                     {getFieldDecorator(dataIndex, {
                                         rules: [{
                                             required: true,
-                                            message: `Please Input ${title}!`,
+                                            message: `请选择 ${title}!`,
                                         }],
                                         initialValue: optionObj[dataIndex].defalutVal,
                                     })(
-                                        <Select disabled={optionObj[dataIndex].disableFlag} mode={optionObj[dataIndex].mode} placeholder="请选择" >{optionObj[dataIndex].optionData}</Select>
+                                        <Select disabled={optionObj[dataIndex].disableFlag} mode={optionObj[dataIndex].mode}
+                                                onSearch={this.searchVal.bind(this)}
+                                                showSearch
+                                                placeholder="请选择"
+                                                filterOption={(input, option) => option.props.children.indexOf(input) >= 0}
+                                        >
+                                            {optionObj[dataIndex].optionData}</Select>
                                     )}
                                 </FormItem>
                             ) : restProps.children}
@@ -134,13 +142,27 @@ export  default class EditableTable extends Component {
     }
     componentWillMount(){
         let cityData = JSON.parse(localStorage.getItem("cityData"));
-         this.setState({
-             data: this.props.data,
-             addRole: this.props.addData,
-             cityData: cityData,
-             addRoleEdit: []
-         })
-
+        if(!cityData){
+            let cityData = getFun('/web_api/dim_info/city');
+            cityData.then( res => {
+                localStorage.setItem('cityData', JSON.stringify(res.data))
+            })
+            this.setState({
+                cityData: cityData
+            })
+        }
+        this.setState({
+            data: this.props.data,
+            cityData: cityData,
+            addRole: this.props.addData,
+            addRoleEdit: []
+        })
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            data: nextProps.data,
+            addRole: nextProps.addData,
+        })
     }
     isEditing = (record) => {
         return record.key === this.state.editingKey;
@@ -152,11 +174,10 @@ export  default class EditableTable extends Component {
         }
         let result = post('/system/auth/user/delrole',params);
         result.then(res => {
-            if(res.code === 1){
+            if(res.code === 0){
                 let obj = this.state.addRole;
                 obj.map((item,index) => {
                     if(item.role_id === record.role_id){
-                        console.log(index)
                         obj.splice(index,1);
                     }
                 })
@@ -172,7 +193,6 @@ export  default class EditableTable extends Component {
     edit(record) {
         this.setState({ editingKey: record.key });
     }
-
     save(form, record,key) {
         form.validateFields((error, row) => {
             let cityData = JSON.parse(localStorage.getItem("cityData"));
@@ -231,15 +251,18 @@ export  default class EditableTable extends Component {
                  this.setState({ addRole: newData, editingKey: '' });
                 let result = post('/system/auth/user/editrole',params);
                 result.then(res => {
-                    console.log(res)
                 })
             } else {
                 newData.pop();
                 newData.push(str);
+                console.log(newData)
                 this.setState({ addRole: newData, editingKey: '' });
                 let result = post('/system/auth/user/addrole',params);
                 result.then(res => {
-                    console.log(res)
+                    if(res.code == 1){
+                        newData.pop();
+                        this.setState({ addRole: newData});
+                    }
                 })
             }
 
@@ -248,6 +271,14 @@ export  default class EditableTable extends Component {
 
     cancel = () => {
         this.setState({ editingKey: '' });
+        let obj = this.state.addRole;
+        let objObj = obj[obj.length - 1];
+        if(objObj.addFlag){
+            obj.pop();
+        }
+        this.setState({
+            addRole: obj
+        })
     };
     addRoleGroup(){
         const { count, addRole } = this.state;
@@ -268,21 +299,21 @@ export  default class EditableTable extends Component {
     }
     render() {
         const {data,addRole, cityData, addRoleEdit} = this.state;
+        let roleGroup = JSON.parse(localStorage.getItem("alllist"));
         let tableData =  [];
         if(addRole && addRole.length){
             addRole.map(item => {
-                console.log(item)
                 let str = item;
                 str.key = item.role_id;
                 item.key = item.role_id;
                 let arr = [];
-                item.city.map(item1 => {
-                    if(item1 === 'all'){
-                        arr.push('全国')
-                    }else {
+                if(item.city.indexOf('all') > -1){
+                    arr.push('全国')
+                }else {
+                    item.city.map(item1 => {
                         arr.push(cityData[item1])
-                    }
-                })
+                    })
+                }
                 str.cityId = arr.join(',')
                 str.namestr = item.name;
                 if('disableFlag' in item){
@@ -293,10 +324,8 @@ export  default class EditableTable extends Component {
                 tableData.push(str);
             })
         }else {
-            tableData.push({key: 0,role_id: 0,name: '',city: '',disableFlag:false});
+            // tableData.push({key: 0,role_id: 0,name: '',city: '',disableFlag:false});
         }
-
-        console.log(tableData)
         const components = {
             body: {
                 row: EditableFormRow,

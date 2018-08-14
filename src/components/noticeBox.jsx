@@ -1,30 +1,51 @@
 
 import React, {Component} from 'react';
 import { Button, notification, Icon, Modal } from 'antd';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {initData} from '../store/index/action'
 
 
 class NoticeBox extends Component {
-    state = {
-        visibleDetail: false,
-        details: {},
-        notificationData: []
-    };
+    static propTypes = {
+        initData: PropTypes.func
+    }
+    constructor(props){
+        super(props);
+        this.state = {
+            visibleDetail: false,
+            details: {},
+            notificationData: []
+        };
+    }
+
     componentWillMount(){
-        let informs = this.props.informs;
+    }
+    componentDidMount() {
+        this.handleClickBtn();
+
+        // clearTimeout(t);
+    }
+    componentWillReceiveProps(nextProps) {
+        notification.destroy();
+        let initDataFun = nextProps.initDataFun;
+        let informs = initDataFun.informs;
         if(informs && informs.length) {
             if(informs.length > 5){
                 this.setState({
-                    notificationData: informs.slice(0,2)
+                    notificationData: informs.slice(0,4)
                 })
             }else {
                 this.setState({
                     notificationData: informs
                 })
             }
+            this.handleClickBtn();
+        }else {
+            this.setState({
+                notificationData: []
+            },()=>this.handleClickBtn())
         }
-    }
-    componentDidMount() {
-        this.openNotification();
     }
     close() {
     };
@@ -67,11 +88,19 @@ class NoticeBox extends Component {
             visibleDetail: false
         });
     }
+    handleClickBtn(){
+        let _this = this;
+        let t = setTimeout(function(){
+            _this.openNotification();
+        },10);
+
+    }
     render() {
         const {details} = this.state;
+
         return (
             <div>
-                <span> </span>
+                <Button className="notification-btn" onClick={this.handleClickBtn.bind(this)}></Button>
                 <Modal
                     className="details-modal"
                     title="公告详情"
@@ -95,6 +124,9 @@ class NoticeBox extends Component {
                         background: none!important;
                         border: none!important;
                     }
+                    .notification-btn {
+                        display: none;
+                    }
                 `}</style>
             </div>
 
@@ -102,4 +134,8 @@ class NoticeBox extends Component {
     }
 }
 
-export default NoticeBox;
+export default connect(state => ({
+    initDataFun: state.initDataFun,
+}), {
+    initData,
+})(NoticeBox);

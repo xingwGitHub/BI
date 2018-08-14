@@ -5,7 +5,7 @@ import {Row, Col, Card, Tabs, DatePicker} from 'antd';
 import moment from 'moment';
 import dateFormat from '../../utils/dateFormat';
 import RealSummaryChart from '../../components/chart/realTime';
-import * as Api from '../../utils/api';
+import {getFun} from '../../utils/api';
 
 import './realtime.less';
 
@@ -75,12 +75,13 @@ export default class Survey extends Component {
     }
 
     getSummary() {
-        Api.getBiData('/realtime/summary', {
+        let result = getFun('/web_api/realtime/summary', {
             action: 'now',
-        }).then(data => {
+        })
+        result.then(data => {
             let _summary = this.state.summaryType;
             _summary.forEach(function (item, index) {
-                _summary[index].num = data[_summary[index].cntName];
+                _summary[index].num = data.data[_summary[index].cntName];
             });
             this.setState({
                 summaryType: _summary
@@ -95,13 +96,14 @@ export default class Survey extends Component {
             loading: true
         });
 
-        Api.getBiData('/realtime/summary', {
+        let result = getFun('/web_api/realtime/summary', {
             action: 'chart',
             stat_date: this.state.startDate,
             index_key: this.state.summaryType[this.state.currentTabKey].cntName,
-        }).then(data => {
+        })
+        result.then(data => {
             let _summary = this.state.summaryType;
-            _summary[this.state.currentTabKey].chart = data;
+            _summary[this.state.currentTabKey].chart = data.data;
             this.setState({
                 summaryType: _summary,
                 loading: false

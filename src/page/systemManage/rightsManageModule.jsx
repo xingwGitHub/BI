@@ -209,7 +209,7 @@ export default class RightsManageModule extends Component{
     }
     //点击添加
     addBtn = () => {
-        this.setState({ visible: true, popTitle: '添加模块', btnFlag:0});
+        this.setState({ visible: true, popTitle: '添加模块', btnFlag:0,inputDisable: false});
         this.parentList();
     }
     //取消提交和提交
@@ -338,7 +338,7 @@ export default class RightsManageModule extends Component{
                                 <Button type="primary" icon='plus' onClick={this.addBtn.bind(this)}>添加</Button>
                             </div>
                         </div>
-                        <div>
+                        <div style={{marginTop: '20px'}}>
                             <Table onChange={this.handleChange} dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
 
                             </Table>

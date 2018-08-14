@@ -1,6 +1,9 @@
 import React from 'react';
-import {Row, Col, Select, DatePicker} from 'antd';
+import {Select, DatePicker} from 'antd';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {initData, initMenu} from '../../store/index/action'
 
 
 import {getFun} from '../../utils/api'
@@ -12,22 +15,40 @@ const { RangePicker } = DatePicker;
 const dateFormat = 'YYYY-MM-DD';
 
 class SearchBox extends React.Component{
+    static propTypes = {
+        initData: PropTypes.func
+    }
     constructor(props){
         super(props);
         this.state={
-            city: '',
+            city: [],
             selectedStartDate: '',
             selectedEndDate: '',
             dayNum: 10,
             cityOptionData: {},
-            cityData: {}
+            cityData: {},
+            auth: {}
         };
     }
     componentWillMount() {
         this.initDateRange(this.state.dayNum);//初始化查询日期
+        let auth = JSON.parse(localStorage.getItem("auth"));
+        if(auth){
+            this.setState({
+                auth: auth
+            },() => this.getAllCityData())
+        }
     }
     componentDidMount(){
-        this.getCityData();
+
+    }
+    componentWillReceiveProps(nextProps) {
+        // if(nextProps.initDataFun){
+        //     console.log(nextProps.initDataFun)
+        //     this.setState({
+        //         auth: nextProps.initDataFun.auth
+        //     },() => this.getCityData())
+        // }
     }
     //初始化查询起止日期
     initDateRange(rangeDays) {
@@ -38,20 +59,65 @@ class SearchBox extends React.Component{
         });
 
     }
-    getCityData(){
+    getAllCityData(){
         let obj = localStorage.getItem('cityData');
         let objJson = JSON.parse(obj);
         if(objJson){
+            objJson = Object.assign({"all": "全国"}, objJson);
             this.setState({
-                cityOptionData: objJson
-            })
+                cityData: objJson
+            },() => this.getCityData())
+
         }else {
             let cityData = getFun('/web_api/dim_info/city');
             cityData.then( res => {
-                localStorage.setItem('cityData', JSON.stringify(res.data))
+                localStorage.setItem('cityData', JSON.stringify(res.data));
+                let cityobj = Object.assign({"all": "全国"}, res.data);
                 this.setState({
-                    cityOptionData: res.data
+                    cityData: cityobj
                 })
+
+            })
+        }
+    }
+    getCityData(){
+        let auth = this.state.auth;
+        let arr = Object.keys(auth);
+        if(arr.indexOf("-1") > -1){
+            this.setState({
+                cityOptionData: this.state.cityData,
+                city: []
+            })
+        }else {
+            let _this = this;
+            let cityObj = this.state.auth;
+            let path = document.location.toString();
+            let pathUrl = path.split('#');
+            let url = pathUrl[1].split('/');
+            let str = url[url.length - 1];
+            Object.keys(cityObj).map(item => {
+                if(item.indexOf(str) > 0){
+                    let cityData = cityObj[item].city;
+                    if(cityData.indexOf('all') > -1){
+                        _this.setState({
+                            cityOptionData: _this.state.cityData,
+                            city: []
+                        })
+                    }else {
+                        let cityStr = _this.state.cityData;
+                        let str = {};
+                        cityData.map(item => {
+                            let strr = {};
+                            let keyStr = item;
+                            strr[keyStr] = cityStr[item];
+                            str = Object.assign(strr, str)
+                        })
+                        this.setState({
+                            cityOptionData: str,
+                            city: cityStr[cityData[cityData.length-1]].toString()
+                        })
+                    }
+                }
             })
         }
     }
@@ -64,17 +130,41 @@ class SearchBox extends React.Component{
         return y + '-' + m + '-' + d;
     };
     handleChange(value){
-        this.setState({
-            city: value
-        })
+        let cityArr = this.getCityArr(value);
+
         const start = new Date((moment(this.state.selectedStartDate).subtract())._d);
         const end = new Date((moment(this.state.selectedEndDate).subtract())._d);
         const param = {
-            city: value,
+            city: cityArr.join(","),
             selectedStartDate: this.formatDate(start),
             selectedEndDate: this.formatDate(end)
         }
         this.props.searchParams(param)
+    }
+    getCityArr(value){
+        let length = value.length - 1;
+        let index = value.indexOf("all");
+        let arr = [];
+        if(index == -1){
+            arr = value;
+            this.setState({
+                city: value
+            })
+        }else if(index === 0 && index < length) {
+            arr = value.slice(index+1)
+            this.setState({
+                city: value.slice(index+1)
+            })
+        }else if(index === length){
+            arr = ["all"]
+            this.setState({
+                city: ["all"]
+            })
+        }
+        return arr;
+    }
+    handleSearch(value){
+
     }
     handlePickerChange(dates, dateStrings) {
         this.setState({
@@ -93,15 +183,24 @@ class SearchBox extends React.Component{
     }
     render() {
         const { cityOptionData, selectedStartDate,  selectedEndDate} = this.state;
-        const cityOption = [<Option key="all">全国</Option>];
+        let cityOption = [];
         Object.keys(cityOptionData).map( (item) => {
             cityOption.push(<Option key={item}>{cityOptionData[item]}</Option>)
         } )
         return (
             <div className="search-box-wrapper">
                 <div className="city-select">
-                    <label>城市：</label>
-                    <Select defaultValue='全国' style={{width: 120}} onChange={this.handleChange.bind(this)}>
+                    <label className="cartype-label">城市：</label>
+                    <Select
+                        mode="multiple"
+                        placeholder="请选择"
+                        showArrow={true}
+                        defaultValue={this.state.city}
+                        value={this.state.city}
+                        style={{width: 300}}
+                        onSearch={this.handleSearch.bind(this)}
+                        filterOption={(input, option) => option.props.children.indexOf(input) >= 0}
+                        onChange={this.handleChange.bind(this)}>
                         {cityOption}
                     </Select>
                 </div>
@@ -118,4 +217,9 @@ class SearchBox extends React.Component{
         )
     }
 }
-export default SearchBox;
+export default connect(state => ({
+    initDataFun: state.initDataFun,
+}), {
+    initData,
+    initMenu
+})(SearchBox);

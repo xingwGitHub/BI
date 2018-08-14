@@ -24,14 +24,15 @@ import RightsManageRole from '../page/systemManage/rightsManageRole';
 import RightsManageUser from '../page/systemManage/rightsManageUser';
 import RightsManageModule from '../page/systemManage/rightsManageModule';
 
+import PageError from '../page/pageError/pageError'
+
 
 
 
 export default class CRouter extends Component {
     requireAuth = (permission, component) => {
-        const { auth } = this.props;
-        const { permissions } = auth.data;
-        // const { auth } = store.getState().httpData;
+        // const { permissions } = auth.data;
+        // const { auth } = mobx.getState().httpData;
         // if (!permissions || !permissions.includes(permission)) return <Redirect to={'404'} />;
         return component;
     };
@@ -48,21 +49,20 @@ export default class CRouter extends Component {
         })
     }
     render() {
-        const {flag} = this.state;
         return (
             <Switch>
 
                 <Route exact path="/app/realtime/survey" component={Survey} />
                 <Route exact path="/app/realtime/order" component={Order} />
 
-                <Route exact path="/app/operatingdaily/incomeCost" component={IncomeAndCost} />
-                <Route exact path="/app/operatingdaily/distribution" component={Distribution} />
-                <Route exact path="/app/operatingdaily/portrait" component={Portrait} />
-                <Route exact path="/app/operatingdaily/bargainingAnalysis" component={BargainingAnalysis} />
-                <Route exact path="/app/operatingdaily/capacityAnalysis" component={CapacityAnalysis} />
-                <Route exact path="/app/operatingdaily/userStatistics" component={UserStatistics} />
-                <Route exact path="/app/operatingdaily/piesAnalysis" component={PiesAnalysis} />
-                <Route exact path="/app/operatingdaily/serviceQualityOfDrivers" component={ServiceQualityOfDrivers} />
+                <Route exact path="/app/operation/income" component={IncomeAndCost} />
+                <Route exact path="/app/operation/order_dist" component={Distribution} />
+                <Route exact path="/app/operation/portrait" component={Portrait} />
+                <Route exact path="/app/operation/bargain" component={BargainingAnalysis} />
+                <Route exact path="/app/operation/driver" component={CapacityAnalysis} />
+                <Route exact path="/app/operation/user" component={UserStatistics} />
+                <Route exact path="/app/operation/dispatch" component={PiesAnalysis} />
+                <Route exact path="/app/operation/service_quality" component={ServiceQualityOfDrivers} />
 
                 <Route exact path="/app/ranking/rank_order/complete_count" component={Ranking} />
                 <Route exact path="/app/ranking/rank_order/complete_amount" component={Ranking} />
@@ -100,6 +100,8 @@ export default class CRouter extends Component {
                 <Route exact path="/app/systemManage/rightsManage/role" component={RightsManageRole} />
                 <Route exact path="/app/systemManage/rightsManage/user" component={RightsManageUser} />
                 <Route exact path="/app/systemManage/rightsManage/module" component={RightsManageModule} />
+
+                <Route exact path="/app/pageError" component={PageError}/>
 
                 {/*<Route render={() => <Redirect to="/404" />} />*/}
             </Switch>

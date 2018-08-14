@@ -1,47 +1,49 @@
 import React, {Component} from 'react';
 import {Card, Table, Row, Col, Input, Button, Pagination, Modal, Select, Divider, Tree} from 'antd';
+import PropTypes from 'prop-types';
+// connect方法的作用：将额外的props传递给组件，并返回新的组件，组件在该过程中不会受到影响
+import { connect } from 'react-redux'
+import {initData} from '../../store/index/action'
 import './systemNotice.less';
+import {getFun,post} from '../../utils/api'
 const confirm = Modal.confirm;
 const Option = Select.Option;
 const TreeNode = Tree.TreeNode;
 const Search = Input.Search;
 
-export default class RightsManageRole extends Component{
+class RightsManageRole extends Component{
+    static propTypes = {
+        initData: PropTypes.func
+    }
     constructor(props){
         super(props);
         this.state = {
+            current: 1,
+            pageSize: 10,
             total: 10,
             title: '角色组',
             roleName: '',
-            funcModule: '0',
-            funcModuleData: [
-                {value: '00', key: '0'},
-                {value: '11', key: '1'},
-                {value: '22', key: '2'}
-            ],
             load: false,
-            tableData: [
-                {id: 0, aa: 2, bb: 0, time: '2016-09-21 08:00:00',key: '0'},
-                {id: 1, aa: 3, bb: 33, time: '2016-09-21 08:00:00',key: '1'},
-                {id: 2, aa: 4, bb: 44, time: '2016-09-21 08:00:00',key: '2'},
-                {id: 3, aa: 5, bb: 55, time: '2016-09-21 08:00:00',key: '3'},
-            ],
+            tableData: [],
             tableHeader: [
-                {title: '功能数', dataIndex: 'aa', key: 'aa',
-                    sorter: (a, b) => a.aa - b.aa,
+                {title: '角色组名称', dataIndex: 'name', key: 'name'},
+                {title: '功能数', dataIndex: 'permission_count', key: 'permission_count',
+                    sorter: (a, b) => a.permission_count - b.permission_count,
                 },
-                {title: '关联用户数', dataIndex: 'bb', key: 'bb',
-                    sorter: (a, b) => a.bb - b.bb,
+                {
+                    title: '关联用户数', dataIndex: 'user_count', key: 'user_count',
+                    sorter: (a, b) => a.user_count - b.user_count,
+                    render: (text, record) => (
+                        <span>{record.user_count ? record.user_count : '0'}</span>
+                    )
                 },
-                {title: '添加时间', dataIndex: 'time', key: 'time',
-                    sorter: (a, b) => a.time - b.time,
+                {title: '添加时间', dataIndex: 'created_at', key: 'created_at',
+                    sorter: (a, b) => new Date(a.created_at) - new Date(b.created_at),
                 },
                 {title: '操作', key: 'action',
                     render: (text, record) => (
                         <span>
                           <a href="javascript:;" onClick={this.editClick.bind(this,text, record)}>编辑</a>
-                          <Divider type="vertical" />
-                          <a href="javascript:;" onClick={this.deleteClick.bind(this, text, record)}>删除</a>
                           <Divider type="vertical" />
                           <a href="javascript:;" onClick={this.detailsClick.bind(this, text, record)}>详情</a>
                         </span>
@@ -51,53 +53,35 @@ export default class RightsManageRole extends Component{
             addVisible: false,
             detailsVisible: false,
             addTitle: '添加角色组',
-            treeData: [{
-                title: '0-0',
-                key: '0-0',
-                children: [{
-                    title: '0-0-0',
-                    key: '0-0-0',
-                    children: [
-                        { title: '0-0-0-0', key: '0-0-0-0' },
-                        { title: '0-0-0-1', key: '0-0-0-1' },
-                        { title: '0-0-0-2', key: '0-0-0-2' },
-                    ],
-                }, {
-                    title: '0-0-1',
-                    key: '0-0-1',
-                    children: [
-                        { title: '0-0-1-0', key: '0-0-1-0' },
-                        { title: '0-0-1-1', key: '0-0-1-1' },
-                        { title: '0-0-1-2', key: '0-0-1-2' },
-                    ],
-                }, {
-                    title: '0-0-2',
-                    key: '0-0-2',
-                }],
-            }, {
-                title: '0-1',
-                key: '0-1',
-                children: [
-                    { title: '0-1-0-0', key: '0-1-0-0' },
-                    { title: '0-1-0-1', key: '0-1-0-1' },
-                    { title: '0-1-0-2', key: '0-1-0-2' },
-                ],
-            }, {
-                title: '0-2',
-                key: '0-2',
-            }],
+            treeData:[],
             expandedKeys: [],
             autoExpandParent: true,
             checkedKeys: [],
             selectedKeys: [],
             searchValue: '',
-            dataList: []
+            dataList: [],
+            roleRightsName: '',
+            checkFlag: true,
+            addOrEdit: true,
+            editId: '',
+            treeFlag: false,
+            userId:0
         }
+        this.roleRightsNameChange = this.roleRightsNameChange.bind(this);
     }
     componentWillMount(){
-        this.generateList(this.state.treeData)
+        let userid = this.props.initDataFun.userInfo.id;
+        this.setState({
+            userId: userid.id
+        })
+        this.getTableData();
     }
-    componentDidMount(){}
+    componentDidMount(){
+        this.initTree() //初始化 获取用户列表数据
+    }
+    componentWillReceiveProps(nextProps) {
+        // let initData = nextProps.initDataFun.userInfo;
+    }
     roleNameChange(val){
         console.log(val)
     }
@@ -110,49 +94,102 @@ export default class RightsManageRole extends Component{
 
     }
     //分页
-    onChange(){
-
+    onChange(current){
+        let params = {
+            page: current
+        }
+        this.getTableData(params)
+    }
+    // 获取用户列表数据
+    getTableData(params){
+        let _this = this;
+        let result = getFun('/system/auth/role/list',params);
+        result.then(res => {
+            res.data.data.map(item => {
+                item.key = item.id;
+            })
+            _this.setState({
+                tableData: res.data.data,
+                load: false,
+                total: res.data.total,
+                current: res.data.current_page
+            })
+        })
     }
     // 列表-添加
     addBtn(){
         this.setState({
-            addVisible: true
+            addVisible: true,
+            addOrEdit: true,
+            checkFlag: true,
+            valVal: '',
+            checkedKeys: [],
+            treeFlag: false
         })
     }
     // 列表-编辑
     editClick(text, record){
-        console.log(text, record)
-    }
-    // 列表-删除
-    deleteClick(text, record){
-        let num = text.bb;
-        if(num){
-            Modal.error({
-                title: '你不能删除此角色组！',
-                content: '该角色组仍存在有效用户关联。',
-                okText:"确认"
-            });
-        }else {
-            confirm({
-                title: '你确定要删除此角色组吗？',
-                content: '确认删除后该权限组将不能恢复。',
-                okText: '确认',
-                cancelText: '取消',
-                onOk() {
-                },
-                onCancel() {
-                }
-            })
+        let params = {
+            id: text.id
         }
+        let result = getFun('/system/auth/role/info',params);
+        result.then(res => {
+            let aa = res.data.permissions.join(",");
+            this.setState({
+                checkedKeys: aa.split(","),
+                addVisible: true,
+                addOrEdit: false,
+                editId: text.id,
+                checkFlag: true,
+                addTitle: '编辑角色组',
+                valVal: text.name,
+                treeFlag: false
+            })
+        })
     }
+
     // 列表-详情
     detailsClick(text, record){
-
+        let params = {
+            id: text.id
+        }
+        let result = getFun('/system/auth/role/info',params);
+        result.then(res => {
+            let aa = res.data.permissions.join(",");
+            this.setState({
+                addVisible: true,
+                checkFlag: false,
+                addTitle: '角色组详情',
+                valVal: res.data.name,
+                treeFlag: true,
+                checkedKeys: aa.split(",")
+            })
+        })
     }
     // 列表-添加-弹出框确认按钮
     hideModalOk(){
-        this.setState({
-            addVisible: false
+        let params;
+        let url;
+        if(!this.state.addOrEdit){
+            url = '/system/auth/role/edit';
+            params = {
+                id: this.state.editId,
+                name: this.state.valVal,
+                permissions: this.state.checkedKeys
+            }
+        }else{
+            url = '/system/auth/role/add';
+            params = {
+                name: this.state.valVal,
+                permissions: this.state.checkedKeys
+            }
+        }
+        let result = post(url,params);
+        result.then(res => {
+            this.getTableData();
+            this.setState({
+                addVisible: false
+            })
         })
     }
     // 列表-添加-弹出框取消按钮
@@ -161,13 +198,18 @@ export default class RightsManageRole extends Component{
             addVisible: false
         })
     }
+    roleRightsNameChange(event) {
+        this.setState({
+            // roleRightsName: event.target.value,
+            valVal: event.target.value,
+        })
+    }
     searchTreeChange(e){
-        let treeData = this.state.treeData;
-        let dataList = this.state.dataList;
+        let dataList = this.state.treeData;
         let value = e.target.value;
         let expandedKeys = dataList.map((item) => {
-            if (item.title.indexOf(value) > -1) {
-                return this.getParentKey(item.key, treeData);
+            if (item.name.indexOf(value) > -1) {
+                return this.getParentKey(item.id, this.state.treeData);
             }
             return null;
         }).filter((item, i, self) => item && self.indexOf(item) === i);
@@ -177,14 +219,43 @@ export default class RightsManageRole extends Component{
             autoExpandParent: true,
         });
     }
+    addChildObj(data) {
+        let childs = data.child;
+        data.child = [];
+        for (let key in childs) {
+            data.child.push(childs[key]);
+            if (childs[key].child) {
+                this.addChildObj(childs[key]);
+            }
+        }
+    }
+    changeArray(data) {
+        let newData = [];
+        for (let key in data) {
+            let obj = data[key];
+            newData.push(obj);
+            this.addChildObj(obj);
+        }
+        return newData;
+    }
+    initTree(){
+        let result = getFun('/system/auth/permission/tree');
+        result.then(res => {
+            this.generateList(this.changeArray(res.data))
+           // console.log(this.changeArray(res.data))
+            this.setState({
+                treeData: this.changeArray(res.data)
+            })
+        })
+    }
     generateList(data){
         let dataList = this.state.dataList;
         for (let i = 0; i < data.length; i++) {
             const node = data[i];
-            const key = node.key;
-            dataList.push({ key, title: key });
-            if (node.children) {
-                this.generateList(node.children, node.key);
+            const key = node.id;
+            dataList.push({ key, name: key });
+            if (node.child) {
+                this.generateList(node.child, node.id);
             }
         }
         this.setState({
@@ -195,15 +266,14 @@ export default class RightsManageRole extends Component{
         let parentKey;
         for (let i = 0; i < tree.length; i++) {
             const node = tree[i];
-            if (node.children) {
-                if (node.children.some(item => item.key === key)) {
+            if (node.child) {
+                if (node.child.some(item => item.id === key)) {
                     parentKey = node.key;
-                } else if (this.getParentKey(key, node.children)) {
-                    parentKey = this.getParentKey(key, node.children);
+                } else if (this.getParentKey(key, node.child)) {
+                    parentKey = this.getParentKey(key, node.child);
                 }
             }
         }
-
         return parentKey;
     };
     onCheck(checkedKeys){
@@ -225,10 +295,10 @@ export default class RightsManageRole extends Component{
     }
     renderTreeNodes = (data) => {
         return data.map((item) => {
-            if (item.children) {
+            if (item.child) {
                 return (
-                    <TreeNode title={item.title} key={item.key} dataRef={item}>
-                        {this.renderTreeNodes(item.children)}
+                    <TreeNode title={item.name} key={item.id} dataRef={item}>
+                        {this.renderTreeNodes(item.child)}
                     </TreeNode>
                 );
             }
@@ -236,53 +306,52 @@ export default class RightsManageRole extends Component{
         });
     }
     render(){
-        const {title, roleName, funcModule, funcModuleData, tableData, load, tableHeader, total, addVisible,addTitle,  expandedKeys, autoExpandParent, checkedKeys, selectedKeys, treeData, searchValue} = this.state;
-        let optionData = funcModuleData.map(item => <Option key={item.key} >{item.value}</Option>)
+        const {title, roleName, funcModuleData, tableData, load, tableHeader, total, addVisible,addTitle,
+            expandedKeys, autoExpandParent, checkedKeys, selectedKeys, treeData, searchValue, roleRightsName, checkFlag, treeFlag} = this.state;
         const loop = data => data.map((item) => {
-            const index = item.title.indexOf(searchValue);
-            const beforeStr = item.title.substr(0, index);
-            const afterStr = item.title.substr(index + searchValue.length);
+            const index = item.name.indexOf(searchValue);
+            const beforeStr = item.name.substr(0, index);
+            const afterStr = item.name.substr(index + searchValue.length);
             const title = index > -1 ? (
                 <span>
-          {beforeStr}
+                    {beforeStr}
                     <span style={{ color: '#f50' }}>{searchValue}</span>
                     {afterStr}
-        </span>
-            ) : <span>{item.title}</span>;
-            if (item.children) {
+                </span>
+            ) : <span>{item.name}</span>;
+            if (item.child) {
                 return (
-                    <TreeNode key={item.key} title={title}>
-                        {loop(item.children)}
+                    <TreeNode key={item.id} title={title}>
+                        {loop(item.child)}
                     </TreeNode>
                 );
             }
-            return <TreeNode key={item.key} title={title} />;
+            return <TreeNode key={item.id} title={title} />;
         });
-
         return(
             <div>
                 <div className="notice-wrapper">
                     <Card title={title}  bordered={false}>
 
                         <div className="search-content">
-                            <div className="search-wrapper">
-                                <div className="input-wrapper">
-                                    <label>角色组名称：</label>
-                                    <Input type="text" placeholder="" defaultValue={roleName} onChange={this.roleNameChange}/>
-                                </div>
-                                <div className="input-wrapper">
-                                    <label>功能模块：</label>
-                                    <Select defalutValue='00' value={funcModule} onChange={this.funcModuleChange}>
-                                        {optionData}
-                                    </Select>
-                                </div>
-                            </div>
+                            {/*<div className="search-wrapper">*/}
+                                {/*<div className="input-wrapper">*/}
+                                    {/*<label>角色组名称：</label>*/}
+                                    {/*<Input type="text" placeholder="" defaultValue={roleName} onChange={this.roleNameChange}/>*/}
+                                {/*</div>*/}
+                                {/*<div className="input-wrapper">*/}
+                                    {/*<label>功能模块：</label>*/}
+                                    {/*<Select defalutValue='00' value={funcModule} onChange={this.funcModuleChange}>*/}
+                                        {/*{optionData}*/}
+                                    {/*</Select>*/}
+                                {/*</div>*/}
+                            {/*</div>*/}
                             <div className="search-btn-wrapper">
-                                <Button type="primary" icon='search' style={{marginRight: '20px'}} onClick={this.searchBtn.bind(this)}>查询</Button>
+                                {/*<Button type="primary" icon='search' style={{marginRight: '20px'}} onClick={this.searchBtn.bind(this)}>查询</Button>*/}
                                 <Button type="primary" icon='plus' onClick={this.addBtn.bind(this)}>添加</Button>
                             </div>
                         </div>
-                        <div>
+                        <div style={{marginTop: '20px'}}>
                             <Table  dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
 
                             </Table>
@@ -290,7 +359,7 @@ export default class RightsManageRole extends Component{
                         <div className="page-footer">
                             <Row>
                                 <Col style={{textAlign: 'right'}}>
-                                    <Pagination showQuickJumper defaultCurrent={1} total={total} onChange={this.onChange.bind(this)} size="small"/>
+                                    <Pagination showQuickJumper pageSize={this.state.pageSize} current={this.state.current}  total={total} onChange={this.onChange.bind(this)} size="small"/>
                                 </Col>
                             </Row>
                         </div>
@@ -306,9 +375,14 @@ export default class RightsManageRole extends Component{
                     cancelText="取消"
                 >
                     <div>
-                        <Search style={{ marginBottom: 8 }} placeholder="请输入" onChange={this.searchTreeChange.bind(this)} />
+                        <Input disabled={!checkFlag} type="text" placeholder="请输入角色组名称" style={{ marginBottom: 16 }} defaultValue={roleRightsName} value={this.state.valVal} onChange={this.roleRightsNameChange} />
+                        {
+                            checkFlag?(<Search style={{ marginBottom: 8 }} placeholder="请输入权限名称" onChange={this.searchTreeChange.bind(this)} />
+                                ):''
+                        }
                         <Tree
-                            checkable
+                            disabled={treeFlag}
+                            checkable = {true}
                             defaultExpandAll={true}
                             onCheck={this.onCheck.bind(this)}
                             checkedKeys={checkedKeys}
@@ -325,4 +399,10 @@ export default class RightsManageRole extends Component{
             </div>
         )
     }
+
 }
+export default connect(state => ({
+    initDataFun: state.initDataFun,
+}), {
+    initData,
+})(RightsManageRole);

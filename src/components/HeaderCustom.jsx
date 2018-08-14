@@ -2,8 +2,10 @@
 import React, { Component } from 'react';
 import {Icon, Layout, Avatar, Tabs, List, Modal } from 'antd';
 import screenfull from 'screenfull';
+
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import {initData} from '../store/index/action'
+
 const { Header } = Layout;
 const TabPane = Tabs.TabPane;
 
@@ -19,17 +21,42 @@ class HeaderCustom extends Component {
             visibleDetail: false,
             details:{},
             messageDataArr: [],
-            messageData: []
+            messageData: [],
+            collapsed: false
         };
     }
     componentWillMount(){
-        let userInfo = this.props.userInfo;
-        let informs = this.props.informs;
-        let userName = userInfo.name;
-        if(userName){
+
+    }
+    componentDidMount() {
+        let _this = this;
+        document.onclick=function(e){
+            _this.setState({
+                messageFlag: false
+            })
+            if(e.target.id === 'bell'){
+                _this.setState({
+                    messageFlag: true
+                })
+            }
+        }
+    };
+    componentWillReceiveProps(nextProps) {
+        let initDataFun = nextProps.initDataFun;
+        let userInfo = initDataFun.userInfo;
+        let informs = initDataFun.informs;
+        if(userInfo){
+            let userName = userInfo.name;
+            if(userName){
+                this.setState({
+                    userName: userName,
+                    userID: userInfo.id
+                })
+            }
+        }else {
             this.setState({
-                userName: userName,
-                userID: userInfo.id
+                userName: '',
+                collapsed: true
             })
         }
         if(informs && informs.length) {
@@ -44,20 +71,6 @@ class HeaderCustom extends Component {
             }
         }
     }
-    componentDidMount() {
-
-        let _this = this;
-        document.onclick=function(e){
-            _this.setState({
-                messageFlag: false
-            })
-            if(e.target.id === 'bell'){
-                _this.setState({
-                    messageFlag: true
-                })
-            }
-        }
-    };
     screenFull = () => {
         if (screenfull.enabled) {
             screenfull.request();
@@ -103,8 +116,7 @@ class HeaderCustom extends Component {
         });
     }
     render() {
-        const {messageData, messageFlag, details, userName} = this.state;
-
+        const {messageData, messageFlag, details, userName, collapsed} = this.state;
         let content = (
             <Tabs defaultActiveKey="1" onChange={this.headerTabCallback}>
                 <TabPane tab="系统公告" key="1">
@@ -129,13 +141,13 @@ class HeaderCustom extends Component {
 
                         <Icon
                             className="trigger custom-trigger"
-                            type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
+                            type={collapsed ? 'menu-unfold' : 'menu-fold'}
                             onClick={this.props.toggle}
                         />
                 }
-                <p className="user-info"><Avatar icon="user" size="small"></Avatar><span className="username">{userName}</span></p>
+                {userName?<p className="user-info"><Avatar icon="user" size="small"></Avatar><span className="username">{userName}</span></p>:''}
                 {
-                    messageData?(<div className="popover-wrapper">
+                    userName?(<div className="popover-wrapper">
                         <a className="bell-wrapper"><Icon type="bell" className="bell" id="bell" onClick={this.bellClick.bind(this)}></Icon></a>
                         <div className={messageFlag? 'message-box active' : 'message-box'}>{content}</div>
                     </div>):''
@@ -277,6 +289,10 @@ class HeaderCustom extends Component {
     }
 }
 
+export default connect(state => ({
+    initDataFun: state.initDataFun,
+}), {
+    initData,
+})(HeaderCustom);
 
-
-export default withRouter(connect()(HeaderCustom));
+// export default withRouter(connect()(HeaderCustom));

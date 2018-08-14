@@ -3,7 +3,7 @@ import {Row, Col, Card, DatePicker, Select} from 'antd';
 import moment from 'moment';
 import dateFormat from '../../utils/dateFormat';
 import TimeLineChart from '../../components/chart/realTimeOrder';
-import * as Api from '../../utils/api';
+import {getFun} from '../../utils/api';
 
 import './realtime.less';
 
@@ -128,15 +128,16 @@ export default class RealTimeOrder extends Component {
     }
 
     getOrderData() {
-        Api.getBiData('/realtime/order', {
+        let result = getFun('/web_api/realtime/order', {
             action: 'now',
             stat_date: this.state.stat_date,
             car_type: this.state.car_type,
             order_type: this.state.order_type,
             data_type: this.state.date_type,
-        }).then(data => {
+        })
+        result.then(data => {
             this.setState({
-                orderData: data
+                orderData: data.data
             })
         }).catch(errCode => {
             window.clearInterval(this.Timer);
@@ -148,11 +149,12 @@ export default class RealTimeOrder extends Component {
             loading: true
         });
 
-        Api.getBiData('/realtime/order', {
+        let result = getFun('/web_api/realtime/order', {
             action: 'chart',
-        }).then(data => {
+        })
+        result.then(data => {
             this.setState({
-                sourceData: data,
+                sourceData: data.data,
                 loading: false
             })
         }).catch(errCode => {
