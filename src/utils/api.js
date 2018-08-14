@@ -44,6 +44,7 @@ function request(url, method, params) {
     url = url + '?' + objectToQueryString(params)
   }
 
+
   if (method === REQUEST_METHOD_POST) {
     fetchData.body = params;
   }

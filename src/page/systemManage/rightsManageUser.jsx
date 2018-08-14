@@ -166,7 +166,8 @@ class RightsManageUser extends Component{
                 tableData: res.data.data,
                 load: false,
                 total: res.data.total,
-                current: res.data.current_page
+                current: res.data.current_page,
+                pageSize: res.data.per_page
             })
         })
     }

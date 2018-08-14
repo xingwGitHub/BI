@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Card, Table, Radio, Row, Col, Button, Pagination} from 'antd';
+import {Card, Table, Radio, Row, Col, Button, Pagination, Select} from 'antd';
 import moment from 'moment';
 import SearchBox from '../../components/searchBox/searchBox'
 import ExportFileCom from '../../components/exportFile/exportFile'
@@ -11,6 +11,7 @@ import './operating.less'
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
+const Option = Select.Option;
 
 class CapacityAnalysis extends React.Component{
     constructor(props) {
@@ -75,7 +76,11 @@ class CapacityAnalysis extends React.Component{
                 }
             ],
             exportParams: {},
-            flag: false
+            flag: false,
+            leasCompanies: [],
+            leasCompaniesObj: {},
+            leasCompaniesOption: [],
+            leasCompaniesAllOption: []
         }
     }
     componentWillMount() {
@@ -84,6 +89,7 @@ class CapacityAnalysis extends React.Component{
         this.setState({
             city: city
         })
+        this.getLeasCompaniesAllData();
     }
     componentDidMount(){
         this.setState({
@@ -91,6 +97,32 @@ class CapacityAnalysis extends React.Component{
         },() => {
             this.getTableData();
         })
+    }
+    getLeasCompaniesAllData(){
+        let  leasCompanies = JSON.parse(localStorage.getItem('leasCompanies'));
+        if(leasCompanies){
+            this.setState({
+                leasCompaniesObj: leasCompanies,
+                leasCompaniesAllOption: this.getLeasCompaniesAllOptionData(leasCompanies)
+            })
+
+        }else {
+            let result = getFun('/web_api/dim_info/city_company');
+            result.then(res => {
+                localStorage.setItem('leasCompanies',JSON.stringify(res.data));
+                this.setState({
+                    leasCompaniesObj: res.data,
+                    leasCompaniesAllOption: this.getLeasCompaniesAllOptionData(res.data)
+                })
+            })
+        }
+    }
+    getLeasCompaniesAllOptionData(obj){
+        let arr = [];
+        Object.keys(obj).map(item => {
+            arr.push(obj[item][0])
+        })
+        return arr;
     }
     //初始化查询起止日期
     initDateRange(rangeDays) {
@@ -132,13 +164,32 @@ class CapacityAnalysis extends React.Component{
     };
     // 获取下拉框和日期参数
     searchParams(params){
-
         this.setState({
             city: params.city,
             start_at: params.selectedStartDate,
             end_at: params.selectedEndDate,
             flag: true
-        })
+        },() => this.getLeasCompaniesData())
+    }
+    getLeasCompaniesData(){
+        let city = this.state.city.split(",");
+        let leasCompanies = this.state.leasCompaniesObj;
+        let arr = [];
+        if(city.indexOf('all') > -1){
+            this.setState({
+                leasCompaniesOption: this.state.leasCompaniesAllOption
+            })
+        }else {
+            city.map(item => {
+                if(leasCompanies[item]){
+                    arr.push(leasCompanies[item][0])
+                }
+            })
+            this.setState({
+                leasCompaniesOption: arr
+            })
+        }
+
     }
     // 获取车型参数
     carTypeChange(e) {
@@ -199,7 +250,8 @@ class CapacityAnalysis extends React.Component{
             start_at: start,
             end_at: end,
             city: this.state.flag?this.state.city:this.getCityParams(),
-            car_type_id: this.state.car_type_id
+            car_type_id: this.state.car_type_id,
+            // leasCompanies: this.state.leasCompanies.join(",")     // 租赁公司参数
         }
         return params;
     }
@@ -246,12 +298,23 @@ class CapacityAnalysis extends React.Component{
         let day = dateDiff(this.state.start_at, this.state.end_at);
         return day;
     }
+    // 租赁公司搜索
+    handleSearch(value){}
+    // 租赁公司下拉框取值
+    handleChange(value){
+        this.setState({
+            leasCompanies: value
+        })
+    }
     render() {
-        let {title, carTypes, load, tableHeader, total, pageSize} = this.state;
+        let {title, carTypes, load, tableHeader, total, pageSize, leasCompaniesOption} = this.state;
         const radioChildren = Object.keys(carTypes).map((key, index) => {
             return <RadioButton key={key} value={key}>{carTypes[key]}</RadioButton>
         });
         let tableData = milliFormat(this.state.tableData);
+        let optionData = leasCompaniesOption.map(item => {
+            return <Option key={item.company_id} value={item.company_id}>{item.company_name}</Option>
+        })
         return (
             <div>
                 <div className="operating-wrapper">
@@ -268,6 +331,20 @@ class CapacityAnalysis extends React.Component{
                                         {radioChildren}
                                     </RadioGroup>
                                     <p className="cartype-text">以司机注册车型筛选</p>
+                                </div>
+                                <div>
+                                    <label className="cartype-label">租赁公司：</label>
+                                    <Select
+                                        mode="multiple"
+                                        placeholder="请选择"
+                                        showArrow={true}
+                                        value={this.state.leasCompanies}
+                                        style={{width: 300}}
+                                        onSearch={this.handleSearch.bind(this)}
+                                        filterOption={(input, option) => option.props.children.indexOf(input) >= 0}
+                                        onChange={this.handleChange.bind(this)}>
+                                        {optionData}
+                                    </Select>
                                 </div>
                             </div>
                             <div className="search-btn-wrapper">

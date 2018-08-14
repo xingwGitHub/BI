@@ -280,9 +280,11 @@ class BargainingAnalysis extends React.Component{
                                     <SearchBox searchParams={params => this.searchParams(params)}></SearchBox>
                                 </div>
                                 <div className="cartype-wrapper">
+                                    <label className="cartype-label">车型：</label>
                                     <RadioGroup onChange={this.carTypeChange.bind(this)} defaultValue='0' >
                                         {radioChildren}
                                     </RadioGroup>
+                                    <p className="cartype-text">以订单车型筛选</p>
                                 </div>
                             </div>
                             <div className="search-btn-wrapper">
@@ -300,7 +302,7 @@ class BargainingAnalysis extends React.Component{
                                     <ExportFileCom params={this.state.exportParams}></ExportFileCom>
                                 </Col>
                                 <Col span={14} style={{textAlign: 'right'}}>
-                                    <Pagination size="small" current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
+                                    <Pagination  current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
                                 </Col>
                             </Row>
                         </div>

@@ -42,7 +42,10 @@ export default class CRouter extends Component {
             flag: true
         }
     }
+    componentWillMount(){
+    }
     componentWillReceiveProps(nextProps) {
+
         let flag = this.props.collapsed;
         this.setState({
             flag: flag

@@ -36,6 +36,7 @@ class App extends Component {
         initData.then(res => {
             this.props.initData(res.data);
             localStorage.setItem("auth",JSON.stringify(res.data.auth))
+            localStorage.setItem("userInfo",JSON.stringify(res.data.userInfo))
         })
 
     }

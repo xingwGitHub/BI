@@ -3,44 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="ea915226-dd70-48de-bec7-b10196381440" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/service-worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/charts.1aabb396.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/charts.1aabb396.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.39219746.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.39219746.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/vendor.5fafa599.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/vendor.5fafa599.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderCustom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderCustom.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SiderCustom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SiderCustom.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/editTable/editTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/editTable/editTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/noticeBox.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/noticeBox.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/searchBox/searchBox.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/searchBox/searchBox.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/searchBox/searchBox.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/searchBox/searchBox.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/operating.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/operating.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/orderDistribution.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/orderDistribution.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/orderIncomeCost.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/orderIncomeCost.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/orderPortrait.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/orderPortrait.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/piesAnalysis.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/piesAnalysis.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/userStatistics.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/userStatistics.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/realTimeData/order.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/realTimeData/order.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/realTimeData/survey.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/realTimeData/survey.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/systemManage/rightsManageModule.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/systemManage/rightsManageModule.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/systemManage/rightsManageRole.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/systemManage/rightsManageRole.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/systemManage/systemNotice.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/systemManage/systemNotice.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/systemManage/systemNotice.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/systemManage/systemNotice.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -66,74 +38,41 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="18" />
-          <entry key="jsx" value="3562" />
-          <entry key="less" value="427" />
+          <entry key="js" value="254" />
+          <entry key="jsx" value="5392" />
+          <entry key="less" value="446" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSX Harmony" value="3562" />
-          <entry key="JavaScript" value="18" />
-          <entry key="Less" value="427" />
+          <entry key="JSX Harmony" value="5392" />
+          <entry key="JavaScript" value="254" />
+          <entry key="Less" value="446" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="js" value="3" />
-          <entry key="jsx" value="39" />
-          <entry key="less" value="6" />
+          <entry key="js" value="10" />
+          <entry key="jsx" value="53" />
+          <entry key="less" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JSX Harmony" value="39" />
-          <entry key="JavaScript" value="3" />
-          <entry key="Less" value="6" />
+          <entry key="JSX Harmony" value="53" />
+          <entry key="JavaScript" value="10" />
+          <entry key="Less" value="7" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/operating.less">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/searchBox/searchBox.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1138">
-              <caret line="199" column="41" selection-start-line="199" selection-start-column="41" selection-end-line="199" selection-end-column="41" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/searchBox/searchCheckBox.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="584">
-              <caret line="91" selection-start-line="91" selection-end-line="91" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderPortrait.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="197" column="40" lean-forward="true" selection-start-line="197" selection-start-column="40" selection-end-line="197" selection-end-column="40" />
+            <state relative-caret-position="-160">
+              <caret line="237" lean-forward="true" selection-start-line="237" selection-end-line="237" />
               <folding>
                 <element signature="e#1#27#0" expanded="true" />
               </folding>
@@ -142,22 +81,40 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/HeaderCustom.jsx">
+        <entry file="file://$PROJECT_DIR$/src/components/searchBox/searchBox.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="-1816">
+              <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/page/pageError/pageError.jsx">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageRole.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="57" column="28" lean-forward="true" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="183">
+              <caret line="114" column="26" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="237">
+              <caret line="38" column="76" selection-start-line="38" selection-start-column="68" selection-end-line="38" selection-end-column="76" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="173">
+              <caret line="105" column="18" selection-start-line="105" selection-start-column="4" selection-end-line="105" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -173,19 +130,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dateFormat</find>
-      <find>stopClick</find>
-      <find>getSummaryChart</find>
-      <find>getDatamartData</find>
-      <find>Routes</find>
-      <find>summaryType</find>
-      <find>userNamesClick</find>
-      <find>Component</find>
-      <find>toggle</find>
-      <find>setMenuOpen</find>
-      <find>openNotification</find>
-      <find>onCancel</find>
-      <find>cityData</find>
       <find>getTableData</find>
       <find>Router</find>
       <find>initData</find>
@@ -203,6 +147,19 @@
       <find>defaultCheckedList</find>
       <find>city-select</find>
       <find>checkedBoxParams</find>
+      <find>funcModule</find>
+      <find>initDateRange</find>
+      <find>dayNum</find>
+      <find>userId</find>
+      <find>handleSearch</find>
+      <find>.input-wrapper .ant-input</find>
+      <find>.input-wrapper .ant-select</find>
+      <find>funcModuleChange</find>
+      <find>roleNameChange</find>
+      <find>objectToQueryString</find>
+      <find>handleChange</find>
+      <find>roleName</find>
+      <find>leasCompanies</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -221,8 +178,6 @@
         <option value="$PROJECT_DIR$/src/style/table.less" />
         <option value="$PROJECT_DIR$/src/components/chart/realTime/index.js" />
         <option value="$PROJECT_DIR$/src/components/chart/realTime/index.scss" />
-        <option value="$PROJECT_DIR$/src/page/systemManage/systemNotice.less" />
-        <option value="$PROJECT_DIR$/src/routes/index.js" />
         <option value="$PROJECT_DIR$/src/utils/dateFormat.js" />
         <option value="$PROJECT_DIR$/src/page/systemManage/rightsManageModule.jsx" />
         <option value="$PROJECT_DIR$/src/page/realTimeData/survey.jsx" />
@@ -238,33 +193,35 @@
         <option value="$PROJECT_DIR$/src/store/index.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/store/store.js" />
-        <option value="$PROJECT_DIR$/src/utils/api.js" />
         <option value="$PROJECT_DIR$/src/store/menu/reducer.js" />
         <option value="$PROJECT_DIR$/src/store/index/reducer.js" />
         <option value="$PROJECT_DIR$/src/store/index/actionType.js" />
         <option value="$PROJECT_DIR$/src/store/index/action.js" />
         <option value="$PROJECT_DIR$/src/page/systemManage/systemNotice.jsx" />
-        <option value="$PROJECT_DIR$/src/page/systemManage/rightsManageRole.jsx" />
-        <option value="$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx" />
-        <option value="$PROJECT_DIR$/src/Page.js" />
         <option value="$PROJECT_DIR$/src/components/editTable/editTable.jsx" />
         <option value="$PROJECT_DIR$/src/components/SiderCustom.jsx" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/noticeBox.jsx" />
         <option value="$PROJECT_DIR$/src/page/operatingDaily/orderDistribution.jsx" />
         <option value="$PROJECT_DIR$/src/page/operatingDaily/userStatistics.jsx" />
-        <option value="$PROJECT_DIR$/src/components/searchBox/searchBox.jsx" />
         <option value="$PROJECT_DIR$/src/components/searchBox/searchBox.less" />
         <option value="$PROJECT_DIR$/src/page/operatingDaily/operating.less" />
-        <option value="$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx" />
-        <option value="$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx" />
-        <option value="$PROJECT_DIR$/src/page/operatingDaily/orderIncomeCost.jsx" />
         <option value="$PROJECT_DIR$/src/page/operatingDaily/piesAnalysis.jsx" />
         <option value="$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx" />
         <option value="$PROJECT_DIR$/src/components/searchBox/searchCheckBox.jsx" />
         <option value="$PROJECT_DIR$/src/page/operatingDaily/orderPortrait.jsx" />
         <option value="$PROJECT_DIR$/src/components/HeaderCustom.jsx" />
         <option value="$PROJECT_DIR$/src/page/pageError/pageError.jsx" />
+        <option value="$PROJECT_DIR$/src/components/searchBox/searchBox.jsx" />
+        <option value="$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx" />
+        <option value="$PROJECT_DIR$/src/page/operatingDaily/orderIncomeCost.jsx" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/routes/index.js" />
+        <option value="$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx" />
+        <option value="$PROJECT_DIR$/src/Page.js" />
+        <option value="$PROJECT_DIR$/src/page/systemManage/systemNotice.less" />
+        <option value="$PROJECT_DIR$/src/page/systemManage/rightsManageRole.jsx" />
+        <option value="$PROJECT_DIR$/src/utils/api.js" />
+        <option value="$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx" />
       </list>
     </option>
   </component>
@@ -317,7 +274,7 @@
               <item name="BI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="editTable" type="462c0819:PsiDirectoryNode" />
+              <item name="searchBox" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BI" type="b2602c69:ProjectViewProjectNode" />
@@ -330,13 +287,13 @@
               <item name="BI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="page" type="462c0819:PsiDirectoryNode" />
-              <item name="pageError" type="462c0819:PsiDirectoryNode" />
+              <item name="systemManage" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BI" type="b2602c69:ProjectViewProjectNode" />
               <item name="BI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -417,12 +374,12 @@
       <workItem from="1502260586702" duration="88000" />
       <workItem from="1533796711482" duration="1105000" />
       <workItem from="1533798574456" duration="1151000" />
-      <workItem from="1533806700667" duration="21422000" />
+      <workItem from="1533806700667" duration="34754000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="351263000" />
+    <option name="totallyTimeSpent" value="364595000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="709" extended-state="0" />
@@ -456,24 +413,10 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/paths.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/page/ranking/ranking.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="872">
           <caret line="291" column="25" selection-start-line="291" selection-start-column="25" selection-end-line="291" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageModule.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="211" column="86" selection-start-line="211" selection-start-column="86" selection-end-line="211" selection-end-column="86" />
         </state>
       </provider>
     </entry>
@@ -589,13 +532,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageRole.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="78" column="24" lean-forward="true" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/SiderCustom.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="922">
@@ -606,30 +542,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2580">
-          <caret line="172" column="26" selection-start-line="172" selection-start-column="21" selection-end-line="172" selection-end-column="26" />
-          <folding>
-            <element signature="e#1#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="183" selection-start-line="183" selection-end-line="183" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Page.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="26" column="60" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/noticeBox.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -637,31 +549,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/systemManage/systemNotice.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1270">
-          <caret line="286" column="22" lean-forward="true" selection-start-line="286" selection-start-column="22" selection-end-line="286" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/editTable/editTable.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
           <caret line="64" column="58" lean-forward="true" selection-start-line="64" selection-start-column="58" selection-end-line="64" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="64" column="49" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -679,31 +570,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="42" column="14" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="41" column="14" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderDistribution.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="876">
           <caret line="316" column="9" selection-start-line="316" selection-start-column="9" selection-end-line="316" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderIncomeCost.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="47" column="10" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -725,16 +595,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1890">
           <caret line="134" column="9" selection-start-line="134" selection-start-column="9" selection-end-line="134" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/searchBox/searchBox.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1138">
-          <caret line="199" column="41" selection-start-line="199" selection-start-column="41" selection-end-line="199" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -767,10 +627,112 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/page/pageError/pageError.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="57" column="28" lean-forward="true" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
+        <state relative-caret-position="450">
+          <caret line="30" column="38" lean-forward="true" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/orderIncomeCost.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="314" column="34" lean-forward="true" selection-start-line="314" selection-start-column="34" selection-end-line="314" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="27" column="33" lean-forward="true" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageModule.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2387">
+          <caret line="211" column="86" selection-start-line="211" selection-start-column="86" selection-end-line="211" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/systemManage/systemNotice.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1586">
+          <caret line="286" column="22" lean-forward="true" selection-start-line="286" selection-start-column="22" selection-end-line="286" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Page.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="32" column="20" lean-forward="true" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/systemManage/systemNotice.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="82" column="1" selection-start-line="82" selection-start-column="1" selection-end-line="82" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="105" column="18" selection-start-line="105" selection-start-column="4" selection-end-line="105" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="35" column="19" lean-forward="true" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+          <folding>
+            <element signature="e#1#44#0" expanded="true" />
+            <element signature="e#1788#2516#0" />
+            <element signature="e#2847#3586#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageRole.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="114" column="26" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="38" column="76" selection-start-line="38" selection-start-column="68" selection-end-line="38" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/searchBox/searchBox.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1816">
+          <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-160">
+          <caret line="237" lean-forward="true" selection-start-line="237" selection-end-line="237" />
+          <folding>
+            <element signature="e#1#27#0" expanded="true" />
           </folding>
         </state>
       </provider>

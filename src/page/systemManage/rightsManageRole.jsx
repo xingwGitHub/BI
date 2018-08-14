@@ -19,7 +19,7 @@ class RightsManageRole extends Component{
         super(props);
         this.state = {
             current: 1,
-            pageSize: 10,
+            pageSize: 1,
             total: 10,
             title: '角色组',
             roleName: '',
@@ -65,16 +65,19 @@ class RightsManageRole extends Component{
             addOrEdit: true,
             editId: '',
             treeFlag: false,
-            userId:0
+            userId:0,
+            funcModuleArr: [],
+            permissions: []
         }
         this.roleRightsNameChange = this.roleRightsNameChange.bind(this);
     }
     componentWillMount(){
-        let userid = this.props.initDataFun.userInfo.id;
+        let userid = JSON.parse(localStorage.getItem("userInfo")).id;
         this.setState({
             userId: userid.id
         })
         this.getTableData();
+        this.getFunModuleData();
     }
     componentDidMount(){
         this.initTree() //初始化 获取用户列表数据
@@ -82,16 +85,35 @@ class RightsManageRole extends Component{
     componentWillReceiveProps(nextProps) {
         // let initData = nextProps.initDataFun.userInfo;
     }
-    roleNameChange(val){
-        console.log(val)
+    // 获取功能模块下拉列表
+    getFunModuleData(){
+        let result = getFun('/system/auth/permission/all_list');
+        result.then(res => {
+            this.setState({
+                funcModuleArr: res.data
+            })
+        })
+    }
+    roleNameChange(event){
+        this.setState({
+            roleName: event.target.value
+        })
     }
     //功能模块下拉框选择
     funcModuleChange(val){
-        console.log(val)
+        this.setState({
+            permissions: val
+        })
     }
     //点击查询按钮
     searchBtn(){
-
+        let params = {
+            page: this.state.current,
+            name: this.state.roleName,
+            permissions: this.state.permissions
+        }
+        console.log(params)
+        this.getTableData(params)
     }
     //分页
     onChange(current){
@@ -112,7 +134,8 @@ class RightsManageRole extends Component{
                 tableData: res.data.data,
                 load: false,
                 total: res.data.total,
-                current: res.data.current_page
+                current: res.data.current_page,
+                pageSize: res.data.per_page
             })
         })
     }
@@ -306,8 +329,8 @@ class RightsManageRole extends Component{
         });
     }
     render(){
-        const {title, roleName, funcModuleData, tableData, load, tableHeader, total, addVisible,addTitle,
-            expandedKeys, autoExpandParent, checkedKeys, selectedKeys, treeData, searchValue, roleRightsName, checkFlag, treeFlag} = this.state;
+        const {title, roleName, funcModuleArr, tableData, load, tableHeader, total, addVisible,addTitle,
+            expandedKeys, autoExpandParent, checkedKeys, selectedKeys, treeData, searchValue, roleRightsName, checkFlag, treeFlag, funcModule} = this.state;
         const loop = data => data.map((item) => {
             const index = item.name.indexOf(searchValue);
             const beforeStr = item.name.substr(0, index);
@@ -328,26 +351,34 @@ class RightsManageRole extends Component{
             }
             return <TreeNode key={item.id} title={title} />;
         });
+        let optionData = funcModuleArr.map(item => {
+            return <Option key={item.id} value={item.id}>{item.name}</Option>
+        })
         return(
             <div>
                 <div className="notice-wrapper">
                     <Card title={title}  bordered={false}>
 
                         <div className="search-content">
-                            {/*<div className="search-wrapper">*/}
-                                {/*<div className="input-wrapper">*/}
-                                    {/*<label>角色组名称：</label>*/}
-                                    {/*<Input type="text" placeholder="" defaultValue={roleName} onChange={this.roleNameChange}/>*/}
-                                {/*</div>*/}
-                                {/*<div className="input-wrapper">*/}
-                                    {/*<label>功能模块：</label>*/}
-                                    {/*<Select defalutValue='00' value={funcModule} onChange={this.funcModuleChange}>*/}
-                                        {/*{optionData}*/}
-                                    {/*</Select>*/}
-                                {/*</div>*/}
-                            {/*</div>*/}
+                            <div className="search-wrapper">
+                                <div className="input-wrapper">
+                                    <label>角色组名称：</label>
+                                    <Input type="text"   onChange={this.roleNameChange.bind(this)}/>
+                                </div>
+                                <div className="input-wrapper input-select-wrapper">
+                                    <label>功能模块：</label>
+                                    <Select
+                                        mode="multiple"
+                                        placeholder="请选择"
+                                        showArrow={true}
+                                        // value={funcModule}
+                                        onChange={this.funcModuleChange.bind(this)}>
+                                        {optionData}
+                                    </Select>
+                                </div>
+                            </div>
                             <div className="search-btn-wrapper">
-                                {/*<Button type="primary" icon='search' style={{marginRight: '20px'}} onClick={this.searchBtn.bind(this)}>查询</Button>*/}
+                                <Button type="primary" icon='search' style={{marginRight: '20px'}} onClick={this.searchBtn.bind(this)}>查询</Button>
                                 <Button type="primary" icon='plus' onClick={this.addBtn.bind(this)}>添加</Button>
                             </div>
                         </div>

@@ -19,6 +19,7 @@ class Page extends React.Component {
         }
     }
     componentWillMount(){
+
     }
     componentWillReceiveProps(nextProps) {
         this.setState({

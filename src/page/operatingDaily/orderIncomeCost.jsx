@@ -302,7 +302,7 @@ class IncomeAndCost extends React.Component{
                        <ExportFileCom params={this.state.exportParams}></ExportFileCom>
                     </Col>
                     <Col span={14} style={{textAlign: 'right'}}>
-                        <Pagination size="small" current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}   showQuickJumper></Pagination>
+                        <Pagination current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}   showQuickJumper></Pagination>
                     </Col>
                 </Row>
             </div>
