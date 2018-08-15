@@ -211,7 +211,12 @@ class RightsManageUser extends Component{
             addUserRightsVisible: false,
             load: true
         })
-        this.getTableData();
+        let params = {
+            name: this.state.userName,
+            role_id: this.state.role_id,
+            page: this.state.current
+        }
+        this.getTableData(params);
     }
     hideModalCancel(){
         this.setState({
@@ -246,7 +251,12 @@ class RightsManageUser extends Component{
             this.setState({
                 delayVisible: false
             })
-            this.getTableData();
+            let params = {
+                name: this.state.userName,
+                role_id: this.state.role_id,
+                page: this.state.current
+            }
+            this.getTableData(params);
         })
     }
     // 权限延期取消

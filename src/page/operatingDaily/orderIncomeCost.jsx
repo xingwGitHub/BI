@@ -272,8 +272,8 @@ class IncomeAndCost extends React.Component{
     return (
       <div>
         <div className="operating-wrapper">
-          <Card title={title}  bordered={false}>
-
+            <h3 className="cardTitle">{title}</h3>
+            <Card bordered={false}>
               <div className="search-content">
                   <div className="search-wrapper">
                       <div>
@@ -291,6 +291,8 @@ class IncomeAndCost extends React.Component{
                       <Button type="primary"  icon='search' onClick={this.searchBtn.bind(this)}>查询</Button>
                   </div>
               </div>
+          </Card>
+          <div class="tableWrap">
             <div>
                 <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
 
@@ -306,7 +308,7 @@ class IncomeAndCost extends React.Component{
                     </Col>
                 </Row>
             </div>
-          </Card>
+          </div>
         </div>
       </div>
     )

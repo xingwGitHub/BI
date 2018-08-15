@@ -17,29 +17,30 @@ export default class SystemNotice extends Component {
     componentWillMount() {
         this.setState({
             code: this.props.location.search.split('?')[1].split('=')[1]
-        })
+        },()=>this.showPage())
     }
     componentDidMount(){
-        if(this.state.code === 105){
+    }
+    showPage(){
+        if(this.state.code == 105){
             this.setState({
                 title: '抱歉，您的访问权限已过期。',
                 tip: 'BI权限有效期30自然日，如需要请继续在钉钉中申请。',
                 imgSrc: pageError1
             })
-        }else if(this.state.code === 106){
+        }else if(this.state.code == 106){
             this.setState({
                 title: '抱歉，您的账户已被禁用。',
                 tip: '如有疑问请与管理员联系。',
                 imgSrc: pageError1
             })
-        }else if(this.state.code === 10002){
+        }else if(this.state.code == 10002){
             this.setState({
                 title: '抱歉，您没有此页面访问权限。',
                 tip: '如需要请在钉钉相关模块申请使用权限。',
                 imgSrc: pageError2
             })
         }
-
     }
     goBack() {
         window.location.href='/index.php/index/login'

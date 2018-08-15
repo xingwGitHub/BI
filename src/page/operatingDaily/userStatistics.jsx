@@ -237,7 +237,8 @@ class UserStatistics extends React.Component{
         return (
             <div>
                 <div className="operating-wrapper">
-                    <Card title={title}  bordered={false}>
+                    <h3 className="cardTitle">{title}</h3>
+                    <Card bordered={false}>
                         <div className="search-content">
                             <div className="search-wrapper">
                                 <div>
@@ -249,6 +250,8 @@ class UserStatistics extends React.Component{
                             </div>
                         </div>
                         <div className="mgT20"></div>
+                    </Card>
+                    <div className="tableWrap">
                         <div>
                             <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
 
@@ -264,7 +267,7 @@ class UserStatistics extends React.Component{
                                 </Col>
                             </Row>
                         </div>
-                    </Card>
+                    </div>
                 </div>
             </div>
         )
