@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
 import echarts from 'echarts';
 import './index.scss';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {initToggle} from "../../../store/index/action";
 
 
-
-export default class RealSummaryChart extends Component {
+class RealSummaryChart extends Component {
+    static propTypes = {
+        initData: PropTypes.func
+    }
     constructor(props) {
         super(props);
         this.state = {
-            flag: true,
+            flag: false,
             legendSeries: ['today', 'yesterday', 'day7', 'day30'],
             lineColor: ['#269aff','#26d574', '#fed726', '#ff2672', '#26d1ce'],
         }
@@ -34,6 +39,7 @@ export default class RealSummaryChart extends Component {
 
     // 绘制图表
     showChart(data){
+
         var that = this;
         if (!data) {
             return;
@@ -123,7 +129,6 @@ export default class RealSummaryChart extends Component {
 
 
         myChart.setOption(option);
-
     }
 
     render() {
@@ -136,3 +141,8 @@ export default class RealSummaryChart extends Component {
         )
     }
 }
+export default connect(state => ({
+    initDataToggle: state.initDataToggle,
+}), {
+    initToggle
+})(RealSummaryChart);

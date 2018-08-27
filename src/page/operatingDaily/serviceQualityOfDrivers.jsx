@@ -73,7 +73,7 @@ class ServiceQualityOfDrivers extends React.Component{
                     title: '司机等待时长asap',
                     children: [
                         {title: '90%等待时长', dataIndex: 'asap_waiting_for_long_90', key: 'asap_waiting_for_long_90'},
-                        {title: '异常误差', dataIndex: 'asap_waiting_for_long_10', key: 'asap_waiting_for_long_10'}
+                        {title: '异常误差(%)', dataIndex: 'asap_waiting_for_long_10', key: 'asap_waiting_for_long_10'}
                     ]
                 },
                 {
@@ -87,9 +87,9 @@ class ServiceQualityOfDrivers extends React.Component{
                 {
                     title: '迟到订单占比',
                     children: [
-                        {title: '时租', dataIndex: 'rate_of_rented_by_hourly_late', key: 'rate_of_rented_by_hourly_late'},
-                        {title: '送机', dataIndex: 'rate_of_drop_off_late', key: 'rate_of_drop_off_late'},
-                        {title: '其他', dataIndex: 'rate_of_other_type_order_late', key: 'rate_of_other_type_order_late'}
+                        {title: '时租(%)', dataIndex: 'rate_of_rented_by_hourly_late', key: 'rate_of_rented_by_hourly_late'},
+                        {title: '送机(%)', dataIndex: 'rate_of_drop_off_late', key: 'rate_of_drop_off_late'},
+                        {title: '其他(%)', dataIndex: 'rate_of_other_type_order_late', key: 'rate_of_other_type_order_late'}
                     ]
                 }
             ],
@@ -234,7 +234,12 @@ class ServiceQualityOfDrivers extends React.Component{
             Object.keys(cityObj).map(item => {
                 if(item.indexOf(str) > 0 ){
                     let cityArr = cityObj[item].city;
-                    city = cityArr[cityArr.length - 1]
+                    if(cityArr[0] == 'all'){
+                        city = '';
+                    }else {
+                        city = cityArr.join(",")
+                    }
+                    // city = cityArr[cityArr.length - 1]
                 }
             })
         }
@@ -307,7 +312,7 @@ class ServiceQualityOfDrivers extends React.Component{
                                     <ExportFileCom params={this.state.exportParams}></ExportFileCom>
                                 </Col>
                                 <Col span={14} style={{textAlign: 'right'}}>
-                                    <Pagination size="small" current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
+                                    <Pagination current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
                                 </Col>
                             </Row>
                         </div>

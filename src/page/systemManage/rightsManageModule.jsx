@@ -346,7 +346,7 @@ export default class RightsManageModule extends Component{
                         <div className="page-footer">
                             <Row>
                                 <Col style={{textAlign: 'right'}}>
-                                    <Pagination showQuickJumper current={current} total={total} onChange={this.onChange.bind(this)} pageSize={pageSize} size="small"/>
+                                    <Pagination showQuickJumper current={current} total={total} onChange={this.onChange.bind(this)} pageSize={pageSize}/>
                                 </Col>
                             </Row>
                         </div>

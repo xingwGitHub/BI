@@ -269,8 +269,7 @@ export default class SystemNotice extends Component {
     }
     //点击添加
     addBtn = () => {
-        this.setState({ visible: true, popTitle: '添加公告', btnFlag:0});
-
+        this.setState({ visible: true, popTitle: '添加公告', btnFlag:0, popValues: ''});
     }
     //取消提交和提交
     handleCancel = (e) => {
@@ -314,7 +313,6 @@ export default class SystemNotice extends Component {
     }
     //公告详情
     noticeDetail(text,index) {
-        console.log(text)
         this.setState({ visibleDetail: true, titleDetail: text.title, describeDetail: text.describe, detailDetail: text.detail, createNameDetail: text.create_name });
 
     }
@@ -385,8 +383,11 @@ export default class SystemNotice extends Component {
                             </div>
                             <div className="search-btn-wrapper">
                                 <Button type="primary" icon='search' style={{marginRight: '20px'}} onClick={this.searchBtn.bind(this)}>查询</Button>
-                                <Button type="primary" icon='plus' onClick={this.addBtn.bind(this)}>添加</Button>
+
                             </div>
+                        </div>
+                        <div className="search-content" style={{marginTop: '10px'}}>
+                            <Button type="primary" icon='plus' onClick={this.addBtn.bind(this)}>添加</Button>
                         </div>
                         <div style={{marginTop: '20px'}}>
                             <Table onChange={this.handleSortChange} dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
@@ -396,7 +397,7 @@ export default class SystemNotice extends Component {
                         <div className="page-footer">
                             <Row>
                                 <Col style={{textAlign: 'right'}}>
-                                    <Pagination size="small" current={current} total={total} onChange={this.onChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
+                                    <Pagination current={current} total={total} onChange={this.onChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
                                     {/*<Pagination total={total} pageSize={pageSize} onChange={this.pageChange.bind(this)} showSizeChanger={true} onShowSizeChange={this.onShowSizeChange.bind(this)} showQuickJumper size="small" ></Pagination>*/}
                                 </Col>
                             </Row>

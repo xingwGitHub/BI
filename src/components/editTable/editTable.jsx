@@ -16,10 +16,42 @@ const EditableFormRow = Form.create()(EditableRow);
 class EditableCell extends React.Component {
     constructor(props){
         super(props);
+        this.state={
+            defaultCityD: []
+        }
     }
     componentWillMount(){
+        this.setState({
+            defaultCityD: this.props.defaultcity
+        })
     }
     searchVal(val){
+    }
+    handleChange(value){
+        this.getCityArr(value);
+        // form.setFieldsValue({cityId: optionObj.cityId})
+    }
+    getCityArr(value){
+        let length = value.length - 1;
+        let index = value.indexOf("all");
+        let arr = [];
+        if(index == -1){
+            arr = value;
+            this.setState({
+                defaultCityD: value
+            })
+        }else if(index === 0 && index < length) {
+            arr = value.slice(index+1)
+            this.setState({
+                defaultCityD: value.slice(index+1)
+            })
+        }else if(index === length){
+            arr = ["all"]
+            this.setState({
+                defaultCityD: ["all"]
+            })
+        }
+        return arr;
     }
     render() {
         const {
@@ -30,10 +62,10 @@ class EditableCell extends React.Component {
             record,
             index,
             defaultName,
-            defaultCity,
             nameDisabled,
             ...restProps
         } = this.props;
+        const { defaultCityD } = this.state;
         let cityData = JSON.parse(localStorage.getItem("cityData"));
         let roleGroup = JSON.parse(localStorage.getItem("alllist"));
         let optionCity = [<Option key="all">全国</Option>];
@@ -43,12 +75,13 @@ class EditableCell extends React.Component {
         let optionRoleGroup = roleGroup.map(item => <Option key={item.key}>{item.name}</Option>);
         let optionObj ={
             'namestr': {optionData: optionRoleGroup,defalutVal:defaultName,mode: '', disableFlag:nameDisabled},
-            'cityId': {optionData: optionCity,defalutVal:defaultCity, mode: 'multiple'}
+            'cityId': {optionData: optionCity,defalutVal:defaultCityD, mode: 'multiple'}
         };
         return (
             <EditableContext.Consumer>
                 {(form) => {
                     const { getFieldDecorator } = form;
+
                     return (
                         <td {...restProps}>
                             {editing ? (
@@ -64,6 +97,7 @@ class EditableCell extends React.Component {
                                                 onSearch={this.searchVal.bind(this)}
                                                 showSearch
                                                 placeholder="请选择"
+                                                onChange={this.handleChange.bind(this)}
                                                 filterOption={(input, option) => option.props.children.indexOf(input) >= 0}
                                         >
                                             {optionObj[dataIndex].optionData}</Select>
@@ -255,7 +289,6 @@ export  default class EditableTable extends Component {
             } else {
                 newData.pop();
                 newData.push(str);
-                console.log(newData)
                 this.setState({ addRole: newData, editingKey: '' });
                 let result = post('/system/auth/user/addrole',params);
                 result.then(res => {
@@ -298,7 +331,7 @@ export  default class EditableTable extends Component {
         this.isEditing(newData)
     }
     render() {
-        const {data,addRole, cityData, addRoleEdit} = this.state;
+        const {addRole, cityData} = this.state;
         let roleGroup = JSON.parse(localStorage.getItem("alllist"));
         let tableData =  [];
         if(addRole && addRole.length){
@@ -345,7 +378,7 @@ export  default class EditableTable extends Component {
                     title: col.title,
                     editing: this.isEditing(record),
                     defaultName: record.namestr?record.namestr: '',
-                    defaultCity: record.city?record.city:[],
+                    defaultcity: record.city?record.city:[],
                     nameDisabled: record.disableFlag
                 }),
             };

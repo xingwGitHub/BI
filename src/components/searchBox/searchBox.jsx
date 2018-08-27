@@ -63,7 +63,7 @@ class SearchBox extends React.Component{
         let obj = localStorage.getItem('cityData');
         let objJson = JSON.parse(obj);
         if(objJson){
-            objJson = Object.assign({"all": "全国"}, objJson);
+            objJson = Object.assign({"all": "全部"}, objJson);
             this.setState({
                 cityData: objJson
             },() => this.getCityData())
@@ -72,7 +72,7 @@ class SearchBox extends React.Component{
             let cityData = getFun('/web_api/dim_info/city');
             cityData.then( res => {
                 localStorage.setItem('cityData', JSON.stringify(res.data));
-                let cityobj = Object.assign({"all": "全国"}, res.data);
+                let cityobj = Object.assign({"all": "全部"}, res.data);
                 this.setState({
                     cityData: cityobj
                 })
@@ -86,7 +86,7 @@ class SearchBox extends React.Component{
         if(arr.indexOf("-1") > -1){
             this.setState({
                 cityOptionData: this.state.cityData,
-                city: []
+                city: ['all']
             })
         }else {
             let _this = this;
@@ -94,28 +94,39 @@ class SearchBox extends React.Component{
             let path = document.location.toString();
             let pathUrl = path.split('#');
             let url = pathUrl[1].split('/');
-            let str = url[url.length - 1];
+            let strurl = url[url.length - 1];
             Object.keys(cityObj).map(item => {
-                if(item.indexOf(str) > 0){
+                if(item.indexOf(strurl) > 0){
                     let cityData = cityObj[item].city;
                     if(cityData.indexOf('all') > -1){
                         _this.setState({
                             cityOptionData: _this.state.cityData,
-                            city: []
+                            city: ['all']
                         })
                     }else {
                         let cityStr = _this.state.cityData;
                         let str = {};
                         cityData.map(item => {
-                            let strr = {};
+                            let strr = {"all": "全部"};
                             let keyStr = item;
                             strr[keyStr] = cityStr[item];
                             str = Object.assign(strr, str)
                         })
+
                         this.setState({
                             cityOptionData: str,
-                            city: cityStr[cityData[cityData.length-1]].toString()
+                            // city: cityStr[cityData[cityData.length-1]].toString()
+                            city: ['all']
                         })
+                        const start = new Date((moment(this.state.selectedStartDate).subtract())._d);
+                        const end = new Date((moment(this.state.selectedEndDate).subtract())._d);
+
+                        const param = {
+                            city: cityData.join(","),
+                            selectedStartDate: this.formatDate(start),
+                            selectedEndDate: this.formatDate(end)
+                        }
+                        this.props.searchParams(param)
                     }
                 }
             })
@@ -131,15 +142,25 @@ class SearchBox extends React.Component{
     };
     handleChange(value){
         let cityArr = this.getCityArr(value);
-
         const start = new Date((moment(this.state.selectedStartDate).subtract())._d);
         const end = new Date((moment(this.state.selectedEndDate).subtract())._d);
-        const param = {
-            city: cityArr.join(","),
-            selectedStartDate: this.formatDate(start),
-            selectedEndDate: this.formatDate(end)
+        if(cityArr[0] == 'all'){
+            const param = {
+                city: '',
+                selectedStartDate: this.formatDate(start),
+                selectedEndDate: this.formatDate(end)
+            }
+            this.props.searchParams(param)
+        }else {
+            const param = {
+                city: cityArr.join(","),
+                selectedStartDate: this.formatDate(start),
+                selectedEndDate: this.formatDate(end)
+            }
+            this.props.searchParams(param)
         }
-        this.props.searchParams(param)
+
+
     }
     getCityArr(value){
         let length = value.length - 1;
@@ -171,8 +192,15 @@ class SearchBox extends React.Component{
             selectedStartDate: dates[0],
             selectedEndDate: dates[1]
         })
+        let city = this.state.city;
+        let a = '';
+        if(city[0] == 'all'){
+            a = ''
+        }else {
+            a = city
+        }
         const param = {
-            city: this.state.city,
+            city: a,
             selectedStartDate: dateStrings[0],
             selectedEndDate: dateStrings[1]
         }

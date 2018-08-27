@@ -13,3 +13,9 @@ export const initMenu = (value) => {
         value
     }
 }
+export const initToggle = (value) => {
+    return {
+        type: index.INITTOGGLE,
+        value
+    }
+}

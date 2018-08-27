@@ -109,7 +109,9 @@ export default class RealTimeOrder extends Component {
     componentWillUnmount() {
         window.clearInterval(this.Timer);
     }
-
+    componentWillReceiveProps(nextProps) {
+        this.getRealtime();
+    }
     getRealtime() {
         if (this.state.stat_date === today) {
             this.getOrderData();

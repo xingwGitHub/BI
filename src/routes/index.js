@@ -25,6 +25,11 @@ import RightsManageUser from '../page/systemManage/rightsManageUser';
 import RightsManageModule from '../page/systemManage/rightsManageModule';
 
 import PageError from '../page/pageError/pageError'
+// 留存
+import userRetention from '../page/userRetention/userRetention'
+// 活动效果
+import effectStatistic from '../page/activityEffect/effectStatistic'
+import couponStatistic from '../page/activityEffect/couponStatistic'
 
 
 
@@ -103,6 +108,10 @@ export default class CRouter extends Component {
                 <Route exact path="/app/systemManage/rightsManage/role" component={RightsManageRole} />
                 <Route exact path="/app/systemManage/rightsManage/user" component={RightsManageUser} />
                 <Route exact path="/app/systemManage/rightsManage/module" component={RightsManageModule} />
+
+                <Route exact path="/app/userRetention/userRetention" component={userRetention} />
+                <Route exact path="/app/activityEffect/effectStatistic" component={effectStatistic} />
+                <Route exact path="/app/activityEffect/couponStatistic" component={couponStatistic} />
 
                 <Route exact path="/app/pageError" component={PageError}/>
 

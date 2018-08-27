@@ -48,7 +48,7 @@ class Portrait extends React.Component{
             searchParams: {},
             tableHeader: [
                 {
-                    title: '统计日期', dataIndex: 'start_time', key: 'start_time',  width: '100px'
+                    title: '日期', dataIndex: 'start_time', key: 'start_time',  width: '100px'
                 },
                 {
                     title: '订单概览',
@@ -60,25 +60,32 @@ class Portrait extends React.Component{
                     ]
                 },
                 {
+                    title: '接单',
+                    children: [
+                        {title: '单均派单司机数', dataIndex: 'total_of_average_dispatch', key: 'total_of_average_dispatch'},
+                        {title: '单均响应司机数', dataIndex: 'order_avg_response', key: 'order_avg_response'},
+                    ]
+                },
+                {
                     title: '空驶',
                     children: [
                         {title: '平均距离(km)', dataIndex: 'kongshi_average_distance', key: 'kongshi_average_distance'},
-                        {title: '平均时长(min)', dataIndex: 'kongshi_average_time', key: 'kongshi_average_time'}
+                        {title: '平均时长(h)', dataIndex: 'kongshi_average_time', key: 'kongshi_average_time'}
                     ]
                 },
                 {
-                    title: '订单服务',
+                    title: '服务',
                     children: [
                         {title: '平均距离(km)', dataIndex: 'order_average_distance', key: 'order_average_distance'},
-                        {title: '平均时长(min)', dataIndex: 'order_average_time', key: 'order_average_time'}
+                        {title: '平均时长(h)', dataIndex: 'order_average_time', key: 'order_average_time'}
                     ]
                 },
                 {
-                    title: '打表来接',
+                    title: '打表',
                     children: [
                         {title: '打表接单数', dataIndex: 'total_of_bymeter_orders', key: 'total_of_bymeter_orders'},
                         {title: '打表接单占比(%)', dataIndex: 'rate_of_bymeter_order', key: 'rate_of_bymeter_order'},
-                        {title: '平均金额', dataIndex: 'average_amount_of_bymeter_order', key: 'average_amount_of_bymeter_order'}
+                        {title: '单均金额', dataIndex: 'average_amount_of_bymeter_order', key: 'average_amount_of_bymeter_order'}
                     ]
                 }
             ],
@@ -195,7 +202,6 @@ class Portrait extends React.Component{
         let arrStr = ['start_time', 'rate_of_bymeter_order'];
         let searchParams = this.getParams();
         let searchParam = Object.assign(searchParams,this.state.checkedParam);
-        console.log("请求参数：",searchParam)
         let result =getFun('/web_api/operation/portrait',  searchParam);
         result.then(res => {
             this.setState({
@@ -232,7 +238,12 @@ class Portrait extends React.Component{
             Object.keys(cityObj).map(item => {
                 if(item.indexOf(str) > 0 ){
                     let cityArr = cityObj[item].city;
-                    city = cityArr[cityArr.length - 1]
+                    if(cityArr[0] == 'all'){
+                        city = '';
+                    }else {
+                        city = cityArr.join(",")
+                    }
+                    // city = cityArr[cityArr.length - 1]
                 }
             })
         }
@@ -303,7 +314,7 @@ class Portrait extends React.Component{
                     </Card>
                     <div className="tableWrap">
                         <div>
-                            <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
+                            <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false} scroll={{x: '130%'}}>
 
                             </Table>
                         </div>
@@ -313,7 +324,7 @@ class Portrait extends React.Component{
                                     <ExportFileCom params={this.state.exportParams}></ExportFileCom>
                                 </Col>
                                 <Col span={14} style={{textAlign: 'right'}}>
-                                    <Pagination size="small" current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
+                                    <Pagination current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
                                 </Col>
                             </Row>
                         </div>

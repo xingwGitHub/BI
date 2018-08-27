@@ -155,7 +155,7 @@ class RightsManageUser extends Component{
                     if(item.expire_time == -1){
                         item.expire_time_date = '不限期'
                     }else {
-                        item.expire_time_date = dateFormat(item.expire_time*1000, 'yyyy-MM-dd h:m');
+                        item.expire_time_date = dateFormat(item.expire_time*1000, 'yyyy-MM-dd hh:mm');
                     }
                 }else {
                     item.expire_time_date = '--'
@@ -180,8 +180,10 @@ class RightsManageUser extends Component{
             if(res.code === 0){
                 let initData = getFun('/index/init');
                 initData.then(res => {
+                    window.location.reload();
                     _this.props.initData(res.data)
                     localStorage.setItem("auth",JSON.stringify(res.data.auth))
+
                 })
             }
         })
@@ -228,7 +230,7 @@ class RightsManageUser extends Component{
         let today = new Date();
         let today1 = new Date(today);
         today1.setDate(today.getDate() + 30);
-        let date = dateFormat(today1.getTime(), 'yyyy-MM-dd h:m');
+        let date = dateFormat(today1.getTime(), 'yyyy-MM-dd hh:mm');
         record.expire_time_date1 = date;
         if(record.expire_time == -1){
             this.setState({
@@ -353,7 +355,7 @@ class RightsManageUser extends Component{
             if(delayItem.expire_time === -1){
                 delayItem.expire_time = '不限期'
             }else {
-                delayItem.expire_time = dateFormat(delayItem.expire_time*1000, 'yyyy-MM-dd h:m');
+                delayItem.expire_time = dateFormat(delayItem.expire_time*1000, 'yyyy-MM-dd hh:mm');
             }
         }
         return(
@@ -387,7 +389,7 @@ class RightsManageUser extends Component{
                         <div className="page-footer">
                             <Row>
                                 <Col style={{textAlign: 'right'}}>
-                                    <Pagination showQuickJumper pageSize={this.state.pageSize} current={this.state.current}  total={total} onChange={this.onChange.bind(this)} size="small"/>
+                                    <Pagination showQuickJumper pageSize={this.state.pageSize} current={this.state.current}  total={total} onChange={this.onChange.bind(this)}/>
                                 </Col>
                             </Row>
                         </div>

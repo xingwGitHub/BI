@@ -200,7 +200,12 @@ class UserStatistics extends React.Component{
             Object.keys(cityObj).map(item => {
                 if(item.indexOf(str) > 0 ){
                     let cityArr = cityObj[item].city;
-                    city = cityArr[cityArr.length - 1]
+                    if(cityArr[0] == 'all'){
+                        city = '';
+                    }else {
+                        city = cityArr.join(",")
+                    }
+                    // city = cityArr[cityArr.length - 1]
                 }
             })
         }
@@ -263,7 +268,7 @@ class UserStatistics extends React.Component{
                                     <ExportFileCom params={this.state.exportParams}></ExportFileCom>
                                 </Col>
                                 <Col span={14} style={{textAlign: 'right'}}>
-                                    <Pagination size="small" current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
+                                    <Pagination current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
                                 </Col>
                             </Row>
                         </div>

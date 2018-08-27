@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Layout, LocaleProvider } from 'antd';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {initData} from './store/index/action'
+import {initData, initToggle} from './store/index/action'
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import 'antd/dist/antd.css';
@@ -54,6 +54,7 @@ class App extends Component {
         this.setState({
             collapsed: flag,
         });
+        this.props.initToggle(flag);
     };
     render() {
         return (
@@ -90,6 +91,8 @@ class App extends Component {
 }
 export default connect(state => ({
     initDataFun: state.initDataFun,
+    initDataToggle: state.initDataToggle
 }), {
     initData,
+    initToggle
 })(App);

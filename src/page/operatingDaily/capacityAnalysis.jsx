@@ -1,8 +1,9 @@
 
 import React from 'react';
-import {Card, Table, Radio, Row, Col, Button, Pagination, Select} from 'antd';
+import {Card, Table, Radio, Row, Col, Button, Pagination, Select, Icon} from 'antd';
 import moment from 'moment';
 import SearchBox from '../../components/searchBox/searchBox'
+// import SearchCheckBox from '../../components/searchBox/searchCheckBox'
 import ExportFileCom from '../../components/exportFile/exportFile'
 
 import {getFun} from '../../utils/api'
@@ -41,37 +42,72 @@ class CapacityAnalysis extends React.Component{
                 4: '商务',
                 5: '出租车'
             },
+            driverCombine: {
+                0: '',
+                1: 'A',
+                2: 'B',
+                3: 'C',
+
+            },
+            driverTypes: {
+                0: '全部',
+                1: '全职',
+                2: '半全职',
+                3: '兼职',
+            },
+            certificateCombine: {
+                0: '',
+                1: 6,
+                2: 5,
+                3: 7,
+
+            },
+            certificateTypes: {
+                0: '全部',
+                1: '人证通过',
+                2: '车证通过',
+                3: '双证通过',
+            },
             city: '',
             start_at: '',
             end_at: '',
             car_type_id: '',
+            si_ji_fen_ceng: '',
+            shuang_zheng_shen_he_zhuang_tai: '',
             searchParams: {},
             tableHeader: [
                 {
                     title: '统计日期', dataIndex: 'start_time', key: 'start_time',  width: '100px'
                 },
                 {
-                    title: '司机注册',
+                    title: '司机加盟',
                     children: [
                         {title: '注册', dataIndex: 'total_of_registered_drivers', key: 'total_of_registered_drivers'},
-                        {title: '激活', dataIndex: 'total_of_activation_drivers', key: 'total_of_activation_drivers'}
+                        {title: '审核', dataIndex: 'driver_reg_check', key: 'driver_reg_check'},
+                        {title: '激活', dataIndex: 'total_of_activation_drivers', key: 'total_of_activation_drivers'},
+                        {title: '累计注册', dataIndex: 'driver_reg_total', key: 'driver_reg_total'},
+                        {title: '累计激活', dataIndex: 'driver_active_total', key: 'driver_active_total'}                    
                     ]
                 },
                 {
-                    title: '司机活跃',
+                    title: '司机接单',
                     children: [
-                        {title: '在线司机数', dataIndex: 'total_of_online_drivers', key: 'total_of_online_drivers'},
+                        {title: '有效听单司机数', dataIndex: 'effective_listening_driver_num', key: 'effective_listening_driver_num'},
+                        {title: '派单司机数', dataIndex: 'dispatch_driver_num', key: 'dispatch_driver_num'},
+                        {title: '中标司机数', dataIndex: 'win_bid_driver_num', key: 'win_bid_driver_num'},
                         {title: '活跃司机数', dataIndex: 'total_of_active_drivers', key: 'total_of_active_drivers'},
-                        {title: '活跃率(%)', dataIndex: 'rate_of_active_drivers', key: 'rate_of_active_drivers'}
+                        {title: '抢单率(%)', dataIndex: 'rate_of_accept', key: 'rate_of_accept'},
+                        {title: '中标率(%)', dataIndex: 'rate_of_win_bid', key: 'rate_of_win_bid'}
                     ]
                 },
                 {
-                    title: '接单难度',
+                    title: '服务时长及收入',
                     children: [
-                        {title: '单均派次数', dataIndex: 'total_of_average_dispatch', key: 'total_of_average_dispatch'},
-                        {title: '中标次数', dataIndex: 'total_of_win_bid', key: 'total_of_win_bid'},
-                        {title: '接单率(%)', dataIndex: 'rate_of_accept', key: 'rate_of_accept'},
-                        {title: '中标率(%)', dataIndex: 'rate_of_win_bid', key: 'rate_of_win_bid'}
+                        {title: '平均在线时长(h)', dataIndex: 'avg_online_time', key: 'avg_online_time'},
+                        {title: '平均服务时长(h)', dataIndex: 'avg_service_time', key: 'avg_service_time'},
+                        {title: '日均收入', dataIndex: 'avg_daily_income', key: 'avg_daily_income'},
+                        {title: '在线小时收入', dataIndex: 'hours_online_income', key: 'hours_online_income'},
+                        {title: '服务小时收入', dataIndex: 'hours_service_income', key: 'hours_service_income'},
                     ]
                 }
             ],
@@ -80,7 +116,9 @@ class CapacityAnalysis extends React.Component{
             leasCompanies: [],
             leasCompaniesObj: {},
             leasCompaniesOption: [],
-            leasCompaniesAllOption: []
+            leasCompaniesAllOption: [],
+            collapseFlag: true,
+            checkedParam: {}
         }
     }
     componentWillMount() {
@@ -103,7 +141,8 @@ class CapacityAnalysis extends React.Component{
         if(leasCompanies){
             this.setState({
                 leasCompaniesObj: leasCompanies,
-                leasCompaniesAllOption: this.getLeasCompaniesAllOptionData(leasCompanies)
+                leasCompaniesAllOption: this.getLeasCompaniesAllOptionData(leasCompanies),
+                leasCompaniesOption: this.getLeasCompaniesAllOptionData(leasCompanies)
             })
 
         }else {
@@ -112,7 +151,8 @@ class CapacityAnalysis extends React.Component{
                 localStorage.setItem('leasCompanies',JSON.stringify(res.data));
                 this.setState({
                     leasCompaniesObj: res.data,
-                    leasCompaniesAllOption: this.getLeasCompaniesAllOptionData(res.data)
+                    leasCompaniesAllOption: this.getLeasCompaniesAllOptionData(res.data),
+                    leasCompaniesOption: this.getLeasCompaniesAllOptionData(res.data)
                 })
             })
         }
@@ -135,7 +175,9 @@ class CapacityAnalysis extends React.Component{
             city: this.state.city,
             start_at: this.formatDate(start),
             end_at: this.formatDate(end), //当前时间减n天
-            car_type_id: ''
+            car_type_id: '',
+            si_ji_fen_ceng: '',
+            shuang_zheng_shen_he_zhuang_tai: ''
         });
     }
     // 初始化导出所需数据
@@ -164,6 +206,7 @@ class CapacityAnalysis extends React.Component{
     };
     // 获取下拉框和日期参数
     searchParams(params){
+        console.log(params)
         this.setState({
             city: params.city,
             start_at: params.selectedStartDate,
@@ -175,7 +218,7 @@ class CapacityAnalysis extends React.Component{
         let city = this.state.city.split(",");
         let leasCompanies = this.state.leasCompaniesObj;
         let arr = [];
-        if(city.indexOf('all') > -1){
+        if(!city){
             this.setState({
                 leasCompaniesOption: this.state.leasCompaniesAllOption
             })
@@ -198,6 +241,27 @@ class CapacityAnalysis extends React.Component{
             car_type_id: this.state.carCombine[index].join(',')
         })
     }
+    // 司机属性
+    driverTypeChange(e) {
+        let index = e.target.value;
+        console.log(index)
+        this.setState({
+            si_ji_fen_ceng: this.state.driverCombine[index]
+        })
+    }
+    // 司机证件
+    certificateTypeChange(e) {
+        let index = e.target.value;
+        this.setState({
+            shuang_zheng_shen_he_zhuang_tai: this.state.certificateCombine[index]
+        })
+    }
+    // 获取订单类型、下单时间、预估里程参数
+    // checkedBoxParams(params){
+    //     this.setState({
+    //         checkedParam: params
+    //     })
+    // }
     // 点击查询
     searchBtn() {
         this.setState({
@@ -230,6 +294,7 @@ class CapacityAnalysis extends React.Component{
     getTableData() {
         let arrStr = ['start_time', 'rate_of_active_drivers', 'rate_of_accept', 'rate_of_win_bid'];
         let searchParams = this.getParams();
+        // let searchParam = Object.assign(searchParams,this.state.checkedParam);
         let result =getFun('/web_api/operation/driver',  searchParams);
         result.then(res => {
             this.setState({
@@ -251,7 +316,9 @@ class CapacityAnalysis extends React.Component{
             end_at: end,
             city: this.state.flag?this.state.city:this.getCityParams(),
             car_type_id: this.state.car_type_id,
-            // leasCompanies: this.state.leasCompanies.join(",")     // 租赁公司参数
+            si_ji_fen_ceng: this.state.si_ji_fen_ceng,
+            shuang_zheng_shen_he_zhuang_tai: this.state.shuang_zheng_shen_he_zhuang_tai,
+            zu_lin_gong_si: this.state.leasCompanies.join(",")     // 租赁公司参数
         }
         return params;
     }
@@ -267,8 +334,14 @@ class CapacityAnalysis extends React.Component{
             Object.keys(cityObj).map(item => {
                 if(item.indexOf(str) > 0 ){
                     let cityArr = cityObj[item].city;
-                    city = cityArr[cityArr.length - 1]
+                    // city = cityArr[cityArr.length - 1]
+                    if(cityArr[0] == 'all'){
+                        city = '';
+                    }else {
+                        city = cityArr.join(",")
+                    }
                 }
+
             })
         }
         return city;
@@ -306,10 +379,21 @@ class CapacityAnalysis extends React.Component{
             leasCompanies: value
         })
     }
+    collapseClick(){
+        this.setState({
+            collapseFlag: !this.state.collapseFlag
+        })
+    }
     render() {
-        let {title, carTypes, load, tableHeader, total, pageSize, leasCompaniesOption} = this.state;
+        let {title, carTypes, driverTypes, certificateTypes, load, tableHeader, total, pageSize, leasCompaniesOption,collapseFlag} = this.state;
         const radioChildren = Object.keys(carTypes).map((key, index) => {
             return <RadioButton key={key} value={key}>{carTypes[key]}</RadioButton>
+        });
+        const radioChildren0 = Object.keys(certificateTypes).map((key, index) => {
+            return <RadioButton key={key} value={key}>{certificateTypes[key]}</RadioButton>
+        });
+        const radioChildren1 = Object.keys(driverTypes).map((key, index) => {
+            return <RadioButton key={key} value={key}>{driverTypes[key]}</RadioButton>
         });
         let tableData = milliFormat(this.state.tableData);
         let optionData = leasCompaniesOption.map(item => {
@@ -325,36 +409,52 @@ class CapacityAnalysis extends React.Component{
                                 <div>
                                     <SearchBox searchParams={params => this.searchParams(params)}></SearchBox>
                                 </div>
-                                <div className="cartype-wrapper">
-                                    <label className="cartype-label">车型：</label>
-                                    <RadioGroup onChange={this.carTypeChange.bind(this)} defaultValue='0' >
-                                        {radioChildren}
-                                    </RadioGroup>
-                                    <p className="cartype-text">以司机注册车型筛选</p>
-                                </div>
-                                <div>
-                                    <label className="cartype-label">租赁公司：</label>
-                                    <Select
-                                        mode="multiple"
-                                        placeholder="请选择"
-                                        showArrow={true}
-                                        value={this.state.leasCompanies}
-                                        style={{width: 300}}
-                                        onSearch={this.handleSearch.bind(this)}
-                                        filterOption={(input, option) => option.props.children.indexOf(input) >= 0}
-                                        onChange={this.handleChange.bind(this)}>
-                                        {optionData}
-                                    </Select>
+                                <div className={collapseFlag?"collapse-search":""}>
+                                    <div className="cartype-wrapper">
+                                        <label className="cartype-label">司机证件：</label>
+                                        <RadioGroup onChange={this.certificateTypeChange.bind(this)} defaultValue='0'>
+                                            {radioChildren0}
+                                        </RadioGroup>
+                                    </div>
+                                    <div className="cartype-wrapper">
+                                        <label className="cartype-label">司机属性：</label>
+                                        <RadioGroup onChange={this.driverTypeChange.bind(this)} defaultValue='0'>
+                                            {radioChildren1}
+                                        </RadioGroup>
+                                    </div>
+                                    {/* <SearchCheckBox checkedBoxParams={params => this.checkedBoxParams(params)}></SearchCheckBox> */}
+                                    <div className="cartype-wrapper">
+                                        <label className="cartype-label">车型：</label>
+                                        <RadioGroup onChange={this.carTypeChange.bind(this)} defaultValue='0' >
+                                            {radioChildren}
+                                        </RadioGroup>
+                                        <p className="cartype-text">以司机注册车型筛选</p>
+                                    </div>
+                                    <div>
+                                        <label className="cartype-label">租赁公司：</label>
+                                        <Select
+                                            mode="multiple"
+                                            placeholder="请选择"
+                                            showArrow={true}
+                                            value={this.state.leasCompanies}
+                                            style={{width: 300}}
+                                            onSearch={this.handleSearch.bind(this)}
+                                            filterOption={(input, option) => option.props.children.indexOf(input) >= 0}
+                                            onChange={this.handleChange.bind(this)}>
+                                            {optionData}
+                                        </Select>
+                                    </div>
                                 </div>
                             </div>
                             <div className="search-btn-wrapper">
                                 <Button type="primary"  icon='search' onClick={this.searchBtn.bind(this)}>查询</Button>
+                                <a className="collapse-text" onClick={this.collapseClick.bind(this)}>{collapseFlag?"展开":"收起"}<Icon type={collapseFlag?"down":"up"}></Icon></a>                            
                             </div>
                         </div>
                     </Card>
                     <div className="tableWrap">
                         <div>
-                            <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
+                            <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false} scroll={{x: '200%'}}>
 
                             </Table>
                         </div>
@@ -364,7 +464,7 @@ class CapacityAnalysis extends React.Component{
                                     <ExportFileCom params={this.state.exportParams}></ExportFileCom>
                                 </Col>
                                 <Col span={14} style={{textAlign: 'right'}}>
-                                    <Pagination size="small" current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
+                                    <Pagination current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
                                 </Col>
                             </Row>
                         </div>

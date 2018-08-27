@@ -59,13 +59,17 @@ class IncomeAndCost extends React.Component{
         searchParams: {},
         tableHeader: [
             {
-                title: '统计日期', dataIndex: 'start_time', key: 'start_time', width: '100px'
+                title: '日期', dataIndex: 'start_time', key: 'start_time', width: '100px'
             },
             {
                 title: '收入',
                 children: [
-                    {title: '完成订单数', dataIndex: 'total_of_finished_orders', key: 'total_of_finished_orders'},
-                    {title: '订单金额', dataIndex: 'order_origin_amount', key: 'order_origin_amount'}
+                    {title: '下单量', dataIndex: 'total_of_orders', key: 'total_of_orders'},
+                    {title: '完成单量', dataIndex: 'total_of_finished_orders', key: 'total_of_finished_orders'},
+                    {title: '订单完成率(%)', dataIndex: 'rate_of_finished_order', key: 'rate_of_finished_order'},
+                    {title: '订单总额', dataIndex: 'order_origin_amount', key: 'order_origin_amount'},
+                    {title: '客单价', dataIndex: 'order_average_amount', key: 'order_average_amount'},
+                    {title: '易到分佣', dataIndex: 'cent_commission', key: 'cent_commission'}
                 ]
             },
             {
@@ -73,8 +77,7 @@ class IncomeAndCost extends React.Component{
                 children: [
                     {title: '服务成本', dataIndex: 'service_cost', key: 'service_cost'},
                     {title: '数单奖', dataIndex: 'driver_charge_record', key: 'driver_charge_record'},
-                    {title: '动态加价成本', dataIndex: 'dynamic_price_increase_cost', key: 'dynamic_price_increase_cost'},
-                    {title: '保险成本', dataIndex: 'cost_of_insurance', key: 'cost_of_insurance'}
+                    {title: '保险成本', dataIndex: 'e51702693b53b90991718763d65a95975a5b01fa', key: 'e51702693b53b90991718763d65a95975a5b01fa'}
                 ]
             },
           {
@@ -82,11 +85,7 @@ class IncomeAndCost extends React.Component{
               children: [
                   {title: '用户优惠', dataIndex: 'user_preferential', key: 'user_preferential'},
                   {title: '充返优惠', dataIndex: 'chongfan_preferential', key: 'chongfan_preferential'},
-                  {title: 'YOP分佣', dataIndex: 'yop_commission', key: 'yop_commission'}
               ]
-          },
-          {
-              title: '单均金额', dataIndex: 'order_average_amount', key: 'order_average_amount'
           },
           {
               title: '计费差额', dataIndex: 'billing_difference', key: 'billing_difference'
@@ -102,6 +101,7 @@ class IncomeAndCost extends React.Component{
         this.setState({
             city: city
         })
+
     }
     componentDidMount(){
         this.setState({
@@ -150,6 +150,7 @@ class IncomeAndCost extends React.Component{
     };
     // 获取下拉框和日期参数
   searchParams(params){
+      console.log(params)
       this.setState({
           city: params.city,
           start_at: params.selectedStartDate,
@@ -194,10 +195,11 @@ class IncomeAndCost extends React.Component{
     }
     // 获取表格数据
     getTableData() {
-      let arrStr = ['start_time']
+      let arrStr = ['start_time', 'rate_of_finished_order']
       let searchParams = this.getParams();
       let result =getFun('/web_api/operation/income',  searchParams);
       result.then(res => {
+
           this.setState({
               load: false,
               tableData: objectToArr(res.data, arrStr)
@@ -232,7 +234,11 @@ class IncomeAndCost extends React.Component{
             Object.keys(cityObj).map(item => {
                 if(item.indexOf(str) > 0 ){
                     let cityArr = cityObj[item].city;
-                    city = cityArr[cityArr.length - 1]
+                    if(cityArr[0] == 'all'){
+                        city = '';
+                    }else {
+                        city = cityArr.join(",")
+                    }
                 }
             })
         }
@@ -292,7 +298,7 @@ class IncomeAndCost extends React.Component{
                   </div>
               </div>
           </Card>
-          <div class="tableWrap">
+          <div className="tableWrap">
             <div>
                 <Table dataSource={tableData} bordered loading={load} columns={tableHeader} pagination={false}>
 

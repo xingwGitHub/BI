@@ -42,181 +42,146 @@ class Distribution extends React.Component{
             tableHeader: [],
             tableHeader0: [
                 {
-                    title: '统计日期', dataIndex: 'start_time', key: 'start_time', width: '100px'
+                    title: '日期', dataIndex: 'start_time', key: 'start_time', width: '100px'
                 },
                 {
-                    title: 'ASAP用车',
+                    title: '即时用车',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_asap', key: 'total_of_finished_orders_asap'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_asap', key: 'total_of_finished_orders_asap'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_asap', key: 'order_origin_amount_asap'}
                     ]
                 },
                 {
                     title: '预约用车',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_reservation', key: 'total_of_finished_orders_reservation'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_reservation', key: 'total_of_finished_orders_reservation'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_reservation', key: 'order_origin_amount_reservation'}
                     ]
                 },
                 {
-                    title: '定价-接机',
+                    title: '接机',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_airport_pick_up', key: 'total_of_finished_orders_airport_pick_up'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_airport_pick_up', key: 'total_of_finished_orders_airport_pick_up'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_airport_pick_up', key: 'order_origin_amount_airport_pick_up'}
                     ]
                 },
                 {
-                    title: '定价-送机',
+                    title: '送机',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_airport_drop_off', key: 'total_of_finished_orders_airport_drop_off'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_airport_drop_off', key: 'total_of_finished_orders_airport_drop_off'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_airport_drop_off', key: 'order_origin_amount_airport_drop_off'}
                     ]
                 },
                 {
-                    title: '定价-半日租',
+                    title: '半日租',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_half_day_rent', key: 'total_of_finished_orders_half_day_rent'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_half_day_rent', key: 'total_of_finished_orders_half_day_rent'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_half_day_rent', key: 'order_origin_amount_half_day_rent'}
                     ]
                 },
                 {
-                    title: '定价-日租',
+                    title: '日租',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_daily_rent', key: 'total_of_finished_orders_daily_rent'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_daily_rent', key: 'total_of_finished_orders_daily_rent'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_daily_rent', key: 'order_origin_amount_daily_rent'}
                     ]
                 },
                 {
-                    title: '定价-热门路线',
+                    title: '专线',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_hot_line', key: 'total_of_finished_orders_hot_line'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_hot_line', key: 'total_of_finished_orders_hot_line'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_hot_line', key: 'order_origin_amount_hot_line'}
                     ]
                 }
             ],
             tableHeader1: [
                 {
-                    title: '统计日期', dataIndex: 'start_time', key: 'start_time', fixed: 'left', width: 100,
+                    title: '日期', dataIndex: 'start_time', key: 'start_time', fixed: 'left', width: 100,
                 },
                 {
-                    title: 'ios',
+                    title: 'ISO',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_yidao_ios', key: 'total_of_finished_orders_yidao_ios'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_yidao_ios', key: 'total_of_finished_orders_yidao_ios'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_yidao_ios', key: 'order_origin_amount_yidao_ios'}
                     ]
                 },
                 {
                     title: 'Android',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_yidao_android', key: 'total_of_finished_orders_yidao_android'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_yidao_android', key: 'total_of_finished_orders_yidao_android'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_yidao_android', key: 'order_origin_amount_yidao_android'}
-                    ]
-                },
-                {
-                    title: '网站',
-                    children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_web', key: 'total_of_finished_orders_web'},
-                        {title: '订单金额', dataIndex: 'order_origin_amount_web', key: 'order_origin_amount_web'}
-                    ]
-                },
-                {
-                    title: '手机网站',
-                    children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_mobile_web', key: 'total_of_finished_orders_mobile_web'},
-                        {title: '订单金额', dataIndex: 'order_origin_amount_mobile_web', key: 'order_origin_amount_mobile_web'}
-                    ]
-                },
-                {
-                    title: 'CRM',
-                    children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_crm', key: 'total_of_finished_orders_crm'},
-                        {title: '订单金额', dataIndex: 'order_origin_amount_crm', key: 'order_origin_amount_crm'}
                     ]
                 },
                 {
                     title: '开放平台',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_open_platform', key: 'total_of_finished_orders_open_platform'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_open_platform', key: 'total_of_finished_orders_open_platform'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_open_platform', key: 'order_origin_amount_open_platform'}
                     ]
                 },
                 {
-                    title: '网站第三方嵌套',
+                    title: 'H5嵌套',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_web_open_platform', key: 'total_of_finished_orders_web_open_platform'},
-                        {title: '订单金额', dataIndex: 'order_origin_amount_web_open_platform', key: 'order_origin_amount_web_open_platform'}
-                    ]
-                },
-                {
-                    title: 'H5第三方嵌套',
-                    children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_mobile_open_platform', key: 'total_of_finished_orders_mobile_open_platform'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_mobile_open_platform', key: 'total_of_finished_orders_mobile_open_platform'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_mobile_open_platform', key: 'order_origin_amount_mobile_open_platform'}
-                    ]
-                },
-                {
-                    title: 'iPhone App',
-                    children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_iphone', key: 'total_of_finished_orders_iphone'},
-                        {title: '订单金额', dataIndex: 'order_origin_amount_iphone', key: 'order_origin_amount_iphone'}
                     ]
                 },
                 {
                     title: '其他',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_other', key: 'total_of_finished_orders_other'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_other', key: 'total_of_finished_orders_other'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_other', key: 'order_origin_amount_other'}
                     ]
                 }
             ],
             tableHeader2: [
                 {
-                    title: '统计日期', dataIndex: 'start_time', key: 'start_time'
+                    title: '日期', dataIndex: 'start_time', key: 'start_time'
                 },
                 {
-                    title: '钻石用户',
+                    title: '钻石卡',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_diamond_card', key: 'total_of_finished_orders_diamond_card'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_diamond_card', key: 'total_of_finished_orders_diamond_card'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_diamond_card', key: 'order_origin_amount_diamond_card'}
                     ]
                 },
                 {
-                    title: '白金用户',
+                    title: '白金卡',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_white_gold_card', key: 'total_of_finished_orders_white_gold_card'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_white_gold_card', key: 'total_of_finished_orders_white_gold_card'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_white_gold_card', key: 'order_origin_amount_white_gold_card'}
                     ]
                 },
                 {
-                    title: '金卡用户',
+                    title: '金卡',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_golden_card', key: 'total_of_finished_orders_golden_card'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_golden_card', key: 'total_of_finished_orders_golden_card'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_golden_card', key: 'order_origin_amount_golden_card'}
                     ]
                 },
                 {
-                    title: '银卡用户',
+                    title: '银卡',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_silver_card', key: 'total_of_finished_orders_silver_card'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_silver_card', key: 'total_of_finished_orders_silver_card'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_silver_card', key: 'order_origin_amount_silver_card'}
                     ]
                 }
             ],
             tableHeader3: [
                 {
-                    title: '统计日期', dataIndex: 'start_time', key: 'start_time'
+                    title: '日期', dataIndex: 'start_time', key: 'start_time'
                 },
                 {
-                    title: '当日新激活用户',
+                    title: '当日激活新用户',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_new', key: 'total_of_finished_orders_new'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_new', key: 'total_of_finished_orders_new'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_new', key: 'order_origin_amount_new'}
                     ]
                 },
                 {
-                    title: '当日老用户',
+                    title: '老用户',
                     children: [
-                        {title: '订单数', dataIndex: 'total_of_finished_orders_old', key: 'total_of_finished_orders_old'},
+                        {title: '订单量', dataIndex: 'total_of_finished_orders_old', key: 'total_of_finished_orders_old'},
                         {title: '订单金额', dataIndex: 'order_origin_amount_old', key: 'order_origin_amount_old'}
                     ]
                 }
@@ -299,7 +264,7 @@ class Distribution extends React.Component{
         }else if(index === 'order_source'){
             this.setState({
                 tableHeader: this.state.tableHeader1,
-                xScroll: '160%'
+                xScroll: '100%'
             })
         }else if(index === 'user_level_id'){
             this.setState({
@@ -314,7 +279,7 @@ class Distribution extends React.Component{
         }
         this.setState({
             group_by: index
-        })
+        },()=>this.getTableData())
     }
     // 点击查询
     searchBtn() {
@@ -384,7 +349,12 @@ class Distribution extends React.Component{
             Object.keys(cityObj).map(item => {
                 if(item.indexOf(str) > 0 ){
                     let cityArr = cityObj[item].city;
-                    city = cityArr[cityArr.length - 1]
+                    // city = cityArr[cityArr.length - 1]
+                    if(cityArr[0] == 'all'){
+                        city = '';
+                    }else {
+                        city = cityArr.join(",")
+                    }
                 }
             })
         }
@@ -454,7 +424,7 @@ class Distribution extends React.Component{
                                     <ExportFileCom params={exportParams}></ExportFileCom>
                                 </Col>
                                 <Col span={14} style={{textAlign: 'right'}}>
-                                    <Pagination size="small" current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
+                                    <Pagination current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
                                 </Col>
                             </Row>
                         </div>

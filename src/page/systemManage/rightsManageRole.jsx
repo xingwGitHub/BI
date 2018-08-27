@@ -112,7 +112,6 @@ class RightsManageRole extends Component{
             name: this.state.roleName,
             permissions: this.state.permissions
         }
-        console.log(params)
         this.getTableData(params)
     }
     //分页
@@ -390,7 +389,7 @@ class RightsManageRole extends Component{
                         <div className="page-footer">
                             <Row>
                                 <Col style={{textAlign: 'right'}}>
-                                    <Pagination showQuickJumper pageSize={this.state.pageSize} current={this.state.current}  total={total} onChange={this.onChange.bind(this)} size="small"/>
+                                    <Pagination showQuickJumper pageSize={this.state.pageSize} current={this.state.current}  total={total} onChange={this.onChange.bind(this)}/>
                                 </Col>
                             </Row>
                         </div>

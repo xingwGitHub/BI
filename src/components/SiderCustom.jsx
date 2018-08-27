@@ -99,6 +99,19 @@ class SiderCustom extends Component {
                             ]
                         }
                     ]
+                },
+                {
+                    key: '/app/userRetention', title: '留存', icon: 'solution',
+                    sub: [
+                        { key: '/app/userRetention/userRetention', title: '用户留存', menuID: ''}
+                    ]
+                },
+                {
+                    key: '/app/activityEffect', title: '活动效果', icon: 'gift',
+                    sub: [
+                        { key: '/app/activityEffect/effectStatistic', title: '活动效果统计', menuID: ''},
+                        { key: '/app/activityEffect/couponStatistic', title: '优惠券统计', menuID: ''}
+                    ]
                 }
 
             ]
@@ -178,16 +191,23 @@ class SiderCustom extends Component {
             auth = {...auth}
         }
         if(!(JSON.stringify(auth) == "{}")){
-            let arr = Object.keys(auth);
-            if(arr.indexOf("-1") > -1){
+            if(typeof (auth) ==  "undefined"){
                 this.setState({
-                    menuArrItem: this.state.menuArr
+                    collapsed: true,
+                    menuArrItem: []
                 })
-                this.props.initMenu('/app/realtime/survey')
             }else {
-                this.setState({
-                    menuObj: auth
-                },() => this.getMenuItem())
+                let arr = Object.keys(auth);
+                if(arr.indexOf("-1") > -1){
+                    this.setState({
+                        menuArrItem: this.state.menuArr
+                    })
+                    this.props.initMenu('/app/realtime/survey')
+                }else {
+                    this.setState({
+                        menuObj: auth
+                    },() => this.getMenuItem())
+                }
             }
         }else {
             this.setState({

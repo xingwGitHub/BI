@@ -37,7 +37,7 @@ class SearchCheckBox extends React.Component{
                 1: 1,
                 2: 0
             },
-            is_asap: null,
+            is_asap: '',
             checkAll: true,
             indeterminate: false,
             checkedList: plainOptions,

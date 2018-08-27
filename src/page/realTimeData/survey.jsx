@@ -51,7 +51,9 @@ export default class Survey extends Component {
             this.getRealtime();
         }, 1000 * 60);
     }
-
+    componentWillReceiveProps(nextProps) {
+        this.getRealtime();
+    }
     componentWillUnmount() {
         window.clearInterval(this.Timer);
     }
