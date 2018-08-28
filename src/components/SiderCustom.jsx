@@ -101,9 +101,9 @@ class SiderCustom extends Component {
                     ]
                 },
                 {
-                    key: '/app/userRetention', title: '留存', icon: 'solution',
+                    key: '/app/retain', title: '留存', icon: 'solution',
                     sub: [
-                        { key: '/app/userRetention/userRetention', title: '用户留存', menuID: ''}
+                        { key: '/app/retain/userRetain', title: '用户留存', menuID: 'web_api/retain/userRetain' },
                     ]
                 },
                 {
