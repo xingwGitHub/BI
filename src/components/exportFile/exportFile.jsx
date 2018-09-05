@@ -38,7 +38,12 @@ class ExportFileCom extends React.Component{
          let start = params.start_at;
          let end = params.end_at;
          let now = this.formatDate(new Date());
-         let title = "运营日报_" + params.title + '_' + start + '_' + end + '_' + now;
+         let title = '';
+         if(params.title.includes('_')){
+             title = params.title + '_' + now;
+         }else {
+             title = "运营日报_" + params.title + '_' + start + '_' + end + '_' + now;
+         }
          ExportFile.exportJson2CSV(_exportData, title, params.tableHeader);
          this.setState({
              exporting: false

@@ -2,28 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea915226-dd70-48de-bec7-b10196381440" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/page/activityEffect/activityEffect.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/asset-manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/service-worker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/main.e84e9193.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/main.e84e9193.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/charts.daa04f4a.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/charts.daa04f4a.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.81ebaf55.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.81ebaf55.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/vendor.224b98aa.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/vendor.224b98aa.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/media/index.33f5e2e0.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/media/index.86da12bb.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/media/logo.0a1acd99.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/media/pageError1.1f08cb9d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/media/pageError2.46c5c4f2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SiderCustom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SiderCustom.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/exportFile/exportFile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/exportFile/exportFile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/activityEffect/couponStatistic.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/activityEffect/couponStatistic.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/activityEffect/effectStatistic.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/activityEffect/effectStatistic.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/userRetention/userRetention.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/operatingDaily/operating.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/operatingDaily/operating.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/retain/userRetain.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/retain/userRetain.jsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,50 +22,53 @@
     <session id="-1558760720">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts">
         <counts>
-          <entry key="ESLintLanguageService" value="4" />
+          <entry key="ESLintLanguageService" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="js" value="793" />
-          <entry key="jsx" value="7752" />
-          <entry key="less" value="518" />
+          <entry key="jsx" value="10129" />
+          <entry key="less" value="581" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSX Harmony" value="7752" />
+          <entry key="JSX Harmony" value="10129" />
           <entry key="JavaScript" value="793" />
-          <entry key="Less" value="518" />
+          <entry key="Less" value="581" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="2" />
-          <entry key="js" value="29" />
-          <entry key="json" value="2" />
-          <entry key="jsx" value="126" />
-          <entry key="less" value="8" />
+          <entry key="js" value="30" />
+          <entry key="json" value="3" />
+          <entry key="jsx" value="149" />
+          <entry key="less" value="10" />
+          <entry key="scss" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="2" />
-          <entry key="JSON" value="2" />
-          <entry key="JSX Harmony" value="125" />
-          <entry key="JavaScript" value="29" />
-          <entry key="Less" value="8" />
+          <entry key="JSON" value="3" />
+          <entry key="JSX Harmony" value="148" />
+          <entry key="JavaScript" value="30" />
+          <entry key="Less" value="10" />
           <entry key="PLAIN_TEXT" value="1" />
+          <entry key="SCSS" value="1" />
         </counts>
       </usages-collector>
     </session>
@@ -89,35 +76,46 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/index.js">
+        <entry file="file://$PROJECT_DIR$/src/page/realTimeData/survey.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="111" column="85" selection-start-line="111" selection-start-column="85" selection-end-line="111" selection-end-column="85" />
+            <state relative-caret-position="500">
+              <caret line="53" column="4" selection-start-line="53" selection-start-column="4" selection-end-line="55" selection-end-column="5" />
               <folding>
-                <element signature="e#1338#1406#0" expanded="true" />
+                <element signature="e#2#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/SiderCustom.jsx">
+        <entry file="file://$PROJECT_DIR$/src/components/chart/realTimeOrder/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="109" column="76" lean-forward="true" selection-start-line="109" selection-start-column="76" selection-end-line="109" selection-end-column="76" />
+            <state relative-caret-position="322">
+              <caret line="118" column="34" lean-forward="true" selection-start-line="117" selection-start-column="8" selection-end-line="118" selection-end-column="34" />
               <folding>
-                <element signature="e#1#42#0" expanded="true" />
-                <element signature="n#!!block;n#getMenuItem#0;n#SiderCustom#0" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/chart/userRemain/index.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="124" column="20" lean-forward="true" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/page/retain/userRetain.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="-330">
+              <caret line="33" column="75" selection-start-line="33" selection-start-column="75" selection-end-line="33" selection-end-column="75" />
               <folding>
                 <element signature="e#1#27#0" expanded="true" />
               </folding>
@@ -138,14 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>checkedBoxParams</find>
-      <find>funcModule</find>
-      <find>initDateRange</find>
-      <find>dayNum</find>
-      <find>userId</find>
-      <find>handleSearch</find>
-      <find>.input-wrapper .ant-input</find>
-      <find>.input-wrapper .ant-select</find>
       <find>funcModuleChange</find>
       <find>objectToQueryString</find>
       <find>handleChange</find>
@@ -168,6 +158,14 @@
       <find>leasCompaniesOption</find>
       <find>searchParams</find>
       <find>getCityParams</find>
+      <find>pageChange</find>
+      <find>exportParams</find>
+      <find>goBackDetails</find>
+      <find>.cardTitle</find>
+      <find>SelectBox</find>
+      <find>thisSearchParams</find>
+      <find>initExportData</find>
+      <find>subTitle</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -179,8 +177,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/.babelrc" />
-        <option value="$PROJECT_DIR$/src/mobx/store.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/config/webpack.config.dev.js" />
         <option value="$PROJECT_DIR$/src/store/state.js" />
@@ -192,7 +188,6 @@
         <option value="$PROJECT_DIR$/src/store/menu/reducer.js" />
         <option value="$PROJECT_DIR$/src/components/noticeBox.jsx" />
         <option value="$PROJECT_DIR$/src/components/searchBox/searchBox.less" />
-        <option value="$PROJECT_DIR$/src/page/operatingDaily/operating.less" />
         <option value="$PROJECT_DIR$/src/components/HeaderCustom.jsx" />
         <option value="$PROJECT_DIR$/src/page/systemManage/systemNotice.less" />
         <option value="$PROJECT_DIR$/src/utils/api.js" />
@@ -202,7 +197,6 @@
         <option value="$PROJECT_DIR$/src/page/systemManage/systemNotice.jsx" />
         <option value="$PROJECT_DIR$/src/Page.js" />
         <option value="$PROJECT_DIR$/src/components/editTable/editTable.jsx" />
-        <option value="$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx" />
         <option value="$PROJECT_DIR$/src/utils/dateFormat.js" />
         <option value="$PROJECT_DIR$/src/store/index/action.js" />
         <option value="$PROJECT_DIR$/src/store/index/actionType.js" />
@@ -222,14 +216,18 @@
         <option value="$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx" />
         <option value="$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx" />
         <option value="$PROJECT_DIR$/src/page/userRetention/userRetention.jsx" />
-        <option value="$PROJECT_DIR$/src/page/activityEffect/couponStatistic.jsx" />
         <option value="$PROJECT_DIR$/src/page/activityEffect/effectStatisticDetails.jsx" />
         <option value="$PROJECT_DIR$/src/page/activityEffect/activityEffect.less.css" />
         <option value="$PROJECT_DIR$/src/page/activityEffect/activityEffect.less" />
-        <option value="$PROJECT_DIR$/src/page/activityEffect/effectStatistic.jsx" />
         <option value="$PROJECT_DIR$/src/routes/index.js" />
         <option value="$PROJECT_DIR$/src/components/SiderCustom.jsx" />
+        <option value="$PROJECT_DIR$/src/components/exportFile/exportFile.jsx" />
+        <option value="$PROJECT_DIR$/src/page/operatingDaily/operating.less" />
+        <option value="$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx" />
+        <option value="$PROJECT_DIR$/src/page/activityEffect/couponStatistic.jsx" />
+        <option value="$PROJECT_DIR$/src/page/activityEffect/effectStatistic.jsx" />
         <option value="$PROJECT_DIR$/src/page/retain/userRetain.jsx" />
+        <option value="$PROJECT_DIR$/src/components/chart/userRemain/index.jsx" />
       </list>
     </option>
   </component>
@@ -249,8 +247,9 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="197" />
+    <option name="y" value="46" />
     <option name="width" value="1280" />
     <option name="height" value="709" />
   </component>
@@ -259,7 +258,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -276,6 +274,19 @@
               <item name="BI" type="b2602c69:ProjectViewProjectNode" />
               <item name="BI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="chart" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="page" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -285,16 +296,11 @@
               <item name="page" type="462c0819:PsiDirectoryNode" />
               <item name="retain" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="BI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -314,11 +320,11 @@
       <recent name="$PROJECT_DIR$/src/page/activityEffect" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/page/activityEffect" />
+      <recent name="$PROJECT_DIR$/src/components/searchBox" />
       <recent name="$PROJECT_DIR$/src/page/retain" />
       <recent name="$PROJECT_DIR$/src/page/pageError" />
       <recent name="$PROJECT_DIR$/src/page/systemManage" />
-      <recent name="$PROJECT_DIR$/src/utils" />
-      <recent name="$PROJECT_DIR$/src/page" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -376,22 +382,22 @@
       <workItem from="1533806700667" duration="47543000" />
       <workItem from="1534746320931" duration="12184000" />
       <workItem from="1534924213550" duration="13145000" />
-      <workItem from="1535332868212" duration="7042000" />
+      <workItem from="1535332868212" duration="23883000" />
+      <workItem from="1535939697904" duration="7392000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="409755000" />
+    <option name="totallyTimeSpent" value="433988000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="709" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="709" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49908924" visible="true" weight="0.22557585" />
       <window_info id="Structure" order="1" sideWeight="0.50091076" side_tool="true" weight="0.23890235" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Thumbnails" weight="0.32996634" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3293718" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3293718" />
@@ -404,6 +410,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
+      <window_info anchor="bottom" id="Thumbnails" order="12" weight="0.32996634" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -416,55 +423,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/noticeBox.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/searchBox/searchBox.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/operating.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/systemManage/systemNotice.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="82" column="1" selection-start-line="82" selection-start-column="1" selection-end-line="82" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="35" column="19" lean-forward="true" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/store.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageModule.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -542,13 +500,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1815">
-          <caret line="157" column="99" selection-start-line="157" selection-start-column="99" selection-end-line="157" selection-end-column="99" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -580,13 +531,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/realTimeData/survey.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="53" column="4" selection-start-line="53" selection-start-column="4" selection-end-line="55" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/page/realTimeData/order.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
@@ -598,9 +542,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="397">
           <caret line="93" column="18" selection-start-line="93" selection-start-column="4" selection-end-line="93" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -608,13 +549,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/searchBox/searchBox.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="128" selection-start-line="128" selection-end-line="128" />
         </state>
       </provider>
     </entry>
@@ -646,17 +580,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
-          <folding>
-            <element signature="e#1#27#0" expanded="true" />
-            <element signature="e#277#343#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/serviceQualityOfDrivers.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1335">
@@ -668,9 +591,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
           <caret line="79" column="39" selection-start-line="79" selection-start-column="39" selection-end-line="79" selection-end-column="39" />
-          <folding>
-            <element signature="e#1#27#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -681,47 +601,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/activityEffect/couponStatistics.jsx">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="269" column="19" lean-forward="true" selection-start-line="269" selection-start-column="19" selection-end-line="269" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/userRetention/userRetention.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="35" column="21" lean-forward="true" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/activityEffect/couponStatistic.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="1" lean-forward="true" selection-end-line="13" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/activityEffect/activityEffect.less.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/activityEffect/effectStatisticDetails.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="25" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/activityEffect/couponStatistics.jsx" />
+    <entry file="file://$PROJECT_DIR$/src/page/userRetention/userRetention.jsx" />
+    <entry file="file://$PROJECT_DIR$/src/page/activityEffect/activityEffect.less.css" />
+    <entry file="file://$PROJECT_DIR$/src/page/activityEffect/effectStatisticDetails.jsx" />
     <entry file="file://$PROJECT_DIR$/src/page/activityEffect/activityEffect.less">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -729,43 +612,145 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/page/activityEffect/effectStatistic.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="311">
           <caret line="111" column="85" selection-start-line="111" selection-start-column="85" selection-end-line="111" selection-end-column="85" />
-          <folding>
-            <element signature="e#1338#1406#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/SiderCustom.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
-          <caret line="109" column="76" lean-forward="true" selection-start-line="109" selection-start-column="76" selection-end-line="109" selection-end-column="76" />
+          <caret line="109" column="76" selection-start-line="109" selection-start-column="76" selection-end-line="109" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/exportFile/exportFile.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/operating.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="67" column="11" lean-forward="true" selection-start-line="67" selection-start-column="11" selection-end-line="67" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/searchBox/selectBox.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-38">
+          <caret line="22" column="46" lean-forward="true" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/retain/userRetain.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="22" column="28" lean-forward="true" selection-end-line="317" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/searchBox/searchBox.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/capacityAnalysis.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4159">
+          <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/systemManage/rightsManageUser.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="373" column="106" lean-forward="true" selection-start-line="373" selection-start-column="106" selection-end-line="373" selection-end-column="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/activityEffect/effectStatistic.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="95" column="74" selection-start-line="95" selection-start-column="74" selection-end-line="95" selection-end-column="74" />
           <folding>
-            <element signature="e#1#42#0" expanded="true" />
-            <element signature="n#!!block;n#getMenuItem#0;n#SiderCustom#0" />
+            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/operatingDaily/bargainingAnalysis.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="517">
+          <caret line="270" column="5" selection-start-line="267" selection-start-column="4" selection-end-line="270" selection-end-column="5" />
+          <folding>
+            <element signature="e#2#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/activityEffect/couponStatistic.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="188" column="13" selection-start-line="188" selection-start-column="13" selection-end-line="188" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="27" column="36" lean-forward="true" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/realTimeData/survey.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="53" column="4" selection-start-line="53" selection-start-column="4" selection-end-line="55" selection-end-column="5" />
+          <folding>
+            <element signature="e#2#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/chart/realTimeOrder/index.scss">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/page/retain/userRetain.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="-330">
+          <caret line="33" column="75" selection-start-line="33" selection-start-column="75" selection-end-line="33" selection-end-column="75" />
           <folding>
             <element signature="e#1#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/chart/realTimeOrder/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="118" column="34" lean-forward="true" selection-start-line="117" selection-start-column="8" selection-end-line="118" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/chart/userRemain/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="124" column="20" lean-forward="true" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>

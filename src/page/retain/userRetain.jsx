@@ -4,6 +4,7 @@ import {Card, Table, Row, Col, Button, Pagination} from 'antd';
 import moment from 'moment';
 import SearchBox from '../../components/searchBox/searchBox'
 import ExportFileCom from '../../components/exportFile/exportFile'
+import UserRemain from '../../components/chart/userRemain'
 
 import {getFun} from '../../utils/api'
 import {objectToArr, dateDiff, milliFormat} from '../../utils/dataHandle'
@@ -30,7 +31,7 @@ class userRetain extends React.Component{
                     title: '日期', dataIndex: 'start_time', key: 'start_time',  width: '100px'
                 },
                 {
-                    title: '用户数', dataIndex: 'user_count', key: 'start_time'
+                    title: '用户数', dataIndex: 'user_count', key: 'user_count'
                 },
                 {
                     title: '订单完成率', dataIndex: 'total_complete_of_orders', key: 'total_complete_of_orders'
@@ -59,34 +60,34 @@ class userRetain extends React.Component{
             ],
             tableHeader2: [
                 {
-                    title: '日期', dataIndex: 'start_time', key: 'start_time',  width: '100px'
+                    title: '日期', dataIndex: 'start_time1', key: 'start_time1',  width: '100px'
                 },
                 {
-                    title: '用户数', dataIndex: 'user_count', key: 'start_time'
+                    title: '用户数', dataIndex: 'user_count1', key: 'user_count1'
                 },
                 {
-                    title: '订单完成率', dataIndex: 'total_complete_of_orders', key: 'total_complete_of_orders'
+                    title: '订单完成率', dataIndex: 'total_complete_of_orders1', key: 'total_complete_of_orders1'
                 },
                 {
-                    title: '7日留存', dataIndex: '7days_retain', key: '7days_retain'
+                    title: '7日留存', dataIndex: '7days_retain1', key: '7days_retain1'
                 },
                 {
-                    title: '30日留存', dataIndex: '30days_retain', key: '30days_retain'
+                    title: '30日留存', dataIndex: '30days_retain1', key: '30days_retain11'
                 },
                 {
-                    title: '7日频次', dataIndex: '7days_frequency', key: '7days_frequency'
+                    title: '7日频次', dataIndex: '7days_frequency1', key: '7days_frequency1'
                 },
                 {
-                    title: '30日频次', dataIndex: '30days_frequency', key: '30days_frequency'
+                    title: '30日频次', dataIndex: '30days_frequency1', key: '30days_frequency1'
                 },
                 {
-                    title: '单均补贴', dataIndex: 'singel_average_subsidy', key: 'singel_average_subsidy'
+                    title: '单均补贴', dataIndex: 'singel_average_subsidy1', key: 'singel_average_subsidy1'
                 },
                 {
-                    title: '客均礼包补贴', dataIndex: 'pasengers_average_gift_subsidy', key: 'pasengers_average_gift_subsidy'
+                    title: '客均礼包补贴', dataIndex: 'pasengers_average_gift_subsidy1', key: 'pasengers_average_gift_subsidy1'
                 },
                 {
-                    title: '单均城市补贴', dataIndex: 'order_average_city_subsidy', key: 'order_average_city_subsidy'
+                    title: '单均城市补贴', dataIndex: 'order_average_city_subsidy1', key: 'order_average_city_subsidy1'
                 }
             ],
             exportParams: {},
@@ -274,6 +275,9 @@ class userRetain extends React.Component{
                             </div>
                         </div>
                     </Card>
+                    <div className="tableWrap" style={{marginBottom:16}}>
+                        <UserRemain/>
+                    </div>
                     <h3 className="cardTitle">新用户</h3>
                     <div className="tableWrap" style={{marginBottom:16}}>
                         <div>
