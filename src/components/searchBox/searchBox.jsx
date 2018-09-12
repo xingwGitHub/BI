@@ -71,6 +71,7 @@ class SearchBox extends React.Component{
         }else {
             let cityData = getFun('/web_api/dim_info/city');
             cityData.then( res => {
+                console.log(res.data)
                 localStorage.setItem('cityData', JSON.stringify(res.data));
                 let cityobj = Object.assign({"all": "全部"}, res.data);
                 this.setState({

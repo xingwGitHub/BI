@@ -45,6 +45,7 @@ class App extends Component {
         if(!objJson){
             let cityData = getFun('/web_api/dim_info/city');
             cityData.then( res => {
+                console.log(res.data)
                 localStorage.setItem('cityData', JSON.stringify(res.data));
             })
         }

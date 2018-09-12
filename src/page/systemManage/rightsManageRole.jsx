@@ -67,7 +67,8 @@ class RightsManageRole extends Component{
             treeFlag: false,
             userId:0,
             funcModuleArr: [],
-            permissions: []
+            permissions: [],
+            isDetails: false
         }
         this.roleRightsNameChange = this.roleRightsNameChange.bind(this);
     }
@@ -146,7 +147,8 @@ class RightsManageRole extends Component{
             checkFlag: true,
             valVal: '',
             checkedKeys: [],
-            treeFlag: false
+            treeFlag: false,
+            isDetails: false
         })
     }
     // 列表-编辑
@@ -165,7 +167,8 @@ class RightsManageRole extends Component{
                 checkFlag: true,
                 addTitle: '编辑角色组',
                 valVal: text.name,
-                treeFlag: false
+                treeFlag: false,
+                isDetails: false
             })
         })
     }
@@ -184,7 +187,8 @@ class RightsManageRole extends Component{
                 addTitle: '角色组详情',
                 valVal: res.data.name,
                 treeFlag: true,
-                checkedKeys: aa.split(",")
+                checkedKeys: aa.split(","),
+                isDetails: true
             })
         })
     }
@@ -192,27 +196,34 @@ class RightsManageRole extends Component{
     hideModalOk(){
         let params;
         let url;
-        if(!this.state.addOrEdit){
-            url = '/system/auth/role/edit';
-            params = {
-                id: this.state.editId,
-                name: this.state.valVal,
-                permissions: this.state.checkedKeys
-            }
-        }else{
-            url = '/system/auth/role/add';
-            params = {
-                name: this.state.valVal,
-                permissions: this.state.checkedKeys
-            }
-        }
-        let result = post(url,params);
-        result.then(res => {
-            this.getTableData();
+        if(this.state.isDetails){
             this.setState({
                 addVisible: false
             })
-        })
+        }else {
+            if(!this.state.addOrEdit){
+                url = '/system/auth/role/edit';
+                params = {
+                    id: this.state.editId,
+                    name: this.state.valVal,
+                    permissions: this.state.checkedKeys
+                }
+            }else{
+                url = '/system/auth/role/add';
+                params = {
+                    name: this.state.valVal,
+                    permissions: this.state.checkedKeys
+                }
+            }
+            let result = post(url,params);
+            result.then(res => {
+                this.getTableData();
+                this.setState({
+                    addVisible: false
+                })
+            })
+        }
+
     }
     // 列表-添加-弹出框取消按钮
     hideModalCancel(){
@@ -264,7 +275,7 @@ class RightsManageRole extends Component{
         let result = getFun('/system/auth/permission/tree');
         result.then(res => {
             this.generateList(this.changeArray(res.data))
-           // console.log(this.changeArray(res.data))
+            // console.log(this.changeArray(res.data))
             this.setState({
                 treeData: this.changeArray(res.data)
             })
@@ -408,7 +419,7 @@ class RightsManageRole extends Component{
                         <Input disabled={!checkFlag} type="text" placeholder="请输入角色组名称" style={{ marginBottom: 16 }} defaultValue={roleRightsName} value={this.state.valVal} onChange={this.roleRightsNameChange} />
                         {
                             checkFlag?(<Search style={{ marginBottom: 8 }} placeholder="请输入权限名称" onChange={this.searchTreeChange.bind(this)} />
-                                ):''
+                            ):''
                         }
                         <Tree
                             disabled={treeFlag}

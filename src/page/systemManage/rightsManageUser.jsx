@@ -118,7 +118,7 @@ class RightsManageUser extends Component{
     searchBtn(){
         let params = {
             name: this.state.userName,
-            role_id: this.state.role_id,
+            role_id: this.state.role_id?this.state.role_id: '',
             page: this.state.current
         }
         this.getTableData(params)
@@ -173,6 +173,8 @@ class RightsManageUser extends Component{
     }
     // 点击用户名模拟登录
     userNamesClick(text, record){
+        let storage = window.localStorage;
+        storage.clear();
         let _this = this;
         let params = {id: record.id}
         let result = post('/system/auth/user/simulate',params);
@@ -371,7 +373,7 @@ class RightsManageUser extends Component{
                                 </div>
                                 <div className="input-wrapper">
                                     <label>角色组：</label>
-                                    <Select  placeholder="请选择" onChange={this.funcModuleChange.bind(this)}>
+                                    <Select  placeholder="请选择" onChange={this.funcModuleChange.bind(this)} allowClear={true}>
                                         {optionData}
                                     </Select>
                                 </div>

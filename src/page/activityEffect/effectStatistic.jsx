@@ -1,4 +1,5 @@
 import React from 'react'
+import { hashHistory } from 'react-router';
 import {Card, Table, Row, Col, Button, Pagination} from 'antd';
 import moment from 'moment';
 import SearchBox from '../../components/searchBox/searchBox'
@@ -14,6 +15,7 @@ export  default class effectStatistic extends React.Component {
         super(props)
         this.state = {
             title: '活动效果统计',
+            selectBoxTitle: '活动筛选',
             showFlag: true,
             total: 10,
             pageSize: 10,
@@ -38,7 +40,8 @@ export  default class effectStatistic extends React.Component {
                     render: (text, record, index) => <a href="javascript:;" onClick={this.gotoDetails.bind(this,text)}>{text}</a>,
                 },
                 {
-                    title: '发放量', dataIndex: 'issue_count', key: 'issue_count'
+                    title: '发放量', dataIndex: 'issue_count', key: 'issue_count',
+                    render: (text, record, index) => <a href="javascript:;" onClick={this.gotoCoupon.bind(this,record)}>{text}</a>
                 },
                 {
                     title: '使用量', dataIndex: 'use_count', key: 'use_count'
@@ -79,6 +82,7 @@ export  default class effectStatistic extends React.Component {
             checkedParam: {},
             checkedParam2: {},
             subTitle: '',
+            typeOptionData: ['活动ID','活动名称'],
             tableHeader2: [
                 {
                     title: '日期', dataIndex: 'start_time', key: 'start_time'
@@ -125,6 +129,7 @@ export  default class effectStatistic extends React.Component {
                 {
                     title: 'CAC', dataIndex: 'CAC', key: 'CAC'
                 },
+
             ],
         }
         this.gotoDetails = this.gotoDetails.bind(this)
@@ -360,9 +365,17 @@ export  default class effectStatistic extends React.Component {
         let day = dateDiff(this.state.start_at, this.state.end_at);
         return day;
     }
+    gotoCoupon(record){
+        hashHistory.push({
+            pathname: '/app/activityEffect/couponStatistic',
+            query: {
+                activity_id: record.activity_id
+            },
+        })
+    }
     render(){
-        const { showFlag } = this.state;
-        let {title, subTitle, load, load2, tableHeader,tableHeader2, total, pageSize} = this.state;
+        const { showFlag, typeOptionData } = this.state;
+        let {title, subTitle, load, load2, tableHeader,tableHeader2, total, pageSize, selectBoxTitle} = this.state;
         //let tableData = milliFormat(this.state.tableData);
         //let tableData2 = milliFormat(this.state.tableData2);
         let tableData = [{
@@ -443,7 +456,7 @@ export  default class effectStatistic extends React.Component {
                             <div className="search-content">
                                 <div className="search-wrapper">
                                     <div>
-                                        <SelectBox searchParams={params => this.thisSearchParams(params)}></SelectBox>
+                                        <SelectBox searchParams={params => this.thisSearchParams(params)} title={selectBoxTitle} typeOptionData={typeOptionData}></SelectBox>
                                     </div>
                                 </div>
                                 <div className="search-btn-wrapper">

@@ -14,12 +14,13 @@ export  default class couponStatistic extends React.Component {
             flag: false,
             showFlag: true,
             title: '优惠券统计',
+            selectBoxTitle: '优惠券筛选',
             detailsTitle: '',
             load: true,
             load1: true,
             tableData: [
                 {
-                    key: 111, id: 111, name: 'aaa', ffl: 100, syl: 100, jhyhs: 100, jhyhdds: 100, jhyhsr: 100, jhyhcb: 100, jhyhsjyh: 100, lyhs: 100, lyhdds: 100, lyhsr: 100, lyhcb: 100, lyhsjyh: 100
+                    key: 111, id: 111, name: '优惠券aaa', ffl: 100, syl: 100, jhyhs: 100, jhyhdds: 100, jhyhsr: 100, jhyhcb: 100, jhyhsjyh: 100, lyhs: 100, lyhdds: 100, lyhsr: 100, lyhcb: 100, lyhsjyh: 100
                 }
             ],
             tableHeader: [
@@ -50,6 +51,33 @@ export  default class couponStatistic extends React.Component {
                     ]
                 }
             ],
+            tableHeader1: [
+                {title: '日期', dataIndex: 'start_time', key: 'start_time'},
+                {title: '优惠券ID', dataIndex: 'id1', key: 'id1'},
+                {title: '优惠券名称', dataIndex: 'name1', key: 'name1'},
+                {title: '发放量', dataIndex: 'ffl1', key: 'ffl1'},
+                {title: '使用量', dataIndex: 'syl1', key: 'syl1'},
+                {
+                    title: '新激活用户',
+                    children: [
+                        {title: '激活用户数', dataIndex: 'jhyhs1', key: 'jhyhs1'},
+                        {title: '激活用户订单数', dataIndex: 'jhyhdds1', key: 'jhyhdds1'},
+                        {title: '激活用户收入', dataIndex: 'jhyhsr1', key: 'jhyhsr1'},
+                        {title: '激活用户成本', dataIndex: 'jhyhcb1', key: 'jhyhcb1'},
+                        {title: '激活用户实际优惠', dataIndex: 'jhyhsjyh1', key: 'jhyhsjyh1'}
+                    ]
+                },
+                {
+                    title: '老用户',
+                    children: [
+                        {title: '老用户数', dataIndex: 'lyhs1', key: 'lyhs1'},
+                        {title: '老用户订单数', dataIndex: 'lyhdds1', key: 'lyhdds1'},
+                        {title: '老用户收入', dataIndex: 'lyhsr1', key: 'lyhsr1'},
+                        {title: '老用户成本', dataIndex: 'lyhcb1', key: 'lyhcb1'},
+                        {title: '老用户实际优惠', dataIndex: 'lyhsjyh1', key: 'lyhsjyh1'}
+                    ]
+                }
+            ],
             exportParams: {},
             exportParams1: {},
             current: 1,
@@ -62,13 +90,14 @@ export  default class couponStatistic extends React.Component {
             activity: {},
             tableData1: [
                 {
-                    key: 111, id: 111, name: 'aaa', ffl: 100, syl: 100, jhyhs: 100, jhyhdds: 100, jhyhsr: 100, jhyhcb: 100, jhyhsjyh: 100, lyhs: 100, lyhdds: 100, lyhsr: 100, lyhcb: 100, lyhsjyh: 100
+                    key: 111,start_time: '20180101', id1: 111, name1: '优惠券aaa', ffl1: 100, syl1: 100, jhyhs1: 100, jhyhdds1: 100, jhyhsr1: 100, jhyhcb1: 100, jhyhsjyh1: 100, lyhs1: 100, lyhdds1: 100, lyhsr1: 100, lyhcb1: 100, lyhsjyh1: 100
                 }
             ],
             dayNum: 10,
             city: '',
             start_at: '',
             end_at: '',
+            typeOptionData: ['优惠券ID','优惠券名称']
         }
     }
     componentWillMount(){
@@ -185,6 +214,9 @@ export  default class couponStatistic extends React.Component {
         // }).catch(err => {
         //     console.log(err)
         // })
+            this.setState({
+                load1: false,
+            })
     }
     // 获取接口参数
     getParams1() {
@@ -259,11 +291,12 @@ export  default class couponStatistic extends React.Component {
     // 优惠券统计详情页->优惠券统计
     goBackDetails(){
         this.setState({
-            showFlag: !this.state.showFlag
+            showFlag: !this.state.showFlag,
+            load: false
         })
     }
     render(){
-        const { showFlag, title, tableData, tableHeader, load, total, pageSize, detailsTitle, tableData1, load1, total1, pageSize1 } = this.state;
+        const { showFlag, title, tableData, tableHeader, load, total, pageSize, detailsTitle, tableData1, load1, total1, pageSize1, selectBoxTitle, tableHeader1, typeOptionData } = this.state;
         return (
             <div className="operating-wrapper">
                 <div className={showFlag?"effect-wrapper": "effect-wrapper active"}>
@@ -271,8 +304,8 @@ export  default class couponStatistic extends React.Component {
                     <Card bordered={false}>
                         <div className="search-content">
                             <div className="search-wrapper">
-                                <div className="cartype-wrapper">
-                                    <SelectBox searchParams={params => this.thisSearchParams(params)}></SelectBox>
+                                <div>
+                                    <SelectBox searchParams={params => this.thisSearchParams(params)} title={selectBoxTitle} typeOptionData={typeOptionData}></SelectBox>
                                 </div>
                             </div>
                             <div className="search-btn-wrapper">
@@ -305,7 +338,7 @@ export  default class couponStatistic extends React.Component {
                         <div className="search-content">
                             <div className="search-wrapper">
 
-                                <div className="cartype-wrapper">
+                                <div>
                                     <SearchBox searchParams={params => this.thisSearchParams2(params)}></SearchBox>
                                 </div>
                             </div>
@@ -316,7 +349,7 @@ export  default class couponStatistic extends React.Component {
                     </Card>
                     <div className="tableWrap">
                         <div>
-                            <Table dataSource={tableData1} bordered loading={load1} columns={tableHeader} pagination={false} scroll={{x: '130%'}}>
+                            <Table dataSource={tableData1} bordered loading={load1} columns={tableHeader1} pagination={false} scroll={{x: '130%'}}>
 
                             </Table>
                         </div>

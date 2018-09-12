@@ -82,8 +82,8 @@ class CapacityAnalysis extends React.Component{
                 {
                     title: '司机加盟',
                     children: [
-                        {title: '注册', dataIndex: 'total_of_registered_drivers', key: 'total_of_registered_drivers'},
-                        {title: '审核', dataIndex: 'driver_reg_check', key: 'driver_reg_check'},
+                        {title: '等待审核', dataIndex: 'driver_reg_check', key: 'driver_reg_check'},
+                        {title: '通过审核', dataIndex: 'total_of_registered_drivers', key: 'total_of_registered_drivers'},
                         {title: '激活', dataIndex: 'total_of_activation_drivers', key: 'total_of_activation_drivers'},
                         {title: '累计注册', dataIndex: 'driver_reg_total', key: 'driver_reg_total'},
                         {title: '累计激活', dataIndex: 'driver_active_total', key: 'driver_active_total'}                    

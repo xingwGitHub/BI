@@ -12,10 +12,18 @@ const API_BI_BASE_URL = 'https://api_bi.yongche.com';
 
 const domain = window.location.host;
 let BI_API_BASE_URL = '';
-if(domain === 'localhost:3000'){
-    BI_API_BASE_URL = 'http://test.bi.yongche.com';
-}else {
-    BI_API_BASE_URL = 'http://'+domain;
+// if(domain === 'localhost:3000'){
+//     BI_API_BASE_URL = 'http://test.bi.yongche.com';
+// }else {
+//     BI_API_BASE_URL = 'http://'+domain;
+// }
+
+if(window.location.hostname === 'localhost'){
+    BI_API_BASE_URL = 'http://test.bi.yongche.com'
+}else if(window.location.hostname === 'test.bi.yongche.com'){
+    BI_API_BASE_URL = 'http://test.bi.yongche.com'
+}else if(window.location.hostname === 'bi.yongche.com'){
+    BI_API_BASE_URL = 'https://bi.yongche.com'
 }
 const REQUEST_METHOD_GET = 'GET';
 const REQUEST_METHOD_POST = 'POST';

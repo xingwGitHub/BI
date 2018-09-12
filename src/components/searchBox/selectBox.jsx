@@ -8,6 +8,7 @@ class SelectBox extends React.Component{
     constructor(props){
         super(props);
         this.state={
+            title: '',
             typeOptionData: ['活动ID','活动名称'],
             flag: false,
             activity: [],
@@ -16,7 +17,11 @@ class SelectBox extends React.Component{
             activityOptionData2: ['活动A','活动B','活动C']
         };
     }
-    componentWillMount() {     
+    componentWillMount() {
+        this.setState({
+            title: this.props.title,
+            typeOptionData: this.props.typeOptionData
+        })
     }
     componentDidMount(){
     }
@@ -66,7 +71,7 @@ class SelectBox extends React.Component{
 
     }
     render() {
-        const { typeOptionData, activityOptionData} = this.state;
+        const { typeOptionData, activityOptionData, title} = this.state;
         let activityOption = [];
         Object.keys(activityOptionData).map( (item) => {
             activityOption.push(<Option key={item}>{activityOptionData[item]}</Option>)
@@ -77,10 +82,10 @@ class SelectBox extends React.Component{
         return (
             <div className="search-box-wrapper">
                 <div className="city-select">
-                    <label className="cartype-label" style={{float:'left',marginTop:8}}>活动筛选：</label>
+                    <label className="cartype-label" style={{float:'left',marginTop:8}}>{title}：</label>
                     <Select 
                         defaultValue={this.state.typeOptionData[0]} 
-                        style={{ width: 100 , float:'left'}} 
+                        style={{ width: 110 , float:'left'}}
                         onChange={this.handleTypeChange.bind(this)}>
                         {typeOptions}
                     </Select>

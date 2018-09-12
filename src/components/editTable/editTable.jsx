@@ -196,6 +196,7 @@ export  default class EditableTable extends Component {
         this.setState({
             data: nextProps.data,
             addRole: nextProps.addData,
+            editingKey: ''
         })
     }
     isEditing = (record) => {
@@ -319,7 +320,7 @@ export  default class EditableTable extends Component {
             key: count,
             name: '',
             role_id: 999,
-            city: [],
+            city: ['all'],
             disableFlag: false,
             addFlag: true
         };

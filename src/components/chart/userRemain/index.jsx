@@ -26,6 +26,7 @@ export default class UserRemain extends Component{
                     'e': 1,
                     'f': 0,
                     'g': 1,
+                    'h': 2,
                 },
                 '2018-09-05': {
                     'a': 1,
@@ -33,38 +34,30 @@ export default class UserRemain extends Component{
                     'c': 3,
                     'd': 0,
                     'e': 5,
-                    'f': 6,
-                    'g': 7,
+                    'f': 6
                 },
                 '2018-09-06': {
                     'a': 8,
                     'b': 5,
                     'c': 0,
                     'd': 1,
-                    'e': 2,
-                    'f': 0,
-                    'g': 1,
+                    'e': 2
                 },
                 '2018-09-07': {
                     'a': 2,
                     'b': 8,
                     'c': 3,
                     'd': 0,
-                    'e': 3,
-                    'f': 6,
-                    'g': 5,
+                    'e': 3
                 },
                 '2018-09-08': {
-                    'a': 0,
+                    'a': 9,
                     'b': 3,
                     'c': 7,
-                    'd': 2,
-                    'e': 1,
-                    'f': 4,
-                    'g': 9,
+                    'd': 2
                 }
             },
-            xData:['新增用户','1天后','2天后','3天后','4天后','5天后','6天后', '7天后', '14天后', '30天后'],
+            xData:[],
             yData:[],
             chartData: []
         }
@@ -84,7 +77,13 @@ export default class UserRemain extends Component{
         // arr.push([item, i, dataItem[i]])
         this.setState({
             yData: yData,
-            chartData: arr
+            chartData: arr,
+            xData: this.props.xData
+        },()=>this.showChart())
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            xData: nextProps.xData
         },()=>this.showChart())
     }
     showChart(){
@@ -93,11 +92,13 @@ export default class UserRemain extends Component{
         var option = {
             backgroundColor:'#fff',
             tooltip: {
+                show: false,
                 position: 'top'
             },
             animation: false,
             grid: {
-                y: '15%'
+                left: '10%',
+                right: 0
             },
             xAxis: {
                 type: 'category',
@@ -161,7 +162,7 @@ export default class UserRemain extends Component{
                 color:['#1890ff','#fff']
             },
             series: [{
-                name: 'Punch Card',
+                name: '',
                 type: 'heatmap',
                 data: chartData,
                 label: {

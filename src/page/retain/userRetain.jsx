@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Card, Table, Row, Col, Button, Pagination} from 'antd';
+import {Card, Table, Radio, Row, Col, Button, Pagination} from 'antd';
 import moment from 'moment';
 import SearchBox from '../../components/searchBox/searchBox'
 import ExportFileCom from '../../components/exportFile/exportFile'
@@ -8,7 +8,10 @@ import UserRemain from '../../components/chart/userRemain'
 
 import {getFun} from '../../utils/api'
 import {objectToArr, dateDiff, milliFormat} from '../../utils/dataHandle'
-// import './retain.less'
+import './retain.less'
+
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 
 class userRetain extends React.Component{
     constructor(props) {
@@ -25,16 +28,57 @@ class userRetain extends React.Component{
             city: '',
             start_at: '',
             end_at: '',
+            userType:'',
+            dateType: '0',
+            unitType: '',
+            userTypes: {
+                0: "新用户留存",
+                1: "活跃用户留存",
+            },
+            userTypeNum: {
+                0: '',
+                1: 1,
+            },
+            dateTypes: {
+                0: "天",
+                1: "周",
+                2: "月"
+            },
+            dateTypeNum: {
+                0: '',
+                1: 1,
+                2: 2
+            },
+            dateTypeButton: {
+                0: false,
+                1: true,
+                2: true
+            },
+            unitTypes: {
+                0: "留存率",
+                1: "留存数",
+            },
+            unitTypeNum: {
+                0: '',
+                1: 1,
+            },
+            xData: ['新增用户','1天后','2天后','3天后','4天后','5天后','6天后', '7天后', '14天后', '30天后'],
             searchParams: {},
             tableHeader: [
                 {
                     title: '日期', dataIndex: 'start_time', key: 'start_time',  width: '100px'
                 },
                 {
-                    title: '用户数', dataIndex: 'user_count', key: 'user_count'
+                    title: '新用户数', dataIndex: 'user_count', key: 'user_count'
                 },
                 {
-                    title: '订单完成率', dataIndex: 'total_complete_of_orders', key: 'total_complete_of_orders'
+                    title: '下单用户数', dataIndex: 'dyhs', key: 'dyhs'
+                },
+                {
+                    title: '激活用户数', dataIndex: 'jhyhs', key: 'jhyhs'
+                },
+                {
+                    title: '订单完成率(%)', dataIndex: 'total_complete_of_orders', key: 'total_complete_of_orders'
                 },
                 {
                     title: '7日留存', dataIndex: '7days_retain', key: '7days_retain'
@@ -53,9 +97,6 @@ class userRetain extends React.Component{
                 },
                 {
                     title: '客均礼包补贴', dataIndex: 'pasengers_average_gift_subsidy', key: 'pasengers_average_gift_subsidy'
-                },
-                {
-                    title: '单均城市补贴', dataIndex: 'order_average_city_subsidy', key: 'order_average_city_subsidy'
                 }
             ],
             tableHeader2: [
@@ -63,10 +104,16 @@ class userRetain extends React.Component{
                     title: '日期', dataIndex: 'start_time1', key: 'start_time1',  width: '100px'
                 },
                 {
-                    title: '用户数', dataIndex: 'user_count1', key: 'user_count1'
+                    title: '老用户数', dataIndex: 'user_count1', key: 'user_count1'
                 },
                 {
-                    title: '订单完成率', dataIndex: 'total_complete_of_orders1', key: 'total_complete_of_orders1'
+                    title: '下单用户数', dataIndex: 'xdyhs1', key: 'xdyhs1'
+                },
+                {
+                    title: '激活用户数', dataIndex: 'jhyhs1', key: 'jhyhs1'
+                },
+                {
+                    title: '订单完成率(%)', dataIndex: 'total_complete_of_orders1', key: 'total_complete_of_orders1'
                 },
                 {
                     title: '7日留存', dataIndex: '7days_retain1', key: '7days_retain1'
@@ -106,6 +153,7 @@ class userRetain extends React.Component{
             load:true
         },() => {
             this.getTableData();
+            this.disableButton();
         })
     }
     //初始化查询起止日期
@@ -150,7 +198,60 @@ class userRetain extends React.Component{
             city: params.city,
             start_at: params.selectedStartDate,
             end_at: params.selectedEndDate,
+        },() => {
+            this.disableButton();
         })
+    }
+    // 天，周，月--是否可点击
+    disableButton(){
+        let res = moment(this.state.end_at).unix() - moment(this.state.start_at).unix()
+        let dayDiff = res/(60*60*24)
+        let val = this.state.dateType;
+        if(val == 0){
+            this.setState({
+                xData: ['新增用户','1天后','2天后','3天后','4天后','5天后','6天后', '7天后', '14天后', '30天后']
+            })
+        }else if(val == 1){
+            this.setState({
+                xData: ['新增用户','1周后','2周后','3周后','4周后','5周后','6周后', '7周后', '14周后', '30周后']
+            })
+        }else if(val == 2){
+            this.setState({
+                xData: ['新增用户','1月后','2月后','3月后','4月后','5月后','6月后', '7月后', '14月后', '30月后']
+            })
+        }
+        // console.log(dayDiff)
+        if(dayDiff<30){
+            this.setState({
+                dateType: this.state.dateTypeNum[0],
+                dateTypeButton: {
+                    0: false,
+                    1: true,
+                    2: true
+                },
+                xData: ['新增用户','1天后','2天后','3天后','4天后','5天后','6天后', '7天后', '14天后', '30天后']
+            })
+
+        }else if(dayDiff>120){
+            this.setState({
+                dateTypeButton: {
+                    0: true,
+                    1: false,
+                    2: false
+                },
+
+            })
+
+        }else if(30<=dayDiff<120){
+            this.setState({
+                dateTypeButton: {
+                    0: false,
+                    1: false,
+                    2: false
+                },
+            })
+
+        }
     }
     // 点击查询
     searchBtn() {
@@ -256,9 +357,64 @@ class userRetain extends React.Component{
         let day = dateDiff(this.state.start_at, this.state.end_at);
         return day;
     }
+    // 新用户留存、活跃用户留存
+    userTypeChange(e){
+        let index = e.target.value;
+        this.setState({
+            userType: this.state.userTypeNum[index]
+        })
+        let params = {
+            userType: this.state.userTypeNum[index],
+            // order_peak_type: this.state.order_peak_type,
+            // estimate_distance: this.state.estimate_distance
+        }
+    }
+    // 天、周、月
+    dateTypeChange(e){
+        let index = e.target.value;
+        if(index === 0){
+            this.setState({
+                xData: ['新增用户','1天后','2天后','3天后','4天后','5天后','6天后', '7天后', '14天后', '30天后']
+            })
+        }else if(index == 1){
+            this.setState({
+                xData: ['新增用户','1周后','2周后','3周后','4周后','5周后','6周后', '7周后', '14周后', '30周后']
+            })
+        }else if(index == 2){
+            this.setState({
+                xData: ['新增用户','1月后','2月后','3月后','4月后','5月后','6月后', '7月后', '14月后', '30月后']
+            })
+        }
+        this.setState({
+            dateType: this.state.dateTypeNum[index]
+        })
+        let params = {
+            dateType: this.state.dateTypeNum[index],
+        }
+    }
+    // 留存率、留存数
+    unitTypeChange(e){
+        let index = e.target.value;
+        this.setState({
+            unitType: this.state.unitTypeNum[index]
+        })
+        let params = {
+            unitType: this.state.unitTypeNum[index],
+        }
+    }
     render() {
-        let {title, load, tableHeader, total, pageSize} = this.state;
+        let {title, load, tableHeader, total, pageSize, xData} = this.state;
         let tableData = milliFormat(this.state.tableData);
+        const {userTypes, dateTypes, dateTypeButton, unitTypes} = this.state;
+        const radioChildren = Object.keys(userTypes).map(item => {
+            return <RadioButton key={item} value={item}>{userTypes[item]}</RadioButton>
+        })
+        const radioChildren2 = Object.keys(dateTypes).map(item => {
+            return <RadioButton key={item} value={item} disabled={dateTypeButton[item]}>{dateTypes[item]}</RadioButton>
+        })
+        const radioChildren3 = Object.keys(unitTypes).map(item => {
+            return <RadioButton key={item} value={item}>{unitTypes[item]}</RadioButton>
+        })
         return (
             <div>
                 <div className="operating-wrapper">
@@ -276,7 +432,34 @@ class userRetain extends React.Component{
                         </div>
                     </Card>
                     <div className="tableWrap" style={{marginBottom:16}}>
-                        <UserRemain/>
+                        <div style={{marginTop: '16px', overflow: 'hidden'}}>
+                            <div style={{float: 'left'}}>
+                                <RadioGroup onChange={this.userTypeChange.bind(this)} defaultValue='0'>
+                                    {radioChildren}
+                                </RadioGroup>
+                            </div>
+                            <div style={{float: 'right'}}>
+                                <RadioGroup onChange={this.unitTypeChange.bind(this)} defaultValue='0'>
+                                    {radioChildren3}
+                                </RadioGroup>
+                            </div>
+                            <div style={{float: 'right', marginRight: '20px'}}>
+                                <RadioGroup onChange={this.dateTypeChange.bind(this)}  defaultValue={this.state.dateType} >
+                                    {radioChildren2}
+                                </RadioGroup>
+                            </div>
+                        </div>
+                        <UserRemain xData={xData}/>
+                        <div className="page-footer">
+                            <Row>
+                                <Col span={10}>
+                                    <ExportFileCom params={this.state.exportParams}></ExportFileCom>
+                                </Col>
+                                <Col span={14} style={{textAlign: 'right'}}>
+                                    <Pagination current={this.state.current} total={total} onChange={this.pageChange.bind(this)} pageSize={pageSize}  showQuickJumper></Pagination>
+                                </Col>
+                            </Row>
+                        </div>
                     </div>
                     <h3 className="cardTitle">新用户</h3>
                     <div className="tableWrap" style={{marginBottom:16}}>
